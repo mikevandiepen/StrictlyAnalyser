@@ -51,5 +51,5 @@ final class MagicMethodParser implements ParserOptionInterface
         $magicMethodNode->setReturn($return->parse($node));
 
         return $magicMethodNode;
-    }
+    }æ
 }

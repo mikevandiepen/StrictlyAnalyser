@@ -1,0 +1,26 @@
+# The latest docker version, docker-compose file created at 08-09-2020.
+version: '3.8'
+
+# The network used to communicate.
+networks:
+    backend:
+        driver: bridge
+
+# The services which will be running for this project.
+services:
+
+    # This references to the Dockerfile in "./docker/php".
+    php:
+        build:
+            context: ./docker/php
+            args:
+                version: 7.4
+        container_name: strictly-php-74
+        hostname: strictly.php
+        environment:
+            TZ: Europe/Amsterdam
+        volumes:
+            - .:/var/www/html
+            - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        networks:
+            - backend
