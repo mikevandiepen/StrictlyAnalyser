@@ -6,6 +6,8 @@ namespace Mikevandiepen\Strictly\Tests\Fixtures;
  * Class AbstractFixtureGenerator.
  * Base class for fixture generation.
  *
+ * @see https://www.php.net/manual/en/language.types.intro.php
+ *
  * @package Mikevandiepen\Strictly\Tests\Fixtures
  */
 abstract class AbstractFixtureGenerator
@@ -38,4 +40,12 @@ abstract class AbstractFixtureGenerator
     public const COMPOUND_TYPE_OBJECT = 'object';
     public const COMPOUND_TYPE_CALLABLE = 'callable'; # TODO: Support callable type.
     public const COMPOUND_TYPE_ITERABLE = 'iterable'; # TODO: Support iterable type.
+    # Special types.
+    public const COMPOUND_TYPE_RESOURCE = 'resource'; # TODO: Support resource type.
+    public const COMPOUND_TYPE_NULL = 'null'; # TODO: Support null type.
+    # Pseudo types.
+    public const COMPOUND_TYPE_MIXED = 'mixed'; # TODO: Support mixed type.
+    public const COMPOUND_TYPE_CALLBACK = 'callback'; # TODO: Support callback (same as callable) type.
+    public const COMPOUND_TYPE_UNION = 'union'; # TODO: Support union type.
+    public const COMPOUND_TYPE_VOID = 'void'; # TODO: Support void type.
 }
