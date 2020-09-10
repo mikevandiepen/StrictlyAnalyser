@@ -96,14 +96,14 @@ abstract class AbstractConfiguration
      *
      * @var array
      */
-    private array $configuration = array();
+    private array $configuration;
 
     /**
      * StrictlyConfiguration constructor.
      *
      * @param array $configuration The contents of the configuration, configuration file type is not of the importance.
      */
-    public function __construct(array $configuration)
+    public function __construct(array $configuration = [])
     {
         $this->finder = new Finder();
         $this->configuration = $configuration;
@@ -248,7 +248,7 @@ abstract class AbstractConfiguration
      */
     private function getIncludedDirectories(): array
     {
-        return $this->configuration['project']['directories']['include'] ?? array();
+        return $this->configuration['project']['directories']['include'] ?? [];
     }
 
     /**
@@ -258,6 +258,6 @@ abstract class AbstractConfiguration
      */
     private function getExcludedDirectories(): array
     {
-        return $this->configuration['project']['directories']['exclude'] ?? array();
+        return $this->configuration['project']['directories']['exclude'] ?? [];
     }
 }
