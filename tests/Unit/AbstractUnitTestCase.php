@@ -1,14 +1,16 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Tests\Unit;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Tests\AbstractStrictlyTestCase;
+namespace MikevanDiepen\Strictly\Tests\Unit;
+
+use MikevanDiepen\Strictly\Tests\AbstractStrictlyTestCase;
 
 /**
  * Class AbstractUnitTestCase.
  * The abstract unit test case with helper functions to simplify the test suite.
  *
- * @package Mikevandiepen\Strictly\Tests\Unit
+ * @package MikevanDiepen\Strictly\Tests\Unit
  */
 abstract class AbstractUnitTestCase extends AbstractStrictlyTestCase
 {

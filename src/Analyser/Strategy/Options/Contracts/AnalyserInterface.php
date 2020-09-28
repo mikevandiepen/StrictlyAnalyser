@@ -1,11 +1,13 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Strategy\Options\Contracts;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts;
 
 /**
  * Interface AnalyserInterface.
  *
- * @package Mikevandiepen\Strictly\Analyser\Strategy\Options\Contracts
+ * @package MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts
  */
 interface AnalyserInterface
 {

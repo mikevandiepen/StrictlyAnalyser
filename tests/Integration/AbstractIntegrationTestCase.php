@@ -1,14 +1,16 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Tests\Integration;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Tests\AbstractStrictlyTestCase;
+namespace MikevanDiepen\Strictly\Tests\Integration;
+
+use MikevanDiepen\Strictly\Tests\AbstractStrictlyTestCase;
 
 /**
  * Class AbstractIntegrationTestCase.
  * The abstract integration test case with helper functions to simplify the test suite.
  *
- * @package Mikevandiepen\Strictly\Tests\Integration
+ * @package MikevanDiepen\Strictly\Tests\Integration
  */
 abstract class AbstractIntegrationTestCase extends AbstractStrictlyTestCase
 {

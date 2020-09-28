@@ -1,77 +1,139 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Configuration\Types;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Configuration\Types;
 
 use Symfony\Component\Finder\Finder;
 
 /**
  * Class AbstractConfiguration.
  *
- * @package Mikevandiepen\Strictly\Configuration\Types
+ * @package MikevanDiepen\Strictly\Configuration\Types
  */
 abstract class AbstractConfiguration
 {
+	// Global analysis scopes.
+	public const FUNCTIONAL = 'functional';
+	public const DOCBLOCK = 'docblock';
+	// Parameter analysis scopes.
+    public const PARAMETER = 'parameter';
+    public const PARAMETER_FUNCTIONAL = 'parameter-functional';
+    public const PARAMETER_DOCBLOCK = 'parameter-docblock';
+	// Return analysis scopes.
+    public const RETURN = 'return';
+    public const RETURN_FUNCTIONAL = 'return-functional';
+    public const RETURN_DOCBLOCK = 'return-docblock';
+	// Property analysis scopes.
+    public const PROPERTY = 'property';
+    public const PROPERTY_FUNCTIONAL = 'property-functional';
+    public const PROPERTY_DOCBLOCK = 'property-docblock';
+	// Callable analysis scopes.
+	public const CALLABLE = 'callable';
+	public const CALLABLE_FUNCTIONAL = 'callable-functional';
+	public const CALLABLE_DOCBLOCK = 'callable-docblock';
+	// Arrow function analysis scopes.
+    public const ARROW_FUNCTION = 'arrow-function';
+    public const ARROW_FUNCTION_FUNCTIONAL = 'arrow-function-functional';
+    public const ARROW_FUNCTION_DOCBLOCK = 'arrow-function-docblock';
+    public const ARROW_FUNCTION_PARAMETER_FUNCTIONAL = 'arrow-function-parameter-functional';
+    public const ARROW_FUNCTION_PARAMETER_DOCBLOCK = 'arrow-function-parameter-docblock';
+    public const ARROW_FUNCTION_RETURN_FUNCTIONAL = 'arrow-function-return-functional';
+    public const ARROW_FUNCTION_RETURN_DOCBLOCK = 'arrow-function-return-docblock';
+	// Closure analysis scopes.
+    public const CLOSURE = 'closure';
+    public const CLOSURE_FUNCTIONAL = 'closure-functional';
+    public const CLOSURE_DOCBLOCK = 'closure-docblock';
+    public const CLOSURE_PARAMETER_FUNCTIONAL = 'closure-parameter-functional';
+    public const CLOSURE_PARAMETER_DOCBLOCK = 'closure-parameter-docblock';
+    public const CLOSURE_RETURN_FUNCTIONAL = 'closure-return-functional';
+    public const CLOSURE_RETURN_DOCBLOCK = 'closure-return-docblock';
+	// Function analysis scopes.
+    public const FUNCTION = 'function';
+    public const FUNCTION_FUNCTIONAL = 'function-functional';
+    public const FUNCTION_DOCBLOCK = 'function-docblock';
+    public const FUNCTION_PARAMETER_FUNCTIONAL = 'function-parameter-functional';
+    public const FUNCTION_PARAMETER_DOCBLOCK = 'function-parameter-docblock';
+    public const FUNCTION_RETURN_FUNCTIONAL = 'function-return-functional';
+    public const FUNCTION_RETURN_DOCBLOCK = 'function-return-docblock';
+	// Magic method analysis scopes.
+    public const MAGIC_METHOD = 'magic-method';
+    public const MAGIC_METHOD_FUNCTIONAL = 'magic-method-functional';
+    public const MAGIC_METHOD_DOCBLOCK = 'magic-method-docblock';
+    public const MAGIC_METHOD_PARAMETER_FUNCTIONAL = 'magic-method-parameter-functional';
+    public const MAGIC_METHOD_PARAMETER_DOCBLOCK = 'magic-method-parameter-docblock';
+    public const MAGIC_METHOD_RETURN_FUNCTIONAL = 'magic-method-return-functional';
+    public const MAGIC_METHOD_RETURN_DOCBLOCK = 'magic-method-return-docblock';
+	// Method analysis scopes.
+    public const METHOD = 'method';
+    public const METHOD_FUNCTIONAL = 'method-functional';
+    public const METHOD_DOCBLOCK = 'method-docblock';
+    public const METHOD_PARAMETER_FUNCTIONAL = 'method-parameter-functional';
+    public const METHOD_PARAMETER_DOCBLOCK = 'method-parameter-docblock';
+    public const METHOD_RETURN_FUNCTIONAL = 'method-return-functional';
+    public const METHOD_RETURN_DOCBLOCK = 'method-return-docblock';
+
     /** @var array All the analysers which can be applied. */
     protected const STRICTLY_ANALYSER_OPTIONS = [
-        // Global analysis scopes.
-        'functional',
-        'docblock',
-        // Callable analysis scopes.
-        'callable',
-        'callable-functional',
-        'callable-docblock',
-        // Parameter analysis scopes.
-        'parameter',
-        'parameter-functional',
-        'parameter-docblock',
-        // Return analysis scopes.
-        'return',
-        'return-functional',
-        'return-docblock',
-        // Property analysis scopes.
-        'property',
-        'property-functional',
-        'property-docblock',
-        // Arrow function analysis scopes.
-        'arrow-function',
-        'arrow-function-functional',
-        'arrow-function-docblock',
-        'arrow-function-parameter-functional',
-        'arrow-function-parameter-docblock',
-        'arrow-function-return-functional',
-        'arrow-function-return-docblock',
-        // Closure analysis scopes.
-        'closure',
-        'closure-functional',
-        'closure-docblock',
-        'closure-parameter-functional',
-        'closure-parameter-docblock',
-        'closure-return-functional',
-        'closure-return-docblock',
-        // Function analysis scopes.
-        'function',
-        'function-functional',
-        'function-docblock',
-        'function-parameter-functional',
-        'function-parameter-docblock',
-        'function-return-functional',
-        'function-return-docblock',
-        // Magic method analysis scopes.
-        'magic-method',
-        'magic-method-functional',
-        'magic-method-docblock',
-        'magic-method-parameter-functional',
-        'magic-method-parameter-docblock',
-        'magic-method-return-functional',
-        'magic-method-return-docblock',
-        // Method analysis scopes.
-        'method',
-        'method-functional',
-        'method-docblock',
-        'method-parameter-functional',
-        'method-parameter-docblock',
-        'method-return-functional',
-        'method-return-docblock',
+    	// Global analysis scopes.
+		self::FUNCTIONAL,
+		self::DOCBLOCK,
+		// Parameter analysis scopes.
+		self::PARAMETER,
+		self::PARAMETER_FUNCTIONAL,
+		self::PARAMETER_DOCBLOCK,
+		// Return analysis scopes.
+		self::RETURN,
+		self::RETURN_FUNCTIONAL,
+		self::RETURN_DOCBLOCK,
+		// Property analysis scopes.
+		self::PROPERTY,
+		self::PROPERTY_FUNCTIONAL,
+		self::PROPERTY_DOCBLOCK,
+		// Callable analysis scopes.
+		self::CALLABLE,
+		self::CALLABLE_FUNCTIONAL,
+		self::CALLABLE_DOCBLOCK,
+		// Arrow function analysis scopes.
+		self::ARROW_FUNCTION,
+		self::ARROW_FUNCTION_FUNCTIONAL,
+		self::ARROW_FUNCTION_DOCBLOCK,
+		self::ARROW_FUNCTION_PARAMETER_FUNCTIONAL,
+		self::ARROW_FUNCTION_PARAMETER_DOCBLOCK,
+		self::ARROW_FUNCTION_RETURN_FUNCTIONAL,
+		self::ARROW_FUNCTION_RETURN_DOCBLOCK,
+		// Closure analysis scopes.
+		self::CLOSURE,
+		self::CLOSURE_FUNCTIONAL,
+		self::CLOSURE_DOCBLOCK,
+		self::CLOSURE_PARAMETER_FUNCTIONAL,
+		self::CLOSURE_PARAMETER_DOCBLOCK,
+		self::CLOSURE_RETURN_FUNCTIONAL,
+		self::CLOSURE_RETURN_DOCBLOCK,
+		// Function analysis scopes.
+		self::FUNCTION,
+		self::FUNCTION_FUNCTIONAL,
+		self::FUNCTION_DOCBLOCK,
+		self::FUNCTION_PARAMETER_FUNCTIONAL,
+		self::FUNCTION_PARAMETER_DOCBLOCK,
+		self::FUNCTION_RETURN_FUNCTIONAL,
+		self::FUNCTION_RETURN_DOCBLOCK,
+		// Magic method analysis scopes.
+		self::MAGIC_METHOD,
+		self::MAGIC_METHOD_FUNCTIONAL,
+		self::MAGIC_METHOD_DOCBLOCK,
+		self::MAGIC_METHOD_PARAMETER_FUNCTIONAL,
+		self::MAGIC_METHOD_PARAMETER_DOCBLOCK,
+		self::MAGIC_METHOD_RETURN_FUNCTIONAL,
+		self::MAGIC_METHOD_RETURN_DOCBLOCK,
+		// Method analysis scopes.
+		self::METHOD,
+		self::METHOD_FUNCTIONAL,
+		self::METHOD_DOCBLOCK,
+		self::METHOD_PARAMETER_FUNCTIONAL,
+		self::METHOD_PARAMETER_DOCBLOCK,
+		self::METHOD_RETURN_FUNCTIONAL,
+		self::METHOD_RETURN_DOCBLOCK,
     ];
 
     /** @var string The basename of the configuration file, file type is not of the importance. */
@@ -141,6 +203,26 @@ abstract class AbstractConfiguration
     }
 
     /**
+     * Collecting all the names of the directories which should be analysed.
+     *
+     * @return array
+     */
+    private function getIncludedDirectories(): array
+    {
+        return $this->configuration['project']['directories']['include'] ?? [];
+    }
+
+    /**
+     * Collecting all the names of the directories which shouldn't be analysed.
+     *
+     * @return array
+     */
+    private function getExcludedDirectories(): array
+    {
+        return $this->configuration['project']['directories']['exclude'] ?? [];
+    }
+
+    /**
      * Collecting all analysers which can be applied in the analysis.
      *
      * @return array
@@ -181,7 +263,7 @@ abstract class AbstractConfiguration
         // There are no enabled analysers, only disabled analysers.
         // The used analysers will be all the analysers minus the disabled ones.
         if ($disabledAnalysers && !$enabledAnalysers) {
-            $analysers = array_diff( self::STRICTLY_ANALYSER_OPTIONS, $disabledAnalysers);
+            $analysers = array_diff(self::STRICTLY_ANALYSER_OPTIONS, $disabledAnalysers);
         }
 
         // There are no enabled analysers, only disabled analysers.
@@ -191,16 +273,6 @@ abstract class AbstractConfiguration
         }
 
         return $analysers;
-    }
-
-    /**
-     * Whether the configuration has enabled analysers.
-     *
-     * @return bool
-     */
-    private function hasEnabledAnalysers(): bool
-    {
-        return (bool) (isset($this->configuration['project']['analysers']['enabled'])) ? true : false;
     }
 
     /**
@@ -218,13 +290,13 @@ abstract class AbstractConfiguration
     }
 
     /**
-     * Whether the configuration has disabled analysers..
+     * Whether the configuration has enabled analysers.
      *
      * @return bool
      */
-    private function hasDisabledAnalysers(): bool
+    private function hasEnabledAnalysers(): bool
     {
-        return (bool) (isset($this->configuration['project']['analysers']['disabled'])) ? true : false;
+        return (bool) (isset($this->configuration['project']['analysers']['enabled']));
     }
 
     /**
@@ -242,22 +314,12 @@ abstract class AbstractConfiguration
     }
 
     /**
-     * Collecting all the names of the directories which should be analysed.
+     * Whether the configuration has disabled analysers..
      *
-     * @return array
+     * @return bool
      */
-    private function getIncludedDirectories(): array
+    private function hasDisabledAnalysers(): bool
     {
-        return $this->configuration['project']['directories']['include'] ?? [];
-    }
-
-    /**
-     * Collecting all the names of the directories which shouldn't be analysed.
-     *
-     * @return array
-     */
-    private function getExcludedDirectories(): array
-    {
-        return $this->configuration['project']['directories']['exclude'] ?? [];
+        return (bool) (isset($this->configuration['project']['analysers']['disabled']));
     }
 }

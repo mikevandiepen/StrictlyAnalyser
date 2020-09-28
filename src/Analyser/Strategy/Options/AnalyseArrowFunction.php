@@ -1,19 +1,21 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Strategy\Options;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseReturn;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\Contracts\AnalyserInterface;
-use Mikevandiepen\Strictly\Analyser\Builder\File\Nodes\Contracts\FunctionLikeNode;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseParameters;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\Contracts\FunctionLikeInterface;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits\FunctionLikeTrait;
+namespace MikevanDiepen\Strictly\Analyser\Strategy\Options;
+
+use MikevanDiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseReturn;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts\AnalyserInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\FunctionLikeNode;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseParameters;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts\FunctionLikeInterface;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits\FunctionLikeTrait;
 
 /**
  * Class AnalyseArrowFunction.
  *
- * @package Mikevandiepen\Strictly\Analyser\Strategy\Options
+ * @package MikevanDiepen\Strictly\Analyser\Strategy\Options
  */
 final class AnalyseArrowFunction extends AbstractAnalyser implements AnalyserInterface, FunctionLikeInterface
 {

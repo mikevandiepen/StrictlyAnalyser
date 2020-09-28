@@ -1,35 +1,35 @@
 {
-    "name": "mikevandiepen/strictly",
-    "description": "Strictness validation for your PHP projects.",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "mikevandiepen",
-            "email": "mike.vandiepen@hotmail.com"
-        }
-    ],
-    "version": "0.1.0",
-    "autoload": {
-        "psr-4": {
-            "MikevanDiepen\\Strictly\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Mikevandiepen\\Strictly\\Tests\\": "tests/"
-        }
-    },
-    "require": {
-        "php": "^7.4",
-        "phpdocumentor/reflection-docblock": "^5.1",
-        "nikic/php-parser": "^4.3",
-        "symfony/console": "^5.0",
-        "symfony/finder": "^5.0",
-        "symfony/yaml": "^5.0",
-        "symfony/process": "^5.0"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.3"
+  "name": "MikevanDiepen/strictly",
+  "description": "Strictness validation for your PHP projects.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "MikevanDiepen",
+      "email": "mike.vandiepen@hotmail.com"
     }
+  ],
+  "version": "0.1.0",
+  "autoload": {
+    "psr-4": {
+      "MikevanDiepen\\Strictly\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MikevanDiepen\\Strictly\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^7.4",
+    "phpdocumentor/reflection-docblock": "^5.1",
+    "nikic/php-parser": "^4.3",
+    "symfony/console": "^5.0",
+    "symfony/finder": "^5.0",
+    "symfony/yaml": "^5.0",
+    "symfony/process": "^5.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.3"
+  }
 }

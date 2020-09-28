@@ -1,11 +1,13 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Configuration;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Configuration;
 
 /**
  * Class StrictlyConfiguration.
  *
- * @package Mikevandiepen\Strictly\Configuration
+ * @package MikevanDiepen\Strictly\Configuration
  */
 final class StrictlyConfiguration
 {
@@ -15,7 +17,6 @@ final class StrictlyConfiguration
     public function __construct()
     {
         // Determining the file type for the configuration.
-        
     }
 
     /**

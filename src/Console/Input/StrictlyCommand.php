@@ -1,6 +1,8 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Console\Input;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Console\Input;
 
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Command\Command;
@@ -11,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class StrictlyCommand.
  *
- * @package Mikevandiepen\Strictly\Console\Input
+ * @package MikevanDiepen\Strictly\Console\Input
  */
 final class StrictlyCommand extends Command
 {
@@ -104,10 +106,7 @@ final class StrictlyCommand extends Command
                         $table = $this->detailedIssue($table, $issue, $severity);
                         break;
                     default:
-                        $output->writeln(sprintf(
-                            '<error>%s is not a valid format choice</error>',
-                            $input->getOption('output')
-                        ));
+                        $output->writeln(sprintf('<error>%s is not a valid format choice</error>', $input->getOption('output')));
                 }
             }
             $projectIssueCount += $fileIssueCount;

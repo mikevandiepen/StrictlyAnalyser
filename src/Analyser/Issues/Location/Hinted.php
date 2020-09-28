@@ -1,13 +1,15 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Issues\Location;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Analyser\Issues\Contracts\LocationInterface;
+namespace MikevanDiepen\Strictly\Analyser\Issues\Location;
+
+use MikevanDiepen\Strictly\Analyser\Issues\Contracts\LocationInterface;
 
 /**
  * Class Hinted.
  *
- * @package Mikevandiepen\Strictly\Analyser\Issues\Location
+ * @package MikevanDiepen\Strictly\Analyser\Issues\Location
  */
 final class Hinted implements LocationInterface
 {

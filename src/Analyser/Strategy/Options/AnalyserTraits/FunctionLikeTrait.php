@@ -1,11 +1,13 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits;
 
 /**
  * Trait FunctionLikeTrait.
  *
- * @package Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits
+ * @package MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits
  */
 trait FunctionLikeTrait
 {

@@ -1,14 +1,15 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Tests\Fixtures;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Tests\Fixtures;
 
 /**
  * Class AbstractFixtureGenerator.
  * Base class for fixture generation.
  *
- * @see https://www.php.net/manual/en/language.types.intro.php
- *
- * @package Mikevandiepen\Strictly\Tests\Fixtures
+ * @see     https://www.php.net/manual/en/language.types.intro.php
+ * @package MikevanDiepen\Strictly\Tests\Fixtures
  */
 abstract class AbstractFixtureGenerator
 {

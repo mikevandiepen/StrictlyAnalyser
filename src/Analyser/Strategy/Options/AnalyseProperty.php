@@ -1,15 +1,17 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Strategy\Options;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\Contracts\AnalyserInterface;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits\AnalyserTrait;
+namespace MikevanDiepen\Strictly\Analyser\Strategy\Options;
+
+use MikevanDiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts\AnalyserInterface;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits\AnalyserTrait;
 
 /**
  * Class AnalyseProperty.
  *
- * @package Mikevandiepen\Strictly\Analyser\Strategy\Options
+ * @package MikevanDiepen\Strictly\Analyser\Strategy\Options
  */
 final class AnalyseProperty extends AbstractAnalyser implements AnalyserInterface
 {

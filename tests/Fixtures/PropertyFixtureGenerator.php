@@ -1,11 +1,13 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Tests\Fixtures;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Tests\Fixtures;
 
 /**
  * Class PropertyFixtureGenerator.
  *
- * @package Mikevandiepen\Strictly\Tests\Fixtures
+ * @package MikevanDiepen\Strictly\Tests\Fixtures
  */
 final class PropertyFixtureGenerator extends AbstractFixtureGenerator
 {

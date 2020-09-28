@@ -1,27 +1,29 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Strategy;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Analyser\Builder\File\Nodes\Contracts\HasType;
+namespace MikevanDiepen\Strictly\Analyser\Strategy;
+
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType;
 
 /**
  * Class AbstractAnalyser
  *
- * @package Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyserOptions
+ * @package MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserOptions
  */
 abstract class AbstractAnalyser
 {
     /**
      * The node which is subject for analysis.
      *
-     * @var \Mikevandiepen\Strictly\Analyser\Builder\File\Nodes\Contracts\HasType
+     * @var \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType
      */
     protected HasType $node;
 
     /**
      * AbstractAnalyser constructor.
      *
-     * @param \Mikevandiepen\Strictly\Analyser\Builder\File\Nodes\Contracts\HasType $node
+     * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType $node
      */
     public function __construct(HasType $node)
     {

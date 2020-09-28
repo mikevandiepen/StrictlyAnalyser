@@ -1,14 +1,16 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Tests\Feature;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Tests\AbstractStrictlyTestCase;
+namespace MikevanDiepen\Strictly\Tests\Feature;
+
+use MikevanDiepen\Strictly\Tests\AbstractStrictlyTestCase;
 
 /**
  * Class AbstractFeatureTestCase.
  * The abstract feature test case with helper functions to simplify the test suite.
  *
- * @package Mikevandiepen\Strictly\Tests\Feature
+ * @package MikevanDiepen\Strictly\Tests\Feature
  */
 abstract class AbstractFeatureTestCase extends AbstractStrictlyTestCase
 {

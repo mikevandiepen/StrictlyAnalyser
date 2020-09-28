@@ -1,13 +1,15 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Configuration\Types;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Configuration\Types;
 
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class YAMLConfiguration.
  *
- * @package Mikevandiepen\Strictly\Configuration\Types
+ * @package MikevanDiepen\Strictly\Configuration\Types
  */
 class YAMLConfiguration extends AbstractConfiguration
 {

@@ -1,13 +1,15 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Issues;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Analyser\Issues\Contracts\IssueInterface;
+namespace MikevanDiepen\Strictly\Analyser\Issues;
+
+use MikevanDiepen\Strictly\Analyser\Issues\Contracts\IssueInterface;
 
 /**
  * Class Untyped.
  *
- * @package Mikevandiepen\Strictly\Analyser\Issues
+ * @package MikevanDiepen\Strictly\Analyser\Issues
  */
 final class Untyped implements IssueInterface
 {

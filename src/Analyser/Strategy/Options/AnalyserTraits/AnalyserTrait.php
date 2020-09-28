@@ -1,50 +1,18 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Analyser\Builder\File\Nodes\Contracts\HasType;
+namespace MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits;
+
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType;
 
 /**
  * Trait AnalyserTrait.
  *
- * @package Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits
+ * @package MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits
  */
 trait AnalyserTrait
 {
-    /**
-     * Getting the subject node.
-     *
-     * @return \Mikevandiepen\Strictly\Analyser\Builder\File\Nodes\Contracts\HasType
-     */
-    public function getNodeWithType(): HasType
-    {
-        return $this->node;
-    }
-
-    /**
-     * Analysing whether the declared type is set for the subject node.
-     *
-     * @return bool
-     */
-    protected function declaredTypeIsset(): bool
-    {
-        $declaredType = $this->getNodeWithType()->getDeclaredType()->getType();
-
-        return (bool) (count($declaredType) > 0) ? true : false;
-    }
-
-    /**
-     * Analysing whether the hinted type is set for the subject node.
-     *
-     * @return bool
-     */
-    protected function hintedTypeIsset(): bool
-    {
-        $hintedType = $this->getNodeWithType()->getHintedType()->getType();
-
-        return (bool) (count($hintedType) > 0) ? true : false;
-    }
-
     /**
      * Analysing whether the declared and hinted type match.
      *
@@ -71,6 +39,40 @@ trait AnalyserTrait
     }
 
     /**
+     * Analysing whether the declared type is set for the subject node.
+     *
+     * @return bool
+     */
+    protected function declaredTypeIsset(): bool
+    {
+        $declaredType = $this->getNodeWithType()->getDeclaredType()->getType();
+
+        return (bool) (count($declaredType) > 0);
+    }
+
+    /**
+     * Getting the subject node.
+     *
+     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType
+     */
+    public function getNodeWithType(): HasType
+    {
+        return $this->node;
+    }
+
+    /**
+     * Analysing whether the hinted type is set for the subject node.
+     *
+     * @return bool
+     */
+    protected function hintedTypeIsset(): bool
+    {
+        $hintedType = $this->getNodeWithType()->getHintedType()->getType();
+
+        return (bool) (count($hintedType) > 0);
+    }
+
+    /**
      * Collecting the missing types declared in the functional code.
      *
      * @return string[]|null
@@ -80,7 +82,7 @@ trait AnalyserTrait
         $hintedType     = $this->getNodeWithType()->gethintedType()->getType();
         $declaredType   = $this->getNodeWithType()->getDeclaredType()->getType();
 
-        return array_udiff($hintedType, $declaredType, function($hintedType, $declaredType) {
+        return array_udiff($hintedType, $declaredType, function ($hintedType, $declaredType) {
             if ($hintedType != $declaredType) {
                 return $declaredType;
             }
@@ -99,7 +101,7 @@ trait AnalyserTrait
         $hintedType     = $this->getNodeWithType()->gethintedType()->getType();
         $declaredType   = $this->getNodeWithType()->getDeclaredType()->getType();
 
-        return array_udiff($declaredType, $hintedType, function($declaredType, $hintedType) {
+        return array_udiff($declaredType, $hintedType, function ($declaredType, $hintedType) {
             if ($declaredType != $hintedType) {
                 return $hintedType;
             }

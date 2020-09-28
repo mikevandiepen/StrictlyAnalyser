@@ -1,15 +1,23 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Strategy;
+declare(strict_types = 1);
 
-use Mikevandiepen\Strictly\Analyser\Builder\File\File;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyseMethod;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyseClosure;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyseFunction;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyseProperty;
-use Mikevandiepen\Strictly\Analyser\Builder\File\Nodes\ClosureNode;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyseMagicMethod;
-use Mikevandiepen\Strictly\Analyser\Strategy\Options\AnalyseArrowFunction;
+namespace MikevanDiepen\Strictly\Analyser\Strategy;
+
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MethodNode;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseMethod;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\FunctionNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\PropertyNode;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseClosure;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseFunction;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseProperty;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ClosureNode;
+use MikevanDiepen\Strictly\Configuration\Types\AbstractConfiguration;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MagicMethodNode;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseMagicMethod;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ArrowFunctionNode;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseArrowFunction;
 
 /**
  * Class Director.
@@ -21,15 +29,15 @@ final class Director
     /**
      * The subject file of the analysis.
      *
-     * @var \Mikevandiepen\Strictly\Analyser\Builder\File\File
+     * @var \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File
      */
     private File $file;
 
-    /**
-     * Director constructor.
-     *
-     * @param \Mikevandiepen\Strictly\Analyser\Builder\File\File $file
-     */
+	/**
+	 * Director constructor.
+	 *
+	 * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File $file
+	 */
     public function __construct(File $file)
     {
         $this->file = $file;
@@ -45,51 +53,51 @@ final class Director
     public function direct(array $filters): void
     {
         // Whether ANY functional code or docblock can be analysed.
-        $functional = (bool) in_array('functional', $filters);
-        $docblock   = (bool) in_array('docblock', $filters);
+        $functional = (bool) in_array(AbstractConfiguration::FUNCTIONAL, $filters);
+        $docblock   = (bool) in_array(AbstractConfiguration::DOCBLOCK, $filters);
 
         // Whether ANY return or parameter can be analysed.
-        $parameter  = (bool) in_array('parameter', $filters);
-        $return     = (bool) in_array('return', $filters);
+        $parameter  = (bool) in_array(AbstractConfiguration::PARAMETER, $filters);
+        $return     = (bool) in_array(AbstractConfiguration::RETURN, $filters);
 
         // Parameter functional or docblock scope.
         $parameterFunctional = (bool) ($functional && $parameter)
-            ? (in_array('parameter-functional', $filters))
+            ? (in_array(AbstractConfiguration::PARAMETER_FUNCTIONAL, $filters))
             : false;
         $parameterDocblock = (bool) ($docblock && $parameter)
-            ? (in_array('parameter-docblock', $filters))
+            ? (in_array(AbstractConfiguration::PARAMETER_DOCBLOCK, $filters))
             : false;
 
         // Return functional or docblock scope.
         $declaredReturns = (bool) ($functional && $return)
-            ? (in_array('return-functional', $filters))
+            ? (in_array(AbstractConfiguration::RETURN_FUNCTIONAL, $filters))
             : false;
         $hintedReturns = (bool) ($docblock && $return)
-            ? (in_array('parameter-docblock', $filters))
+            ? (in_array(AbstractConfiguration::RETURN_DOCBLOCK, $filters))
             : false;
 
-        if (in_array('arrow-function', $filters)) {
+        if (in_array(AbstractConfiguration::ARROW_FUNCTION, $filters)) {
             $arrowFunctionFunctional = (bool) ($functional)
-                ? in_array('arrow-function-functional', $filters)
+                ? in_array(AbstractConfiguration::ARROW_FUNCTION_FUNCTIONAL, $filters)
                 : false;
             $arrowFunctionDocblock = (bool) ($docblock)
-                ? in_array('arrow-function-docblock', $filters)
+                ? in_array(AbstractConfiguration::ARROW_FUNCTION_DOCBLOCK, $filters)
                 : false;
 
             // Whether arrow-function parameter analysis is enabled.
             $arrowFunctionParameterFunctional = (bool) ($arrowFunctionFunctional && $parameterFunctional)
-                ? in_array('arrow-function-parameter-functional', $filters)
+                ? in_array(AbstractConfiguration::ARROW_FUNCTION_PARAMETER_FUNCTIONAL, $filters)
                 : false;
             $arrowFunctionParameterDocblock = (bool) ($arrowFunctionDocblock && $parameterDocblock)
-                ? in_array('arrow-function-parameter-docblock', $filters)
+                ? in_array(AbstractConfiguration::ARROW_FUNCTION_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether arrow-function return analysis is enabled.
-            $arrowFunctiondeclaredReturns = (bool) ($arrowFunctionFunctional && $declaredReturns)
-                ? in_array('arrow-function-return-functional', $filters)
+            $arrowFunctionDeclaredReturns = (bool) ($arrowFunctionFunctional && $declaredReturns)
+                ? in_array(AbstractConfiguration::ARROW_FUNCTION_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $arrowFunctionhintedReturns = (bool) ($arrowFunctionDocblock && $hintedReturns)
-                ? in_array('arrow-function-return-docblock', $filters)
+            $arrowFunctionHintedReturns = (bool) ($arrowFunctionDocblock && $hintedReturns)
+                ? in_array(AbstractConfiguration::ARROW_FUNCTION_RETURN_DOCBLOCK, $filters)
                 : false;
 
             if (isset($this->file->arrowFunctionNode) && count($this->file->arrowFunctionNode) > 0) {
@@ -100,35 +108,35 @@ final class Director
                         $arrowFunctionDocblock,
                         $arrowFunctionParameterFunctional,
                         $arrowFunctionParameterDocblock,
-                        $arrowFunctiondeclaredReturns,
-                        $arrowFunctionhintedReturns
+                        $arrowFunctionDeclaredReturns,
+                        $arrowFunctionHintedReturns
                     );
                 }
             }
         }
 
-        if (in_array('closure', $filters)) {
+        if (in_array(AbstractConfiguration::CLOSURE, $filters)) {
             $closureFunctional = (bool) ($functional)
-                ? in_array('closure-functional', $filters)
+                ? in_array(AbstractConfiguration::CLOSURE_FUNCTIONAL, $filters)
                 : false;
             $closureDocblock = (bool) ($docblock)
-                ? in_array('closure-docblock', $filters)
+                ? in_array(AbstractConfiguration::CLOSURE_DOCBLOCK, $filters)
                 : false;
 
             // Whether closure parameter analysis is enabled.
             $closureParameterFunctional = (bool) ($closureFunctional && $parameterFunctional)
-                ? in_array('closure-parameter-functional', $filters)
+                ? in_array(AbstractConfiguration::CLOSURE_PARAMETER_FUNCTIONAL, $filters)
                 : false;
             $closureParameterDocblock = (bool) ($closureDocblock && $parameterDocblock)
-                ? in_array('closure-parameter-docblock', $filters)
+                ? in_array(AbstractConfiguration::CLOSURE_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether closure return analysis is enabled.
-            $closuredeclaredReturns = (bool) ($closureFunctional && $declaredReturns)
-                ? in_array('closure-return-functional', $filters)
+            $closureDeclaredReturns = (bool) ($closureFunctional && $declaredReturns)
+                ? in_array(AbstractConfiguration::CLOSURE_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $closurehintedReturns = (bool) ($closureDocblock && $hintedReturns)
-                ? in_array('closure-return-docblock', $filters)
+            $closureHintedReturns = (bool) ($closureDocblock && $hintedReturns)
+                ? in_array(AbstractConfiguration::CLOSURE_RETURN_DOCBLOCK, $filters)
                 : false;
 
             if (count($this->file->getClosures()) > 0) {
@@ -139,35 +147,35 @@ final class Director
                         $closureDocblock,
                         $closureParameterFunctional,
                         $closureParameterDocblock,
-                        $closuredeclaredReturns,
-                        $closurehintedReturns
+                        $closureDeclaredReturns,
+                        $closureHintedReturns
                     );
                 }
             }
         }
 
-        if (in_array('function', $filters)) {
+        if (in_array(AbstractConfiguration::FUNCTION, $filters)) {
             $functionFunctional = (bool) ($functional)
-                ? in_array('function-functional', $filters)
+                ? in_array(AbstractConfiguration::FUNCTION_FUNCTIONAL, $filters)
                 : false;
             $functionDocblock = (bool) ($docblock)
-                ? in_array('function-docblock', $filters)
+                ? in_array(AbstractConfiguration::FUNCTION_DOCBLOCK, $filters)
                 : false;
 
             // Whether function parameter analysis is enabled.
             $functionParameterFunctional = (bool) ($functionFunctional && $parameterFunctional)
-                ? in_array('function-parameter-functional', $filters)
+                ? in_array(AbstractConfiguration::FUNCTION_PARAMETER_FUNCTIONAL, $filters)
                 : false;
             $functionParameterDocblock = (bool) ($functionDocblock && $parameterDocblock)
-                ? in_array('function-parameter-docblock', $filters)
+                ? in_array(AbstractConfiguration::FUNCTION_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether function return analysis is enabled.
-            $functiondeclaredReturns = (bool) ($functionFunctional && $declaredReturns)
-                ? in_array('function-return-functional', $filters)
+            $functionDeclaredReturns = (bool) ($functionFunctional && $declaredReturns)
+                ? in_array(AbstractConfiguration::FUNCTION_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $functionhintedReturns = (bool) ($functionDocblock && $hintedReturns)
-                ? in_array('function-return-docblock', $filters)
+            $functionHintedReturns = (bool) ($functionDocblock && $hintedReturns)
+                ? in_array(AbstractConfiguration::FUNCTION_RETURN_DOCBLOCK, $filters)
                 : false;
 
             if (isset($this->file->functionNode) && count($this->file->functionNode) > 0) {
@@ -178,35 +186,35 @@ final class Director
                         $functionDocblock,
                         $functionParameterFunctional,
                         $functionParameterDocblock,
-                        $functiondeclaredReturns,
-                        $functionhintedReturns
+                        $functionDeclaredReturns,
+                        $functionHintedReturns
                     );
                 }
             }
         }
 
-        if (in_array('magic-method', $filters)) {
+        if (in_array(AbstractConfiguration::MAGIC_METHOD, $filters)) {
             $magicMethodFunctional = (bool) ($functional)
-                ? in_array('magic-method-functional', $filters)
+                ? in_array(AbstractConfiguration::MAGIC_METHOD_FUNCTIONAL, $filters)
                 : false;
             $magicMethodDocblock = (bool) ($docblock)
-                ? in_array('magic-method-docblock', $filters)
+                ? in_array(AbstractConfiguration::MAGIC_METHOD_DOCBLOCK, $filters)
                 : false;
 
             // Whether magic method parameter analysis is enabled.
             $magicMethodParameterFunctional = (bool) ($magicMethodFunctional && $parameterFunctional)
-                ? in_array('magic-method-parameter-functional', $filters)
+                ? in_array(AbstractConfiguration::MAGIC_METHOD_PARAMETER_FUNCTIONAL, $filters)
                 : false;
             $magicMethodParameterDocblock = (bool) ($magicMethodDocblock && $parameterDocblock)
-                ? in_array('magic-method-parameter-docblock', $filters)
+                ? in_array(AbstractConfiguration::MAGIC_METHOD_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether magic method return analysis is enabled.
-            $magicMethoddeclaredReturns = (bool) ($magicMethodFunctional && $declaredReturns)
-                ? in_array('magic-method-return-functional', $filters)
+            $magicMethodDeclaredReturns = (bool) ($magicMethodFunctional && $declaredReturns)
+                ? in_array(AbstractConfiguration::MAGIC_METHOD_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $magicMethodhintedReturns = (bool) ($magicMethodDocblock && $hintedReturns)
-                ? in_array('magic-method-return-docblock', $filters)
+            $magicMethodHintedReturns = (bool) ($magicMethodDocblock && $hintedReturns)
+                ? in_array(AbstractConfiguration::MAGIC_METHOD_RETURN_DOCBLOCK, $filters)
                 : false;
 
             if (isset($this->file->magicMethodNode) && count($this->file->magicMethodNode) > 0) {
@@ -217,35 +225,35 @@ final class Director
                         $magicMethodDocblock,
                         $magicMethodParameterFunctional,
                         $magicMethodParameterDocblock,
-                        $magicMethoddeclaredReturns,
-                        $magicMethodhintedReturns
+                        $magicMethodDeclaredReturns,
+                        $magicMethodHintedReturns
                     );
                 }
             }
         }
 
-        if (in_array('method', $filters)) {
+        if (in_array(AbstractConfiguration::METHOD, $filters)) {
             $methodFunctional = (bool) ($functional)
-                ? in_array('method-functional', $filters)
+                ? in_array(AbstractConfiguration::METHOD_FUNCTIONAL, $filters)
                 : false;
             $methodDocblock = (bool) ($docblock)
-                ? in_array('method-docblock', $filters)
+                ? in_array(AbstractConfiguration::METHOD_DOCBLOCK, $filters)
                 : false;
 
             // Whether method parameter analysis is enabled.
             $methodParameterFunctional = (bool) ($methodFunctional && $parameterFunctional)
-                ? in_array('method-parameter-functional', $filters)
+                ? in_array(AbstractConfiguration::METHOD_PARAMETER_FUNCTIONAL, $filters)
                 : false;
             $methodParameterDocblock = (bool) ($methodDocblock && $parameterDocblock)
-                ? in_array('method-parameter-docblock', $filters)
+                ? in_array(AbstractConfiguration::METHOD_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether method return analysis is enabled.
-            $methoddeclaredReturns = (bool) ($methodFunctional && $declaredReturns)
-                ? in_array('method-return-functional', $filters)
+            $methodDeclaredReturns = (bool) ($methodFunctional && $declaredReturns)
+                ? in_array(AbstractConfiguration::METHOD_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $methodhintedReturns = (bool) ($methodDocblock && $hintedReturns)
-                ? in_array('method-return-docblock', $filters)
+            $methodHintedReturns = (bool) ($methodDocblock && $hintedReturns)
+                ? in_array(AbstractConfiguration::METHOD_RETURN_DOCBLOCK, $filters)
                 : false;
 
             if (isset($this->file->methodNode) && count($this->file->methodNode) > 0) {
@@ -256,19 +264,19 @@ final class Director
                         $methodDocblock,
                         $methodParameterFunctional,
                         $methodParameterDocblock,
-                        $methoddeclaredReturns,
-                        $methodhintedReturns
+                        $methodDeclaredReturns,
+                        $methodHintedReturns
                     );
                 }
             }
         }
 
-        if (in_array('property', $filters)) {
+        if (in_array(AbstractConfiguration::PROPERTY, $filters)) {
             $propertyFunctional = (bool) ($functional)
-                ? in_array('property-functional', $filters)
+                ? in_array(AbstractConfiguration::PROPERTY_FUNCTIONAL, $filters)
                 : false;
             $propertyDocblock = (bool) ($docblock)
-                ? in_array('property-docblock', $filters)
+                ? in_array(AbstractConfiguration::PROPERTY_DOCBLOCK, $filters)
                 : false;
 
             if (isset($this->file->propertyNodes) && count($this->file->propertyNodes) > 0) {
@@ -281,16 +289,6 @@ final class Director
                 }
             }
         }
-    }
-
-    /**
-     * Returning all the issues which have been detected in this file analysis process.
-     *
-     * @return IssueInterface[]
-     */
-    public function getIssues(): array
-    {
-        return $this->issues;
     }
 
     /**
@@ -337,10 +335,6 @@ final class Director
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
         }
-
-        foreach ($analyser->getIssues() as $issue) {
-            $this->issues[] = $issue;
-        }
     }
 
     /**
@@ -356,7 +350,7 @@ final class Director
      *
      * @return void
      */
-    private function analyseClosureNode(
+    private function analyseClosure(
         ClosureNode $closureNode,
         bool $functional,
         bool $docblock,
@@ -386,10 +380,6 @@ final class Director
         // Analysing only the docblock and not the functional code.
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
-        }
-
-        foreach ($analyser->getIssues() as $issue) {
-            # TODO: HANDLE ISSUES
         }
     }
 
@@ -437,10 +427,6 @@ final class Director
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
         }
-
-        foreach ($analyser->getIssues() as $issue) {
-            $this->issues[] = $issue;
-        }
     }
 
     /**
@@ -486,10 +472,6 @@ final class Director
         // Analysing only the docblock and not the functional code.
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
-        }
-
-        foreach ($analyser->getIssues() as $issue) {
-            $this->issues[] = $issue;
         }
     }
 
@@ -537,10 +519,6 @@ final class Director
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
         }
-
-        foreach ($analyser->getIssues() as $issue) {
-            $this->issues[] = $issue;
-        }
     }
 
     /**
@@ -574,10 +552,6 @@ final class Director
         // Analysing only the docblock and not the functional code.
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
-        }
-
-        foreach ($analyser->getIssues() as $issue) {
-            $this->issues[] = $issue;
         }
     }
 }

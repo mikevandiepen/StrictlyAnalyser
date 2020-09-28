@@ -1,11 +1,13 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Configuration\Types;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Configuration\Types;
 
 /**
  * Class JSONConfiguration.
  *
- * @package Mikevandiepen\Strictly\Configuration\Types
+ * @package MikevanDiepen\Strictly\Configuration\Types
  */
 class JSONConfiguration extends AbstractConfiguration
 {

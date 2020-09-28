@@ -1,11 +1,13 @@
 <?php
 
-namespace Mikevandiepen\Strictly\Analyser\Strategy\Options\Contracts;
+declare(strict_types = 1);
+
+namespace MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts;
 
 /**
  * Interface FunctionLikeInterface.
  *
- * @package Mikevandiepen\Strictly\Analyser\Strategy\Options\Contracts
+ * @package MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts
  */
 interface FunctionLikeInterface
 {
@@ -16,7 +18,7 @@ interface FunctionLikeInterface
      *
      * @return void
      */
-    public function analysedeclaredParameters(bool $declaredParameters): void;
+    public function analyseDeclaredParameters(bool $declaredParameters): void;
 
     /**
      * Whether the return of the docblock may be analysed.
@@ -25,7 +27,7 @@ interface FunctionLikeInterface
      *
      * @return void
      */
-    public function analysehintedParameters(bool $hintedParameters): void;
+    public function analyseHintedParameters(bool $hintedParameters): void;
 
     /**
      * Whether the return of the functional code may be analysed.
@@ -34,7 +36,8 @@ interface FunctionLikeInterface
      *
      * @return void
      */
-    public function analysedeclaredReturns(bool $declaredReturns): void;
+    public function analyseDeclaredReturns(bool $declaredReturns): void;
+
     /**
      * Whether the return of the docblock may be analysed.
      *
@@ -42,5 +45,5 @@ interface FunctionLikeInterface
      *
      * @return void
      */
-    public function analysehintedReturns(bool $hintedReturns): void;
+    public function analyseHintedReturns(bool $hintedReturns): void;
 }
