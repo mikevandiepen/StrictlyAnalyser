@@ -75,15 +75,31 @@ final class StrictlyCommand extends Command
 		$projectFiles	= $configuration->getFiles();
 		$analyserRules	= $configuration->getAnalysers();
 
-		$projectIssueCount = 0;
+		$fileCount = 0;
+		$bytes = 0;
+		$duration = 0;
 		foreach ($projectFiles as $projectFile) {
+			++$fileCount;
+			$start = microtime(true);
+
 			$file = new Lexer($projectFile);
+			$fileSize = $file->getFile()->getFileSize();
 
 			$analyserStrategy = new Director($file->getFile());
 			$analyserStrategy->direct($analyserRules);
 
-			$output->writeln('Analysed file: [' . $file->getFile()->getFileName(). '] - File size: ' . $file->getFile()->getFileSize());
+			$end = microtime(true);
+			$currentDuration = $end - $start;
+
+			// Adding the duration of this iteration to the aggregated duration.
+			$duration = $duration + $currentDuration;
+			// Adding the size of the file to the aggregated size.
+			$bytes = $bytes + $fileSize;
+
+			$output->writeln('Analysed (' . number_format($fileSize / 1024, 2) . 'KB)' . ' in ' . $file->getFile()->getFileName() . ' taking (' . round($currentDuration * 1000) . 'ms)');
 		}
+
+		$output->writeln('Analysed (' . number_format($bytes / 1024, 2) . ' KB) in ' . $fileCount . ' files taking (' . round($duration * 1000) . 'ms)' );
 
 		return 1;
     }

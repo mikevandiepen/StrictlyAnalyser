@@ -42,7 +42,7 @@ final class File
     private string $filePath;
 
     /**
-     * The size of the file.
+     * The size of the file in bytes.
      *
      * This property can be accessed through:
      * @method setFileSize(int $fileSize): self
