@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
@@ -32,7 +32,7 @@ final class FunctionParser implements LexerOptionInterface
     public function parse(Node $node): AbstractNode
     {
         $functionNode = new FunctionNode();
-        $functionNode->setName($node->name);
+        $functionNode->setName($node->name->name);
         $functionNode->setStartLine($node->getStartLine());
         $functionNode->setEndLine($node->getEndLine());
 

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Configuration\Types;
 
@@ -21,7 +21,7 @@ class YAMLConfiguration extends AbstractConfiguration
      */
     public function __construct()
     {
-        $configuration = Yaml::parseFile(self::STRICTLY_CONFIGURATION_FILE_NAME) ?? [];
+        $configuration = Yaml::parseFile(self::STRICTLY_CONFIGURATION_FILE_NAME . self::FILE_EXTENSION) ?? [];
 
         parent::__construct($configuration);
     }

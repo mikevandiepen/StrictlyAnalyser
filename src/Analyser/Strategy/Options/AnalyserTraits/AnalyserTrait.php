@@ -1,10 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Structural\TypeDefined;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Structural\TypeUndefined;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Structural\AbstractTypeDefinition;
 
 /**
  * Trait AnalyserTrait.
@@ -13,6 +16,16 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType;
  */
 trait AnalyserTrait
 {
+	/**
+	 * Getting the subject node.
+	 *
+	 * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType
+	 */
+	public function getNodeWithType(): HasType
+	{
+		return $this->node;
+	}
+
     /**
      * Analysing whether the declared and hinted type match.
      *
@@ -47,17 +60,7 @@ trait AnalyserTrait
     {
         $declaredType = $this->getNodeWithType()->getDeclaredType()->getType();
 
-        return (bool) (count($declaredType) > 0);
-    }
-
-    /**
-     * Getting the subject node.
-     *
-     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType
-     */
-    public function getNodeWithType(): HasType
-    {
-        return $this->node;
+		return (bool) ($declaredType instanceof TypeDefined);
     }
 
     /**
@@ -69,7 +72,7 @@ trait AnalyserTrait
     {
         $hintedType = $this->getNodeWithType()->getHintedType()->getType();
 
-        return (bool) (count($hintedType) > 0);
+        return (bool) ($hintedType instanceof TypeDefined);
     }
 
     /**
@@ -87,16 +90,16 @@ trait AnalyserTrait
                 return $declaredType;
             }
 
-            return null; // No missing declared types.
+			return []; // No missing declared types.
         });
     }
 
     /**
      * Collecting the missing types hinted in the docblock.
      *
-     * @return string[]|null
+     * @return string[]
      */
-    protected function getMissingHintedTypes(): ?array
+    protected function getMissingHintedTypes(): array
     {
         $hintedType     = $this->getNodeWithType()->gethintedType()->getType();
         $declaredType   = $this->getNodeWithType()->getDeclaredType()->getType();
@@ -106,7 +109,7 @@ trait AnalyserTrait
                 return $hintedType;
             }
 
-            return null; // No missing hinted types.
+            return []; // No missing declared types.
         });
     }
 }

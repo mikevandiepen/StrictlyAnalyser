@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options;
 
@@ -25,7 +25,7 @@ final class AnalyseProperty extends AbstractAnalyser implements AnalyserInterfac
     public function onlyDeclared(): void
     {
         if (!$this->declaredTypeIsset()) {
-            # Missing declared parameter type.
+
         }
     }
 

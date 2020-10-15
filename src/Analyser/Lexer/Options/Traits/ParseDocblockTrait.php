@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits;
 
@@ -72,10 +72,70 @@ trait ParseDocblockTrait
         }
 
         /** @var \phpDocumentor\Reflection\DocBlock\Tags\Property[] $tags */
-        $tags = $this->docblock->getTagsByName($tagName);
+        $tags = $this->getDocblock()->getTagsByName($tagName);
+
+        if (count($tags) === 0) {
+        	return null;
+		}
 
         return $tags[0]->getType();
     }
+
+	/**
+	 * Collecting the return from the docblock.
+	 *
+	 * @return \phpDocumentor\Reflection\Type|null
+	 * @throws \Exception
+	 */
+	protected function getHintedReturnType(): ?Type
+	{
+		$tagName = 'return';
+
+		if ($this->isSuppressedByType($tagName)) {
+			return null;
+		}
+
+		/** @var \phpDocumentor\Reflection\DocBlock\Tags\Return_[] $tags */
+		$tags = $this->docblock->getTagsByName($tagName);
+
+		if (count($tags) === 0) {
+			return null;
+		}
+
+		return $tags[0]->getType();
+	}
+
+	/**
+	 * Collecting the parameter from the docblock based upon the given parameter.
+	 * Returning null if the parameter is untyped.
+	 *
+	 * @param string $parameter
+	 *
+	 * @return \phpDocumentor\Reflection\Type|null
+	 * @throws \Exception
+	 */
+	protected function getHintedParameterType(string $parameter): ?Type
+	{
+		$tagName = 'param';
+
+		if ($this->isSuppressedByType($tagName)) {
+			return null;
+		}
+
+		/** @var \phpDocumentor\Reflection\DocBlock\Tags\Param[] $tags */
+		$tags = $this->docblock->getTagsByName($tagName);
+
+		foreach ($tags as $tag) {
+			// Validating whether the parameter tag has a type based upon the given type.
+			if ($tag->getVariableName() !== $parameter) {
+				continue;
+			}
+
+			return $tag->getType();
+		}
+
+		return null;
+	}
 
     /**
      * Dynamically validating whether the type of the given tag is suppressed by type in the docblock.
@@ -94,7 +154,7 @@ trait ParseDocblockTrait
     protected function isSuppressedByType(string $type, ?string $parameter = null): bool
     {
         /** @var \phpDocumentor\Reflection\DocBlock\Tags\Property[] $tags */
-        $tags = $this->docblock->getTagsByName($type);
+        $tags = $this->getDocblock()->getTagsByName($type);
 
         foreach ($tags as $tag) {
             // The parameter analysis deviates from the default analysis.
@@ -181,58 +241,6 @@ trait ParseDocblockTrait
         }
 
         return (bool) false;
-    }
-
-    /**
-     * Collecting the return from the docblock.
-     *
-     * @return \phpDocumentor\Reflection\Type|null
-     * @throws \Exception
-     */
-    protected function getHintedReturnType(): ?Type
-    {
-        $tagName = 'return';
-
-        if ($this->isSuppressedByType($tagName)) {
-            return null;
-        }
-
-        /** @var \phpDocumentor\Reflection\DocBlock\Tags\Return_[] $tags */
-        $tags = $this->docblock->getTagsByName($tagName);
-
-        return $tags[0]->getType();
-    }
-
-    /**
-     * Collecting the parameter from the docblock based upon the given parameter.
-     * Returning null if the parameter is untyped.
-     *
-     * @param string $parameter
-     *
-     * @return \phpDocumentor\Reflection\Type|null
-     * @throws \Exception
-     */
-    protected function getHintedParameterType(string $parameter): ?Type
-    {
-        $tagName = 'param';
-
-        if ($this->isSuppressedByType($tagName)) {
-            return null;
-        }
-
-        /** @var \phpDocumentor\Reflection\DocBlock\Tags\Param[] $tags */
-        $tags = $this->docblock->getTagsByName($tagName);
-
-        foreach ($tags as $tag) {
-            // Validating whether the parameter tag has a type based upon the given type.
-            if ($tag->getVariableName() !== $parameter) {
-                continue;
-            }
-
-            return $tag->getType();
-        }
-
-        return null;
     }
 
     /**

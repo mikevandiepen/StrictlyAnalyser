@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
@@ -35,7 +35,7 @@ final class MethodParser implements LexerOptionInterface
         $this->setDocblockFromNode($node);
 
         $methodNode = new MethodNode();
-        $methodNode->setName($node->name);
+        $methodNode->setName($node->name->name);
         $methodNode->setStartLine($node->getStartLine());
         $methodNode->setEndLine($node->getEndLine());
 

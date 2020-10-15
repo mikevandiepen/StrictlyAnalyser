@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer;
 
@@ -61,12 +61,12 @@ final class Lexer
     public function __construct(SplFileInfo $file)
     {
         // Creating a new "mock" file.
-        $this->file = new File();
+        $this->setFile(new File());
 
         // Adding the file meta to the "mock" file.
-        $this->file->setFileName($file->getFilename());
-        $this->file->setFilePath($file->getPath());
-        $this->file->setFileSize($file->getSize());
+        $this->getFile()->setFileName($file->getFilename());
+        $this->getFile()->setFilePath($file->getPath());
+        $this->getFile()->setFileSize($file->getSize());
 
         $parser = (new ParserFactory())->create(ParserFactory::ONLY_PHP7);
         $nodes = $parser->parse($file->getContents());
@@ -105,23 +105,23 @@ final class Lexer
 
         if ($this->isFunctionLike($node)) {
             if ($this->isArrowFunction($node)) {
-                $this->file->setArrowFunction((new ArrowFunctionParser())->parse($node));
+                $this->getFile()->setArrowFunction((new ArrowFunctionParser())->parse($node));
             }
 
             if ($this->isClosure($node)) {
-                $this->file->setClosure((new ClosureParser())->parse($node));
+                $this->getFile()->setClosure((new ClosureParser())->parse($node));
             }
 
             if ($this->isFunction($node)) {
-                $this->file->setFunction((new FunctionParser())->parse($node));
+                $this->getFile()->setFunction((new FunctionParser())->parse($node));
             }
 
             if ($this->isMagicMethod($node)) {
-                $this->file->setMagicMethod((new MagicMethodParser())->parse($node));
+                $this->getFile()->setMagicMethod((new MagicMethodParser())->parse($node));
             }
 
             if ($this->isMethod($node)) {
-                $this->file->setMethod((new MethodParser())->parse($node));
+                $this->getFile()->setMethod((new MethodParser())->parse($node));
             }
         }
 
@@ -130,7 +130,7 @@ final class Lexer
         }
 
         if ($this->isProperty($node)) {
-            $this->file->setProperty((new PropertyParser())->parse($node));
+            $this->getFile()->setProperty((new PropertyParser())->parse($node));
         }
 
         $this->parseSubNodes($node); // No particular nodes found, parsing the sub nodes.
@@ -242,7 +242,7 @@ final class Lexer
      */
     private function isArrowFunction(Node $node): bool
     {
-        return (bool) false; // TODO: Not implemented yet.
+		return (bool) ($node instanceof Node\Expr\Closure);
     }
 
     /**
@@ -331,4 +331,23 @@ final class Lexer
     {
         return (bool) ($node instanceof Node\Stmt\PropertyProperty);
     }
+
+	/**
+	 * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File $file
+	 *
+	 * @return Lexer
+	 */
+	public function setFile(File $file): Lexer
+	{
+		$this->file = $file;
+		return $this;
+	}
+
+	/**
+	 * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File
+	 */
+	public function getFile(): File
+	{
+		return $this->file;
+	}
 }

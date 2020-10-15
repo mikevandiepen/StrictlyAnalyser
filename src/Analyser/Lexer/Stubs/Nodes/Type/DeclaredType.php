@@ -1,10 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type;
 
 use PhpParser\Node;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Structural\TypeDefined;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Structural\TypeUndefined;
 
 /**
  * Class DeclaredType.
@@ -18,51 +20,58 @@ final class DeclaredType extends AbstractType
      *
      * DeclaredType constructor.
      *
-     * @param Node\Identifier|Node\Name|Node\NullableType|Node\UnionType|null $node
+     * @param Node\Identifier|Node\Name|Node\NullableType|Node\UnionType|null $type
      */
-    public function __construct($node)
+    public function __construct($type)
     {
-        $type = [];
-
-        if ($node === null) {
-            $this->type = $type;
-        }
-
-        if ($node instanceof Node\Param) {
-            $type[] = $this->getTypeFromNode($node->type);
-        }
-
-        if (isset($node->type)) {
-            if (isset($node->type) && ($node->type === null || in_array($node->type, [
-                        'NULL',
-                        'Null',
-                        'null'
-                    ]))) {
-                $type[] = 'null';
-            }
-
-            if ($node->type instanceof Node\NullableType) {
-                $type[] = $this->getTypeFromNode($node->type);
-            }
-
-            if ($node->type instanceof Node\UnionType) {
-                // Iterating through the union types.
-                foreach ($node->type as $item) {
-                    $type[] = $this->getTypeFromNode($item);
-                }
-            }
-        } else {
-            if ($node instanceof Node\Identifier) {
-                $type[] = ltrim($node->name, '\\');
-            }
-
-            if ($node instanceof Node\Name) {
-                if (count($node->parts) > 0) {
-                    $type[] = implode('', $node->parts);
-                }
-            }
-        }
-
-        $this->type = $type;
+        $this->getTypeFromNode($type);
     }
+
+	/**
+	 * The nodes are assigned in the constructor and that is where the process starts.
+	 * This method is purely so it can run recursively.
+	 *
+	 * @param $type
+	 *
+	 * @return void
+	 */
+	protected function getTypeFromNode($type): void
+	{
+		if (empty($type)) {
+			$this->setType(new TypeUndefined());
+
+			return;
+		}
+
+		if ($type instanceof Node\Param) {
+			$this->getTypeFromNode($type->type);
+		}
+
+		if (isset($type->type)) {
+			if (isset($type->type) && ($type->type === null || in_array($type->type, ['NULL', 'Null', 'null']))) {
+				$this->getTypeFromNode(null);
+			}
+
+			if ($type->type instanceof Node\NullableType) {
+				$this->getTypeFromNode($type->type);
+			}
+
+			if ($type->type instanceof Node\UnionType) {
+				// Iterating through the union types.
+				foreach ($type->type as $item) {
+					$this->getTypeFromNode($item);
+				}
+			}
+		} else {
+			if ($type instanceof Node\Identifier) {
+				$this->setType(new TypeDefined(ltrim($type->name, '\\')));
+			}
+
+			if ($type instanceof Node\Name) {
+				if (count($type->parts) > 0) {
+					$this->setType(new TypeDefined(implode('', $type->parts)));
+				}
+			}
+		}
+	}
 }

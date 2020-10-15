@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts;
 
@@ -31,7 +31,7 @@ interface HasType
     public function getDeclaredType(): DeclaredType;
 
     /**
-     * She type which has been hinted in the docblock.
+     * Setting the type which has been hinted in the docblock.
      *
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType $hintedType
      *
@@ -40,7 +40,7 @@ interface HasType
     public function setHintedType(HintedType $hintedType): self;
 
     /**
-     * Ghe type which has been hinted in the docblock.
+     * Getting the type which has been hinted in the docblock.
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType
      */

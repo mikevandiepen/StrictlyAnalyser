@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes;
 
@@ -37,7 +37,7 @@ final class ReturnParser implements LexerOptionInterface
         $hintedType = new HintedType($this->getHintedReturnType());
         $returnAttribute->setHintedType($hintedType);
 
-        $declaredType = new DeclaredType($node->type);
+        $declaredType = new DeclaredType($node);
         $returnAttribute->setDeclaredType($declaredType);
 
         return $returnAttribute;

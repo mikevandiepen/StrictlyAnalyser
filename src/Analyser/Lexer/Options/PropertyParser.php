@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
@@ -33,7 +33,7 @@ final class PropertyParser implements LexerOptionInterface
     public function parse(Node $node): AbstractNode
     {
         $propertyNode = new PropertyNode();
-        $propertyNode->setName($node->name);
+		$propertyNode->setName($node->name->name);
         $propertyNode->setStartLine($node->getStartLine());
         $propertyNode->setEndLine($node->getEndLine());
 
@@ -44,7 +44,9 @@ final class PropertyParser implements LexerOptionInterface
         $propertyNode->setHintedType($hintedType);
 
         // Type declared in code.
-        $declaredType = new DeclaredType($node->type);
+        $declaredType = new DeclaredType($node);
         $propertyNode->setDeclaredType($declaredType);
+
+        return $propertyNode;
     }
 }

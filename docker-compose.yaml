@@ -19,7 +19,8 @@ services:
         hostname: strictly.php
         environment:
             TZ: Europe/Amsterdam
-
+            XDEBUG_CONFIG: remote_host=host.docker.internal
+            PHP_IDE_CONFIG: serverName=strictly
         volumes:
             - .:/var/www/html
             - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

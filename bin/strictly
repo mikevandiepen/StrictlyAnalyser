@@ -4,7 +4,7 @@
 declare(strict_types=1);
 
 use Symfony\Component\Console\Application;
-use MikevanDiepen\Strictly\Command\StrictlyCommand;
+use MikevanDiepen\Strictly\Console\Input\StrictlyCommand;
 
 // Including the composer autoloader
 if (file_exists(__DIR__.'/../../../autoload.php')) {

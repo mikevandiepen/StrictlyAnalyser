@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy;
 
@@ -22,7 +22,7 @@ use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseArrowFunction;
 /**
  * Class Director.
  *
- * @package Mikevandiepen\Strictly\Analyser\Strategy
+ * @package MikevanDiepen\Strictly\Analyser\Strategy
  */
 final class Director
 {
@@ -316,10 +316,10 @@ final class Director
     {
         // The analyser class for this strategy.
         $analyser = new AnalyseArrowFunction($arrowFunctionNode);
-        $analyser->analysedeclaredParameters($declaredParameters);
-        $analyser->analysehintedParameters($hintedParameters);
-        $analyser->analysedeclaredReturns($declaredReturns);
-        $analyser->analysehintedReturns($hintedReturns);
+        $analyser->analyseDeclaredParameters($declaredParameters);
+        $analyser->analyseHintedParameters($hintedParameters);
+        $analyser->analyseDeclaredReturns($declaredReturns);
+        $analyser->analyseHintedReturns($hintedReturns);
 
         // Analysing both the functional code and the docblock.
         if ($functional && $docblock) {
@@ -362,10 +362,10 @@ final class Director
     {
         // The analyser class for this strategy.
         $analyser = new AnalyseClosure($closureNode);
-        $analyser->analysedeclaredParameters($declaredParameters);
-        $analyser->analysehintedParameters($hintedParameters);
-        $analyser->analysedeclaredReturns($declaredReturns);
-        $analyser->analysehintedReturns($hintedReturns);
+        $analyser->analyseDeclaredParameters($declaredParameters);
+        $analyser->analyseHintedParameters($hintedParameters);
+        $analyser->analyseDeclaredReturns($declaredReturns);
+        $analyser->analyseHintedReturns($hintedReturns);
 
         // Analysing both the functional code and the docblock.
         if ($functional && $docblock) {
@@ -408,10 +408,10 @@ final class Director
     {
         // The analyser class for this strategy.
         $analyser = new AnalyseFunction($functionNode);
-        $analyser->analysedeclaredParameters($declaredParameters);
-        $analyser->analysehintedParameters($hintedParameters);
-        $analyser->analysedeclaredReturns($declaredReturns);
-        $analyser->analysehintedReturns($hintedReturns);
+        $analyser->analyseDeclaredParameters($declaredParameters);
+        $analyser->analyseHintedParameters($hintedParameters);
+        $analyser->analyseDeclaredReturns($declaredReturns);
+        $analyser->analyseHintedReturns($hintedReturns);
 
         // Analysing both the functional code and the docblock.
         if ($functional && $docblock) {
@@ -454,10 +454,10 @@ final class Director
     {
         // The analyser class for this strategy.
         $analyser = new AnalyseMagicMethod($magicMethodNode);
-        $analyser->analysedeclaredParameters($declaredParameters);
-        $analyser->analysehintedParameters($hintedParameters);
-        $analyser->analysedeclaredReturns($declaredReturns);
-        $analyser->analysehintedReturns($hintedReturns);
+        $analyser->analyseDeclaredParameters($declaredParameters);
+        $analyser->analyseHintedParameters($hintedParameters);
+        $analyser->analyseDeclaredReturns($declaredReturns);
+        $analyser->analyseHintedReturns($hintedReturns);
 
         // Analysing both the functional code and the docblock.
         if ($functional && $docblock) {
@@ -500,10 +500,10 @@ final class Director
     {
         // The analyser class for this strategy.
         $analyser = new AnalyseMethod($methodNode);
-        $analyser->analysedeclaredParameters($declaredParameters);
-        $analyser->analysehintedParameters($hintedParameters);
-        $analyser->analysedeclaredReturns($declaredReturns);
-        $analyser->analysehintedReturns($hintedReturns);
+        $analyser->analyseDeclaredParameters($declaredParameters);
+        $analyser->analyseHintedParameters($hintedParameters);
+        $analyser->analyseDeclaredReturns($declaredReturns);
+        $analyser->analyseHintedReturns($hintedReturns);
 
         // Analysing both the functional code and the docblock.
         if ($functional && $docblock) {

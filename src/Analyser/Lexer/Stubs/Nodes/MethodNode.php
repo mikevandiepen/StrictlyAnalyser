@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes;
 
@@ -14,7 +14,7 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\FunctionLikeNode
  *
  * @package MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes
  */
-final class MethodNode extends AbstractNode implements FunctionLikeNode, \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType
+final class MethodNode extends AbstractNode implements FunctionLikeNode
 {
     use LineTrait, ParameterTrait, ReturnTrait;
 }

@@ -1,14 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Console\Input;
 
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
+use MikevanDiepen\Strictly\Analyser\Lexer\Lexer;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use MikevanDiepen\Strictly\Analyser\Strategy\Director;
+use MikevanDiepen\Strictly\Configuration\StrictlyConfiguration;
 
 /**
  * Class StrictlyCommand.
@@ -57,146 +59,32 @@ final class StrictlyCommand extends Command
             );
     }
 
-    /**
-     * Executing the strictly command.
-     *
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return void
-     */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+	/**
+	 * Executing the strictly command.
+	 *
+	 * @param InputInterface  $input
+	 * @param OutputInterface $output
+	 *
+	 * @return int
+	 * @throws \Exception
+	 */
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $configuration = new StrictlyConfiguration();
+		$configuration = (new StrictlyConfiguration(StrictlyConfiguration::YAML))->run();
 
-        $projectIssueCount = 0;
-        foreach ($configuration->getFiles() as $configurationFile) {
-            $file = new File($configurationFile);
+		$projectFiles	= $configuration->getFiles();
+		$analyserRules	= $configuration->getAnalysers();
 
-            $analyserStrategy = new Director($file);
-            $analyserStrategy->direct($configuration->getAnalysers());
+		$projectIssueCount = 0;
+		foreach ($projectFiles as $projectFile) {
+			$file = new Lexer($projectFile);
 
-            $output->writeln('Analysed file: [' . $file->fileName . '] - File size: ' . $file->fileSize);
+			$analyserStrategy = new Director($file->getFile());
+			$analyserStrategy->direct($analyserRules);
 
-            // Parsing through the issues.
-            $table = new Table($output);
-            $fileIssueCount = 0;
-            foreach ($analyserStrategy->getIssues() as $issue) {
-                $fileIssueCount++;
+			$output->writeln('Analysed file: [' . $file->getFile()->getFileName(). '] - File size: ' . $file->getFile()->getFileSize());
+		}
 
-                switch ($issue::SEVERITY) {
-                    case 1:
-                        $severity = 'info';
-                        break;
-                    case 2:
-                        $severity = 'alert';
-                        break;
-                    case 3:
-                        $severity = 'warning';
-                        break;
-                    default:
-                        $severity = 'info';
-                }
-
-                switch ($input->getOption('output')) {
-                    case 'abstract':
-                        $table = $this->abstractIssue($table, $issue, $severity);
-                        break;
-                    case 'simple':
-                        $table = $this->detailedIssue($table, $issue, $severity);
-                        break;
-                    default:
-                        $output->writeln(sprintf('<error>%s is not a valid format choice</error>', $input->getOption('output')));
-                }
-            }
-            $projectIssueCount += $fileIssueCount;
-            $table->render();
-
-            if ($fileIssueCount > 0) {
-                $output->writeln('<comment>[issues file]: ' . $fileIssueCount . '</comment>');
-            } else {
-                $output->writeln('<info>[No issues found]</info>');
-            }
-            $output->writeln('');
-        }
-
-        $output->writeln('<comment>[Issues total]: ' . $projectIssueCount . '</comment>');
-    }
-
-    /**
-     * Abstract issue format
-     *
-     * @param \Symfony\Component\Console\Helper\Table  $table
-     * @param \Mikevandiepen\Strictly\Issues\AbstractIssue $issue
-     * @param string                                   $severity
-     *
-     * @return \Symfony\Component\Console\Helper\Table
-     */
-    private function abstractIssue(Table $table, AbstractIssue $issue, string $severity): Table
-    {
-        $table->setHeaders(['Line', 'Location', 'Severity', 'Identifier', 'Name', 'Issue', 'Suggested type', 'parameter']);
-
-        $parameter = $issue->getParameter() !== null ? '$' . $issue->getParameter() : '';
-
-        $table->addRow([
-            $issue->getLine(),
-            $issue::LOCATION,
-            $severity,
-            $issue::IDENTIFIER,
-            $issue->getName(),
-            $issue::ABSTRACT_MESSAGE,
-            $issue->getType(),
-            $parameter
-        ]);
-
-        return $table;
-    }
-
-    /**
-     * Detailed issue format
-     *
-     * @param \Symfony\Component\Console\Helper\Table  $table
-     * @param \Mikevandiepen\Strictly\Issues\AbstractIssue $issue
-     * @param string                                   $severity
-     *
-     * @return \Symfony\Component\Console\Helper\Table
-     */
-    private function detailedIssue(Table $table, AbstractIssue $issue, string $severity): Table
-    {
-        $table->setHeaders(['Severity', 'Issue']);
-
-        // Generating the message configuration based upon the issue.
-        switch ($issue::IDENTIFIER) {
-            case 'mistyped-return':
-            case 'untyped-property-docblock':
-            case 'untyped-parameter-docblock':
-            case 'untyped-return-docblock':
-            case 'untyped-property-functional':
-            case 'untyped-parameter-functional':
-            case 'untyped-return-functional':
-            case 'mistyped-property':
-                $message = sprintf(
-                    $issue::SIMPLE_MESSAGE,
-                    $issue->getName(),
-                    $issue->getLine(),
-                    $issue->getType()
-                );
-                break;
-            case 'mistyped-parameter':
-                $message = sprintf(
-                    $issue::SIMPLE_MESSAGE,
-                    $issue->getParameter(),
-                    $issue->getName(),
-                    $issue->getLine(),
-                    $issue->getType()
-                );
-                break;
-            default:
-                $message = 'Issue message not found.';
-        }
-
-        $table->addRow([$severity, $message]);
-
-        return $table;
+		return 1;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
@@ -32,7 +32,7 @@ final class MagicMethodParser implements LexerOptionInterface
     public function parse(Node $node): AbstractNode
     {
         $magicMethodNode = new MagicMethodNode();
-        $magicMethodNode->setName($node->name);
+        $magicMethodNode->setName($node->name->name);
         $magicMethodNode->setStartLine($node->getStartLine());
         $magicMethodNode->setEndLine($node->getEndLine());
 

@@ -1,11 +1,11 @@
 {
-  "name": "MikevanDiepen/strictly",
+  "name": "mikevandiepen/strictly",
   "description": "Strictness validation for your PHP projects.",
   "type": "library",
   "license": "MIT",
   "authors": [
     {
-      "name": "MikevanDiepen",
+      "name": "mikevandiepen",
       "email": "mike.vandiepen@hotmail.com"
     }
   ],
