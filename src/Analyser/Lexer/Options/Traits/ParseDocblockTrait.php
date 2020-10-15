@@ -13,6 +13,7 @@ use phpDocumentor\Reflection\Types\Object_;
 use phpDocumentor\Reflection\Types\Compound;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlock\Tags\Generic;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 
 /**
  * Trait ParseDocblockTrait.
@@ -61,7 +62,7 @@ trait ParseDocblockTrait
      * Collecting the property from the docblock.
      *
      * @return \phpDocumentor\Reflection\Type|null
-     * @throws \Exception
+     * @throws StrictlyException
      */
     protected function getHintedPropertyType(): ?Type
     {
@@ -85,7 +86,7 @@ trait ParseDocblockTrait
 	 * Collecting the return from the docblock.
 	 *
 	 * @return \phpDocumentor\Reflection\Type|null
-	 * @throws \Exception
+	 * @throws StrictlyException
 	 */
 	protected function getHintedReturnType(): ?Type
 	{
@@ -112,7 +113,7 @@ trait ParseDocblockTrait
 	 * @param string $parameter
 	 *
 	 * @return \phpDocumentor\Reflection\Type|null
-	 * @throws \Exception
+	 * @throws StrictlyException
 	 */
 	protected function getHintedParameterType(string $parameter): ?Type
 	{
@@ -149,7 +150,7 @@ trait ParseDocblockTrait
      * @param string|null $parameter
      *
      * @return bool
-     * @throws \Exception
+     * @throws StrictlyException
      */
     protected function isSuppressedByType(string $type, ?string $parameter = null): bool
     {
@@ -223,7 +224,7 @@ trait ParseDocblockTrait
      * @param \phpDocumentor\Reflection\Type|null $type
      *
      * @return bool
-     * @throws \Exception
+     * @throws StrictlyException
      */
     private function typeIsCompound(?Type $type): bool
     {

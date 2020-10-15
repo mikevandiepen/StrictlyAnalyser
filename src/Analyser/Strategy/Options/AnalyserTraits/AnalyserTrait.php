@@ -82,6 +82,7 @@ trait AnalyserTrait
      */
     protected function getMissingDeclaredTypes(): ?array
     {
+		# TODO: When the type is an object check whether it implements the hinted object.
         $hintedType     = $this->getNodeWithType()->gethintedType()->getType();
         $declaredType   = $this->getNodeWithType()->getDeclaredType()->getType();
 
@@ -101,6 +102,7 @@ trait AnalyserTrait
      */
     protected function getMissingHintedTypes(): array
     {
+		# TODO: When the type is an object check whether it implements the declared object.
         $hintedType     = $this->getNodeWithType()->gethintedType()->getType();
         $declaredType   = $this->getNodeWithType()->getDeclaredType()->getType();
 

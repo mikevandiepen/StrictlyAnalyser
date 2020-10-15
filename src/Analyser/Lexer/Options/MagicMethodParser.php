@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
 use PhpParser\Node;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MagicMethodNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ReturnParser;
@@ -27,7 +28,7 @@ final class MagicMethodParser implements LexerOptionInterface
      * @param \PhpParser\Node $node
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function parse(Node $node): AbstractNode
     {
@@ -50,7 +51,9 @@ final class MagicMethodParser implements LexerOptionInterface
         $return = new ReturnParser();
         $return->setDocblockFromNode($node);
 
-        $magicMethodNode->setReturn($return->parse($node));
+        $magicMethodNode->setReturn(
+        	$return->parse($node)
+		);
 
         return $magicMethodNode;
     }

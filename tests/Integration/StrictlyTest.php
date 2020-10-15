@@ -2,9 +2,9 @@
 
 namespace MikevanDiepen\Strictly\Tests\Integration;
 
-use Exception;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 use MikevanDiepen\Strictly\Console\Input\StrictlyCommand;
 
 class StrictlyTest extends TestCase
@@ -21,7 +21,7 @@ class StrictlyTest extends TestCase
 
 		try {
 			$analyser->run();
-		} catch (Exception $e) {
+		} catch (StrictlyException $e) {
 			// Do nothing.
 		}
 	}

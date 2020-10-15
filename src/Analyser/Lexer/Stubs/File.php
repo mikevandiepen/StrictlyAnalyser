@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs;
 
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MethodNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ClosureNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\PropertyNode;
@@ -196,14 +197,14 @@ final class File
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode $node
      *
      * @return $this
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function setArrowFunction(AbstractNode $node): self
     {
         if ($node instanceof ArrowFunctionNode) {
             $this->arrowFunctions[] = $node;
         } else {
-            throw new \Exception('Incorrect node supplied! Expected ArrowFunctionNode.');
+            throw new StrictlyException('Incorrect node supplied! Expected ArrowFunctionNode.');
         }
 
         return $this;
@@ -225,14 +226,14 @@ final class File
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode $node
      *
      * @return $this
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function setClosure(AbstractNode $node): self
     {
         if ($node instanceof ClosureNode) {
             $this->closures[] = $node;
         } else {
-            throw new \Exception('Incorrect node supplied! Expected ClosureNode.');
+            throw new StrictlyException('Incorrect node supplied! Expected ClosureNode.');
         }
 
         return $this;
@@ -254,14 +255,14 @@ final class File
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode $node
      *
      * @return $this
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function setFunction(AbstractNode $node): self
     {
         if ($node instanceof FunctionNode) {
             $this->functions[] = $node;
         } else {
-            throw new \Exception('Incorrect node supplied! Expected FunctionNode.');
+            throw new StrictlyException('Incorrect node supplied! Expected FunctionNode.');
         }
 
         return $this;
@@ -283,14 +284,14 @@ final class File
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode $node
      *
      * @return $this
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function setMagicMethod(AbstractNode $node): self
     {
         if ($node instanceof MagicMethodNode) {
             $this->magicMethods[] = $node;
         } else {
-            throw new \Exception('Incorrect node supplied! Expected MagicMethodNode.');
+            throw new StrictlyException('Incorrect node supplied! Expected MagicMethodNode.');
         }
 
         return $this;
@@ -312,14 +313,14 @@ final class File
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode $node
      *
      * @return $this
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function setMethod(AbstractNode $node): self
     {
         if ($node instanceof MethodNode) {
             $this->methods[] = $node;
         } else {
-            throw new \Exception('Incorrect node supplied! Expected MethodNode.');
+            throw new StrictlyException('Incorrect node supplied! Expected MethodNode.');
         }
 
         return $this;
@@ -341,14 +342,14 @@ final class File
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode $node
      *
      * @return $this
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function setProperty(AbstractNode $node): self
     {
         if ($node instanceof PropertyNode) {
             $this->properties[] = $node;
         } else {
-            throw new \Exception('Incorrect node supplied! Expected PropertyNode.');
+            throw new StrictlyException('Incorrect node supplied! Expected PropertyNode.');
         }
 
         return $this;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
 use PhpParser\Node;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MethodNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ReturnParser;
@@ -28,7 +29,7 @@ final class MethodParser implements LexerOptionInterface
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
      * @throws \ReflectionException
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function parse(Node $node): AbstractNode
     {

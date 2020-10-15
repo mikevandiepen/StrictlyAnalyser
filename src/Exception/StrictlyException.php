@@ -9,7 +9,7 @@ use Exception;
 /**
  * Class StrictlyException
  *
- * @package MikevanDiepen\Strictly\Exception
+ * @package MikevanDiepen\Strictly\StrictlyException
  */
 class StrictlyException extends Exception
 {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode;
 
 /**
@@ -40,14 +41,14 @@ trait ParameterTrait
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode $parameterNode
      *
      * @return void
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function setParameters(ParameterNode $parameterNode): void
     {
         if ($parameterNode instanceof ParameterNode) {
             $this->parameters[] = $parameterNode;
         } else {
-            throw new \Exception('Incorrect node supplied! Expected ParameterNode.');
+            throw new StrictlyException('Incorrect node supplied! Expected ParameterNode.');
         }
     }
 }

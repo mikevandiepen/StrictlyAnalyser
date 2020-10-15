@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode;
 
@@ -40,14 +41,14 @@ trait ReturnTrait
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode $returnNode
      *
      * @return self
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function setReturn(AbstractNode $returnNode): self
     {
         if ($returnNode instanceof ReturnNode) {
             $this->return = $returnNode;
         } else {
-            throw new \Exception('Incorrect node supplied! Expected ReturnNode.');
+            throw new StrictlyException('Incorrect node supplied! Expected ReturnNode.');
         }
 
         return $this;

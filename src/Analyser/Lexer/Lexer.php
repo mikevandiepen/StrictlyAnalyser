@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\ParserFactory;
 use Symfony\Component\Finder\SplFileInfo;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\MethodParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\ClosureParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\PropertyParser;
@@ -56,7 +57,7 @@ final class Lexer
      *
      * @param SplFileInfo $file
      *
-     * @throws \Exception
+     * @throws StrictlyException
      */
     public function __construct(SplFileInfo $file)
     {
@@ -77,14 +78,15 @@ final class Lexer
         }
     }
 
-    /**
-     * Analysing the node and storing the node in the right node-group.
-     *
-     * @param Node $node
-     *
-     * @return void
-     * @throws \Exception
-     */
+	/**
+	 * Analysing the node and storing the node in the right node-group.
+	 *
+	 * @param Node $node
+	 *
+	 * @return void
+	 * @throws StrictlyException
+	 * @throws \ReflectionException
+	 */
     private function analyseNode(Node $node): void
     {
         if ($this->isAssign($node)) {
@@ -105,23 +107,33 @@ final class Lexer
 
         if ($this->isFunctionLike($node)) {
             if ($this->isArrowFunction($node)) {
-                $this->getFile()->setArrowFunction((new ArrowFunctionParser())->parse($node));
+                $this->getFile()->setArrowFunction(
+                	(new ArrowFunctionParser())->parse($node)
+				);
             }
 
             if ($this->isClosure($node)) {
-                $this->getFile()->setClosure((new ClosureParser())->parse($node));
+                $this->getFile()->setClosure(
+                	(new ClosureParser())->parse($node)
+				);
             }
 
             if ($this->isFunction($node)) {
-                $this->getFile()->setFunction((new FunctionParser())->parse($node));
+                $this->getFile()->setFunction(
+                	(new FunctionParser())->parse($node)
+				);
             }
 
             if ($this->isMagicMethod($node)) {
-                $this->getFile()->setMagicMethod((new MagicMethodParser())->parse($node));
+                $this->getFile()->setMagicMethod(
+                	(new MagicMethodParser())->parse($node)
+				);
             }
 
             if ($this->isMethod($node)) {
-                $this->getFile()->setMethod((new MethodParser())->parse($node));
+                $this->getFile()->setMethod(
+                	(new MethodParser())->parse($node)
+				);
             }
         }
 
@@ -130,7 +142,9 @@ final class Lexer
         }
 
         if ($this->isProperty($node)) {
-            $this->getFile()->setProperty((new PropertyParser())->parse($node));
+            $this->getFile()->setProperty(
+            	(new PropertyParser())->parse($node)
+			);
         }
 
         $this->parseSubNodes($node); // No particular nodes found, parsing the sub nodes.
@@ -166,7 +180,7 @@ final class Lexer
      * @param Node $node
      *
      * @return void
-     * @throws \Exception
+     * @throws StrictlyException
      */
     private function parseSubNodes(Node $node): void
     {
@@ -200,7 +214,7 @@ final class Lexer
      * @param Node $node
      *
      * @return void
-     * @throws \Exception
+     * @throws StrictlyException
      */
     private function parseNodeArguments(Node $node): void
     {
@@ -311,7 +325,7 @@ final class Lexer
      * @param Node $node
      *
      * @return void
-     * @throws \Exception
+     * @throws StrictlyException
      */
     private function parsePropertyGroup(Node $node): void
     {

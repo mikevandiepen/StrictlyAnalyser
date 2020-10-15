@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options;
 
 use MikevanDiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseReturn;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts\AnalyserInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\FunctionLikeNode;
@@ -20,6 +21,16 @@ use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits\FunctionLike
 final class AnalyseArrowFunction extends AbstractAnalyser implements AnalyserInterface, FunctionLikeInterface
 {
     use FunctionLikeTrait;
+
+	/**
+	 * AnalyseArrowFunction constructor.
+	 *
+	 * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType $node
+	 */
+	public function __construct(HasType $node)
+	{
+		parent::__construct($node);
+	}
 
     /**
      * Analysing only the declared types.
@@ -45,6 +56,11 @@ final class AnalyseArrowFunction extends AbstractAnalyser implements AnalyserInt
                 $analyseReturn->onlyDeclared();
             }
         }
+
+        // Sending the issues downstream.
+		foreach ($this->getIssues() as $issue) {
+			$this->setIssue($issue);
+		}
     }
 
     /**
@@ -71,6 +87,11 @@ final class AnalyseArrowFunction extends AbstractAnalyser implements AnalyserInt
                 $analyseReturn->onlyHinted();
             }
         }
+
+		// Sending the issues downstream.
+		foreach ($this->getIssues() as $issue) {
+			$this->setIssue($issue);
+		}
     }
 
     /**
@@ -113,5 +134,10 @@ final class AnalyseArrowFunction extends AbstractAnalyser implements AnalyserInt
                 $analyseReturn->onlyHinted();
             }
         }
+
+		// Sending the issues downstream.
+		foreach ($this->getIssues() as $issue) {
+			$this->setIssue($issue);
+		}
     }
 }

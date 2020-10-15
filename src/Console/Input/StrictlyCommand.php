@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Console\Input;
 
+use MikevanDiepen\Strictly\Strictly;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use MikevanDiepen\Strictly\Analyser\Lexer\Lexer;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use MikevanDiepen\Strictly\Analyser\Strategy\Director;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 use MikevanDiepen\Strictly\Configuration\StrictlyConfiguration;
+use MikevanDiepen\Strictly\Console\Output\GeneratePrettyOutput;
+use MikevanDiepen\Strictly\Console\Output\GenerateSimpleOutput;
 
 /**
  * Class StrictlyCommand.
@@ -19,6 +23,10 @@ use MikevanDiepen\Strictly\Configuration\StrictlyConfiguration;
  */
 final class StrictlyCommand extends Command
 {
+	/** @var string The types of output which can be printed. */
+	public const PRINT_RESULTS_PRETTY = GeneratePrettyOutput::class;
+	public const PRINT_RESULTS_SIMPLE = GenerateSimpleOutput::class;
+
     /**
      * How the analysis command is run.
      * (php bin/strictly) in this case.
@@ -66,40 +74,48 @@ final class StrictlyCommand extends Command
 	 * @param OutputInterface $output
 	 *
 	 * @return int
-	 * @throws \Exception
+	 * @throws StrictlyException
 	 */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-		$configuration = (new StrictlyConfiguration(StrictlyConfiguration::YAML))->run();
+    	// Running the analyser.
+		$strictly = new Strictly();
+		$strictly->analyse(self::PRINT_RESULTS_PRETTY);
 
-		$projectFiles	= $configuration->getFiles();
-		$analyserRules	= $configuration->getAnalysers();
-
-		$fileCount = 0;
-		$bytes = 0;
-		$duration = 0;
-		foreach ($projectFiles as $projectFile) {
-			++$fileCount;
-			$start = microtime(true);
-
-			$file = new Lexer($projectFile);
-			$fileSize = $file->getFile()->getFileSize();
-
-			$analyserStrategy = new Director($file->getFile());
-			$analyserStrategy->direct($analyserRules);
-
-			$end = microtime(true);
-			$currentDuration = $end - $start;
-
-			// Adding the duration of this iteration to the aggregated duration.
-			$duration = $duration + $currentDuration;
-			// Adding the size of the file to the aggregated size.
-			$bytes = $bytes + $fileSize;
-
-			$output->writeln('Analysed (' . number_format($fileSize / 1024, 2) . 'KB)' . ' in ' . $file->getFile()->getFileName() . ' taking (' . round($currentDuration * 1000) . 'ms)');
+		foreach ($strictly->getIssues() as $issue) {
+			var_dump($issue); exit();
 		}
 
-		$output->writeln('Analysed (' . number_format($bytes / 1024, 2) . ' KB) in ' . $fileCount . ' files taking (' . round($duration * 1000) . 'ms)' );
+//		$configuration = (new StrictlyConfiguration(StrictlyConfiguration::YAML))->run();
+//
+//		$projectFiles	= $configuration->getFiles();
+//		$analyserRules	= $configuration->getAnalysers();
+//
+//		$fileCount = 0;
+//		$bytes = 0;
+//		$duration = 0;
+//		foreach ($projectFiles as $projectFile) {
+//			++$fileCount;
+//			$start = microtime(true);
+//
+//			$file = new Lexer($projectFile);
+//			$fileSize = $file->getFile()->getFileSize();
+//
+//			$analyserStrategy = new Director($file->getFile());
+//			$analyserStrategy->direct($analyserRules);
+//
+//			$end = microtime(true);
+//			$currentDuration = $end - $start;
+//
+//			// Adding the duration of this iteration to the aggregated duration.
+//			$duration = $duration + $currentDuration;
+//			// Adding the size of the file to the aggregated size.
+//			$bytes = $bytes + $fileSize;
+//
+//			$output->writeln('Analysed (' . number_format($fileSize / 1024, 2) . 'KB)' . ' in ' . $file->getFile()->getFileName() . ' taking (' . round($currentDuration * 1000) . 'ms)');
+//		}
+//
+//		$output->writeln('Analysed (' . number_format($bytes / 1024, 2) . ' KB) in ' . $fileCount . ' files taking (' . round($duration * 1000) . 'ms)' );
 
 		return 1;
     }
