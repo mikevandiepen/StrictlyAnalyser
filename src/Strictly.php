@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace MikevanDiepen\Strictly;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Lexer;
-use MikevanDiepen\Strictly\Analyser\Issues\Issue;
+use MikevanDiepen\Strictly\Coverage\AnalysisResults;
 use MikevanDiepen\Strictly\Analyser\Strategy\Director;
 use MikevanDiepen\Strictly\Console\Input\StrictlyCommand;
 use MikevanDiepen\Strictly\Configuration\StrictlyConfiguration;
@@ -17,13 +17,6 @@ use MikevanDiepen\Strictly\Configuration\StrictlyConfiguration;
  */
 final class Strictly
 {
-	/**
-	 * All the issues found during the analysis process.
-	 *
-	 * @var Issue[]
-	 */
-	private array $issues = [];
-
 	/**
 	 * Running the main analysis process for strictly.
 	 *
@@ -51,23 +44,21 @@ final class Strictly
 			$file = new Lexer($projectFile);
 
 			// Running the analysis and applying the filters configured by the user.
-			$analyserStrategy = new Director($file->getFile());
-			$analyserStrategy->direct($analyserRules);
+			$director = new Director($file->getFile());
+			$director->direct($analyserRules);
+
+			// Analysing the results and building a metric report.
+			$analysisResults = new AnalysisResults(
+				$director->getAnalysisResults()
+			);
+
+			var_export($analysisResults->getResults());
 
 			// Building a coverage report.
 
-			// Building a report which can be prompted to the user in the console.
-			$this->issues = $analyserStrategy->getIssues();
-		}
-	}
 
-	/**
-	 * Returning the
-	 *
-	 * @return Issue[]
-	 */
-	public function getIssues(): array
-	{
-		return $this->issues;
+			// Building a report which can be prompted to the user in the console.
+
+		}
 	}
 }

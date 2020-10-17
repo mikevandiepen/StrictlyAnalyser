@@ -1,10 +1,9 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy;
 
-use MikevanDiepen\Strictly\Analyser\Issues\Issue;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MethodNode;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseMethod;
@@ -30,21 +29,14 @@ final class Director
     /**
      * The subject file of the analysis.
      *
-     * @var \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File
+     * @var File
      */
     private File $file;
 
 	/**
-	 * All the issues found during the analysis process.
-	 *
-	 * @var Issue[]
-	 */
-	private array $issues = [];
-
-	/**
 	 * Director constructor.
 	 *
-	 * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File $file
+	 * @param File $file
 	 */
     public function __construct(File $file)
     {
@@ -343,13 +335,6 @@ final class Director
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
         }
-
-		// Sending the issues downstream.
-		foreach ($this->getIssues() as $issue) {
-			$this->setIssue(
-				$issue->setNode($arrowFunctionNode)
-			);
-		}
     }
 
     /**
@@ -396,13 +381,6 @@ final class Director
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
         }
-
-		// Sending the issues downstream.
-		foreach ($this->getIssues() as $issue) {
-			$this->setIssue(
-				$issue->setNode($closureNode)
-			);
-		}
     }
 
     /**
@@ -449,13 +427,6 @@ final class Director
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
         }
-
-		// Sending the issues downstream.
-		foreach ($this->getIssues() as $issue) {
-			$this->setIssue(
-				$issue->setNode($functionNode)
-			);
-		}
     }
 
     /**
@@ -502,13 +473,6 @@ final class Director
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
         }
-
-		// Sending the issues downstream.
-		foreach ($this->getIssues() as $issue) {
-			$this->setIssue(
-				$issue->setNode($magicMethodNode)
-			);
-		}
     }
 
     /**
@@ -555,13 +519,6 @@ final class Director
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
         }
-
-		// Sending the issues downstream.
-		foreach ($this->getIssues() as $issue) {
-			$this->setIssue(
-				$issue->setNode($methodNode)
-			);
-		}
     }
 
     /**
@@ -596,32 +553,15 @@ final class Director
         if (!$functional && $docblock) {
             $analyser->onlyHinted();
         }
-
-		// Sending the issues downstream.
-		foreach ($this->getIssues() as $issue) {
-			$this->setIssue(
-				$issue->setNode($propertyNode)
-			);
-		}
     }
 
 	/**
-	 * @return Issue[]
-	 */
-	public function getIssues(): array
-	{
-		return $this->issues;
-	}
-
-	/**
-	 * @param Issue $issues
+	 * Returning the file after it has been analysed.
 	 *
-	 * @return void
+	 * @return File
 	 */
-	public function setIssue(Issue $issues): void
+    public function getAnalysisResults(): File
 	{
-		$this->issues[] = $issues;
-
-		return;
+		return $this->file;
 	}
 }

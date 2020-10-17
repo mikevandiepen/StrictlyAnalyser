@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options;
 
 use MikevanDiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseReturn;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts\AnalyserInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\FunctionLikeNode;
@@ -25,9 +25,9 @@ final class AnalyseFunction extends AbstractAnalyser implements AnalyserInterfac
 	/**
 	 * AnalyseFunction constructor.
 	 *
-	 * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType $node
+	 * @param AbstractNode $node
 	 */
-	public function __construct(HasType $node)
+	public function __construct(AbstractNode $node)
 	{
 		parent::__construct($node);
 	}

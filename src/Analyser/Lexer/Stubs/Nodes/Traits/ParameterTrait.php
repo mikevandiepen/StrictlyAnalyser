@@ -23,15 +23,20 @@ trait ParameterTrait
      *
      * @var ParameterNode[]
      */
-    private array $parameters;
+    private array $parameters = [];
 
-    /**
-     * Getting the parameters from the node.
-     *
-     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode[]
-     */
+	/**
+	 * Getting the parameters from the node.
+	 *
+	 * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode[]
+	 * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
+	 */
     public function getParameters(): array
     {
+    	if (!$this->hasParameters()) {
+			throw new StrictlyException('No parameter nodes found.');
+		}
+
         return $this->parameters;
     }
 
@@ -51,4 +56,14 @@ trait ParameterTrait
             throw new StrictlyException('Incorrect node supplied! Expected ParameterNode.');
         }
     }
+
+	/**
+	 * Whether a FunctionLike node has parameters.
+	 *
+	 * @return bool
+	 */
+    public function hasParameters(): bool
+	{
+		return (bool) (count($this->parameters) > 0);
+	}
 }

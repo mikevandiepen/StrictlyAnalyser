@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs;
 
@@ -213,7 +213,7 @@ final class File
     /**
      * Getting the arrow functions of this file.
      *
-     * @return array
+     * @return ArrowFunctionNode[]
      */
     public function getArrowFunctions(): array
     {
@@ -242,7 +242,7 @@ final class File
     /**
      * Getting the closures of this file.
      *
-     * @return array
+     * @return ClosureNode[]
      */
     public function getClosures(): array
     {
@@ -271,7 +271,7 @@ final class File
     /**
      * Getting the function of this file.
      *
-     * @return array
+     * @return FunctionNode[]
      */
     public function getFunctions(): array
     {
@@ -300,7 +300,7 @@ final class File
     /**
      * Getting the magic methods of this file.
      *
-     * @return array
+     * @return MagicMethodNode[]
      */
     public function getMagicMethods(): array
     {
@@ -329,7 +329,7 @@ final class File
     /**
      * Getting the methods of this file.
      *
-     * @return array
+     * @return MethodNode[]
      */
     public function getMethods(): array
     {
@@ -358,7 +358,7 @@ final class File
     /**
      * Getting the properties of this file.
      *
-     * @return array
+     * @return PropertyNode[]
      */
     public function getProperties(): array
     {

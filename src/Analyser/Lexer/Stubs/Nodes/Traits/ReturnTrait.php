@@ -17,9 +17,10 @@ trait ReturnTrait
 {
     /**
      * The return which belongs to the arrow function node.
+	 *
      * This property can be accessed through:
      * @method setReturn(ReturnNode $returnAttribute): self
-     * @method getReturn(): ReturnAttribute
+     * @method getReturn(): ReturnNode
      *
      * @var ReturnNode
      */
@@ -35,22 +36,20 @@ trait ReturnTrait
         return $this->return;
     }
 
-    /**
-     * Setting the return from the node.
-     *
-     * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode $returnNode
-     *
-     * @return self
-     * @throws StrictlyException
-     */
-    public function setReturn(AbstractNode $returnNode): self
+	/**
+	 * Setting the return from the node.
+	 *
+	 * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode $returnNode
+	 *
+	 * @return void
+	 * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
+	 */
+    public function setReturn(ReturnNode $returnNode): void
     {
         if ($returnNode instanceof ReturnNode) {
             $this->return = $returnNode;
         } else {
             throw new StrictlyException('Incorrect node supplied! Expected ReturnNode.');
         }
-
-        return $this;
     }
 }

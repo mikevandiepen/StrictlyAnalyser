@@ -32,13 +32,6 @@ final class Issue
 	private IssueInterface $issue;
 
 	/**
-	 * The node for this issue, this contains all the necessary details to build a report.
-	 *
-	 * @var AbstractNode
-	 */
-	private AbstractNode $node;
-
-	/**
 	 * @return LocationInterface
 	 */
 	public function getLocation(): LocationInterface
@@ -73,25 +66,6 @@ final class Issue
 	public function setIssue(IssueInterface $issue): Issue
 	{
 		$this->issue = $issue;
-		return $this;
-	}
-
-	/**
-	 * @return AbstractNode
-	 */
-	public function getNode(): AbstractNode
-	{
-		return $this->node;
-	}
-
-	/**
-	 * @param AbstractNode $node
-	 *
-	 * @return Issue
-	 */
-	public function setNode(AbstractNode $node): Issue
-	{
-		$this->node = $node;
 		return $this;
 	}
 }
