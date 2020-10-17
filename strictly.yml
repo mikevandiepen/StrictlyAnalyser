@@ -6,5 +6,9 @@ project:
         include:
             - 'src/'
         exclude:
+            - 'src/Configuration'
+            - 'src/Console'
+            - 'src/Coverage'
+            - 'src/Exception'
             - 'tests/'
             - 'vendor/'

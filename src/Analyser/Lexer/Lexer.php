@@ -51,14 +51,15 @@ final class Lexer
         '__debugInfo',
     ];
 
-    /**
-     * Stubs constructor.
-     * Handling the file and sorting the nodes into the correct node group.
-     *
-     * @param SplFileInfo $file
-     *
-     * @throws StrictlyException
-     */
+	/**
+	 * Stubs constructor.
+	 * Handling the file and sorting the nodes into the correct node group.
+	 *
+	 * @param SplFileInfo $file
+	 *
+	 * @throws StrictlyException
+	 * @throws \ReflectionException
+	 */
     public function __construct(SplFileInfo $file)
     {
         // Creating a new "mock" file.
@@ -180,8 +181,8 @@ final class Lexer
      * @param Node $node
      *
      * @return void
-     * @throws StrictlyException
-     */
+     * @throws StrictlyException|\ReflectionException
+	 */
     private function parseSubNodes(Node $node): void
     {
         if (isset($node->stmts) && count($node->stmts) > 0) {

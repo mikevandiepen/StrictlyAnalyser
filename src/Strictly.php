@@ -52,8 +52,6 @@ final class Strictly
 				$director->getAnalysisResults()
 			);
 
-			var_export($analysisResults->getResults());
-
 			// Building a coverage report.
 
 
