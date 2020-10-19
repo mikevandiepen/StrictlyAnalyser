@@ -13,5 +13,5 @@ use Exception;
  */
 class StrictlyException extends Exception
 {
-	// Strictly exception wrapper, no business logic.
+    // Strictly exception wrapper, no business logic.
 }

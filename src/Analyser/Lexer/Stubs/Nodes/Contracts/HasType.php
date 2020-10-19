@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
 
 /**
  * Interface HasType.

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options;
 
-use MikevanDiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
-use MikevanDiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseReturn;
-use MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts\AnalyserInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\FunctionLikeNode;
-use MikevanDiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseParameters;
-use MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts\FunctionLikeInterface;
+use MikevanDiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits\FunctionLikeTrait;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts\AnalyserInterface;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\Contracts\FunctionLikeInterface;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseParameters;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\FunctionLike\AnalyseReturn;
 
 /**
  * Class AnalyseFunction.
@@ -22,17 +22,17 @@ final class AnalyseFunction extends AbstractAnalyser implements AnalyserInterfac
 {
     use FunctionLikeTrait;
 
-	/**
-	 * AnalyseFunction constructor.
-	 *
-	 * @param AbstractNode $node
-	 */
-	public function __construct(AbstractNode $node)
-	{
-		parent::__construct($node);
-	}
+    /**
+     * AnalyseFunction constructor.
+     *
+     * @param AbstractNode $node
+     */
+    public function __construct(AbstractNode $node)
+    {
+        parent::__construct($node);
+    }
 
-     /**
+    /**
      * Analysing only the declared types.
      *
      * @return void
@@ -41,11 +41,13 @@ final class AnalyseFunction extends AbstractAnalyser implements AnalyserInterfac
     {
         if ($this->node instanceof FunctionLikeNode) {
             // Analysing parameters.
-            foreach ($this->node->getParameters() as $parameter) {
-                $analyseParameter = new AnalyseParameters($parameter);
+            if ($this->node->hasParameters()) {
+                foreach ($this->node->getParameters() as $parameter) {
+                    $analyseParameter = new AnalyseParameters($parameter);
 
-                if ($this->declaredParameters) {
-                    $analyseParameter->onlyDeclared();
+                    if ($this->declaredParameters) {
+                        $analyseParameter->onlyDeclared();
+                    }
                 }
             }
 
@@ -56,11 +58,6 @@ final class AnalyseFunction extends AbstractAnalyser implements AnalyserInterfac
                 $analyseReturn->onlyDeclared();
             }
         }
-
-        // Sending the issues downstream.
-		foreach ($this->getIssues() as $issue) {
-			$this->setIssue($issue);
-		}
     }
 
     /**
@@ -72,11 +69,13 @@ final class AnalyseFunction extends AbstractAnalyser implements AnalyserInterfac
     {
         if ($this->node instanceof FunctionLikeNode) {
             // Analysing parameters.
-            foreach ($this->node->getParameters() as $parameter) {
-                $analyseParameter = new AnalyseParameters($parameter);
+            if ($this->node->hasParameters()) {
+                foreach ($this->node->getParameters() as $parameter) {
+                    $analyseParameter = new AnalyseParameters($parameter);
 
-                if ($this->hintedParameters) {
-                    $analyseParameter->onlyHinted();
+                    if ($this->hintedParameters) {
+                        $analyseParameter->onlyHinted();
+                    }
                 }
             }
 
@@ -87,11 +86,6 @@ final class AnalyseFunction extends AbstractAnalyser implements AnalyserInterfac
                 $analyseReturn->onlyHinted();
             }
         }
-
-		// Sending the issues downstream.
-		foreach ($this->getIssues() as $issue) {
-			$this->setIssue($issue);
-		}
     }
 
     /**
@@ -103,19 +97,21 @@ final class AnalyseFunction extends AbstractAnalyser implements AnalyserInterfac
     {
         if ($this->node instanceof FunctionLikeNode) {
             // Analysing parameters.
-            foreach ($this->node->getParameters() as $parameter) {
-                $analyseParameter = new AnalyseParameters($parameter);
+            if ($this->node->hasParameters()) {
+                foreach ($this->node->getParameters() as $parameter) {
+                    $analyseParameter = new AnalyseParameters($parameter);
 
-                if ($this->declaredParameters && $this->hintedParameters) {
-                    $analyseParameter->bothDeclaredAndHinted();
-                }
+                    if ($this->declaredParameters && $this->hintedParameters) {
+                        $analyseParameter->bothDeclaredAndHinted();
+                    }
 
-                if ($this->declaredParameters && !$this->hintedParameters) {
-                    $analyseParameter->onlyDeclared();
-                }
+                    if ($this->declaredParameters && !$this->hintedParameters) {
+                        $analyseParameter->onlyDeclared();
+                    }
 
-                if (!$this->declaredParameters && $this->hintedParameters) {
-                    $analyseParameter->onlyHinted();
+                    if (!$this->declaredParameters && $this->hintedParameters) {
+                        $analyseParameter->onlyHinted();
+                    }
                 }
             }
 
@@ -134,10 +130,5 @@ final class AnalyseFunction extends AbstractAnalyser implements AnalyserInterfac
                 $analyseReturn->onlyHinted();
             }
         }
-
-		// Sending the issues downstream.
-		foreach ($this->getIssues() as $issue) {
-			$this->setIssue($issue);
-		}
     }
 }

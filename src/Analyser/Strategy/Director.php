@@ -1,23 +1,23 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MethodNode;
-use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseMethod;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ArrowFunctionNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ClosureNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\FunctionNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MagicMethodNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MethodNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\PropertyNode;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseArrowFunction;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseClosure;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseFunction;
-use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseProperty;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ClosureNode;
-use MikevanDiepen\Strictly\Configuration\Types\AbstractConfiguration;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MagicMethodNode;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseMagicMethod;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ArrowFunctionNode;
-use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseArrowFunction;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseMethod;
+use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyseProperty;
+use MikevanDiepen\Strictly\Configuration\Types\AbstractConfiguration;
 
 /**
  * Class Director.
@@ -33,11 +33,11 @@ final class Director
      */
     private File $file;
 
-	/**
-	 * Director constructor.
-	 *
-	 * @param File $file
-	 */
+    /**
+     * Director constructor.
+     *
+     * @param File $file
+     */
     public function __construct(File $file)
     {
         $this->file = $file;
@@ -53,50 +53,50 @@ final class Director
     public function direct(array $filters): void
     {
         // Whether ANY functional code or docblock can be analysed.
-        $functional = (bool) in_array(AbstractConfiguration::FUNCTIONAL, $filters);
-        $docblock   = (bool) in_array(AbstractConfiguration::DOCBLOCK, $filters);
+        $functional = (bool)in_array(AbstractConfiguration::FUNCTIONAL, $filters);
+        $docblock = (bool)in_array(AbstractConfiguration::DOCBLOCK, $filters);
 
         // Whether ANY return or parameter can be analysed.
-        $parameter  = (bool) in_array(AbstractConfiguration::PARAMETER, $filters);
-        $return     = (bool) in_array(AbstractConfiguration::RETURN, $filters);
+        $parameter = (bool)in_array(AbstractConfiguration::PARAMETER, $filters);
+        $return = (bool)in_array(AbstractConfiguration::RETURN, $filters);
 
         // Parameter functional or docblock scope.
-        $parameterFunctional = (bool) ($functional && $parameter)
+        $parameterFunctional = (bool)($functional && $parameter)
             ? (in_array(AbstractConfiguration::PARAMETER_FUNCTIONAL, $filters))
             : false;
-        $parameterDocblock = (bool) ($docblock && $parameter)
+        $parameterDocblock = (bool)($docblock && $parameter)
             ? (in_array(AbstractConfiguration::PARAMETER_DOCBLOCK, $filters))
             : false;
 
         // Return functional or docblock scope.
-        $declaredReturns = (bool) ($functional && $return)
+        $declaredReturns = (bool)($functional && $return)
             ? (in_array(AbstractConfiguration::RETURN_FUNCTIONAL, $filters))
             : false;
-        $hintedReturns = (bool) ($docblock && $return)
+        $hintedReturns = (bool)($docblock && $return)
             ? (in_array(AbstractConfiguration::RETURN_DOCBLOCK, $filters))
             : false;
 
         if (in_array(AbstractConfiguration::ARROW_FUNCTION, $filters)) {
-            $arrowFunctionFunctional = (bool) ($functional)
+            $arrowFunctionFunctional = (bool)($functional)
                 ? in_array(AbstractConfiguration::ARROW_FUNCTION_FUNCTIONAL, $filters)
                 : false;
-            $arrowFunctionDocblock = (bool) ($docblock)
+            $arrowFunctionDocblock = (bool)($docblock)
                 ? in_array(AbstractConfiguration::ARROW_FUNCTION_DOCBLOCK, $filters)
                 : false;
 
             // Whether arrow-function parameter analysis is enabled.
-            $arrowFunctionParameterFunctional = (bool) ($arrowFunctionFunctional && $parameterFunctional)
+            $arrowFunctionParameterFunctional = (bool)($arrowFunctionFunctional && $parameterFunctional)
                 ? in_array(AbstractConfiguration::ARROW_FUNCTION_PARAMETER_FUNCTIONAL, $filters)
                 : false;
-            $arrowFunctionParameterDocblock = (bool) ($arrowFunctionDocblock && $parameterDocblock)
+            $arrowFunctionParameterDocblock = (bool)($arrowFunctionDocblock && $parameterDocblock)
                 ? in_array(AbstractConfiguration::ARROW_FUNCTION_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether arrow-function return analysis is enabled.
-            $arrowFunctionDeclaredReturns = (bool) ($arrowFunctionFunctional && $declaredReturns)
+            $arrowFunctionDeclaredReturns = (bool)($arrowFunctionFunctional && $declaredReturns)
                 ? in_array(AbstractConfiguration::ARROW_FUNCTION_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $arrowFunctionHintedReturns = (bool) ($arrowFunctionDocblock && $hintedReturns)
+            $arrowFunctionHintedReturns = (bool)($arrowFunctionDocblock && $hintedReturns)
                 ? in_array(AbstractConfiguration::ARROW_FUNCTION_RETURN_DOCBLOCK, $filters)
                 : false;
 
@@ -116,26 +116,26 @@ final class Director
         }
 
         if (in_array(AbstractConfiguration::CLOSURE, $filters)) {
-            $closureFunctional = (bool) ($functional)
+            $closureFunctional = (bool)($functional)
                 ? in_array(AbstractConfiguration::CLOSURE_FUNCTIONAL, $filters)
                 : false;
-            $closureDocblock = (bool) ($docblock)
+            $closureDocblock = (bool)($docblock)
                 ? in_array(AbstractConfiguration::CLOSURE_DOCBLOCK, $filters)
                 : false;
 
             // Whether closure parameter analysis is enabled.
-            $closureParameterFunctional = (bool) ($closureFunctional && $parameterFunctional)
+            $closureParameterFunctional = (bool)($closureFunctional && $parameterFunctional)
                 ? in_array(AbstractConfiguration::CLOSURE_PARAMETER_FUNCTIONAL, $filters)
                 : false;
-            $closureParameterDocblock = (bool) ($closureDocblock && $parameterDocblock)
+            $closureParameterDocblock = (bool)($closureDocblock && $parameterDocblock)
                 ? in_array(AbstractConfiguration::CLOSURE_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether closure return analysis is enabled.
-            $closureDeclaredReturns = (bool) ($closureFunctional && $declaredReturns)
+            $closureDeclaredReturns = (bool)($closureFunctional && $declaredReturns)
                 ? in_array(AbstractConfiguration::CLOSURE_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $closureHintedReturns = (bool) ($closureDocblock && $hintedReturns)
+            $closureHintedReturns = (bool)($closureDocblock && $hintedReturns)
                 ? in_array(AbstractConfiguration::CLOSURE_RETURN_DOCBLOCK, $filters)
                 : false;
 
@@ -155,26 +155,26 @@ final class Director
         }
 
         if (in_array(AbstractConfiguration::FUNCTION, $filters)) {
-            $functionFunctional = (bool) ($functional)
+            $functionFunctional = (bool)($functional)
                 ? in_array(AbstractConfiguration::FUNCTION_FUNCTIONAL, $filters)
                 : false;
-            $functionDocblock = (bool) ($docblock)
+            $functionDocblock = (bool)($docblock)
                 ? in_array(AbstractConfiguration::FUNCTION_DOCBLOCK, $filters)
                 : false;
 
             // Whether function parameter analysis is enabled.
-            $functionParameterFunctional = (bool) ($functionFunctional && $parameterFunctional)
+            $functionParameterFunctional = (bool)($functionFunctional && $parameterFunctional)
                 ? in_array(AbstractConfiguration::FUNCTION_PARAMETER_FUNCTIONAL, $filters)
                 : false;
-            $functionParameterDocblock = (bool) ($functionDocblock && $parameterDocblock)
+            $functionParameterDocblock = (bool)($functionDocblock && $parameterDocblock)
                 ? in_array(AbstractConfiguration::FUNCTION_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether function return analysis is enabled.
-            $functionDeclaredReturns = (bool) ($functionFunctional && $declaredReturns)
+            $functionDeclaredReturns = (bool)($functionFunctional && $declaredReturns)
                 ? in_array(AbstractConfiguration::FUNCTION_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $functionHintedReturns = (bool) ($functionDocblock && $hintedReturns)
+            $functionHintedReturns = (bool)($functionDocblock && $hintedReturns)
                 ? in_array(AbstractConfiguration::FUNCTION_RETURN_DOCBLOCK, $filters)
                 : false;
 
@@ -194,26 +194,26 @@ final class Director
         }
 
         if (in_array(AbstractConfiguration::MAGIC_METHOD, $filters)) {
-            $magicMethodFunctional = (bool) ($functional)
+            $magicMethodFunctional = (bool)($functional)
                 ? in_array(AbstractConfiguration::MAGIC_METHOD_FUNCTIONAL, $filters)
                 : false;
-            $magicMethodDocblock = (bool) ($docblock)
+            $magicMethodDocblock = (bool)($docblock)
                 ? in_array(AbstractConfiguration::MAGIC_METHOD_DOCBLOCK, $filters)
                 : false;
 
             // Whether magic method parameter analysis is enabled.
-            $magicMethodParameterFunctional = (bool) ($magicMethodFunctional && $parameterFunctional)
+            $magicMethodParameterFunctional = (bool)($magicMethodFunctional && $parameterFunctional)
                 ? in_array(AbstractConfiguration::MAGIC_METHOD_PARAMETER_FUNCTIONAL, $filters)
                 : false;
-            $magicMethodParameterDocblock = (bool) ($magicMethodDocblock && $parameterDocblock)
+            $magicMethodParameterDocblock = (bool)($magicMethodDocblock && $parameterDocblock)
                 ? in_array(AbstractConfiguration::MAGIC_METHOD_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether magic method return analysis is enabled.
-            $magicMethodDeclaredReturns = (bool) ($magicMethodFunctional && $declaredReturns)
+            $magicMethodDeclaredReturns = (bool)($magicMethodFunctional && $declaredReturns)
                 ? in_array(AbstractConfiguration::MAGIC_METHOD_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $magicMethodHintedReturns = (bool) ($magicMethodDocblock && $hintedReturns)
+            $magicMethodHintedReturns = (bool)($magicMethodDocblock && $hintedReturns)
                 ? in_array(AbstractConfiguration::MAGIC_METHOD_RETURN_DOCBLOCK, $filters)
                 : false;
 
@@ -233,26 +233,26 @@ final class Director
         }
 
         if (in_array(AbstractConfiguration::METHOD, $filters)) {
-            $methodFunctional = (bool) ($functional)
+            $methodFunctional = (bool)($functional)
                 ? in_array(AbstractConfiguration::METHOD_FUNCTIONAL, $filters)
                 : false;
-            $methodDocblock = (bool) ($docblock)
+            $methodDocblock = (bool)($docblock)
                 ? in_array(AbstractConfiguration::METHOD_DOCBLOCK, $filters)
                 : false;
 
             // Whether method parameter analysis is enabled.
-            $methodParameterFunctional = (bool) ($methodFunctional && $parameterFunctional)
+            $methodParameterFunctional = (bool)($methodFunctional && $parameterFunctional)
                 ? in_array(AbstractConfiguration::METHOD_PARAMETER_FUNCTIONAL, $filters)
                 : false;
-            $methodParameterDocblock = (bool) ($methodDocblock && $parameterDocblock)
+            $methodParameterDocblock = (bool)($methodDocblock && $parameterDocblock)
                 ? in_array(AbstractConfiguration::METHOD_PARAMETER_DOCBLOCK, $filters)
                 : false;
 
             // Whether method return analysis is enabled.
-            $methodDeclaredReturns = (bool) ($methodFunctional && $declaredReturns)
+            $methodDeclaredReturns = (bool)($methodFunctional && $declaredReturns)
                 ? in_array(AbstractConfiguration::METHOD_RETURN_FUNCTIONAL, $filters)
                 : false;
-            $methodHintedReturns = (bool) ($methodDocblock && $hintedReturns)
+            $methodHintedReturns = (bool)($methodDocblock && $hintedReturns)
                 ? in_array(AbstractConfiguration::METHOD_RETURN_DOCBLOCK, $filters)
                 : false;
 
@@ -272,10 +272,10 @@ final class Director
         }
 
         if (in_array(AbstractConfiguration::PROPERTY, $filters)) {
-            $propertyFunctional = (bool) ($functional)
+            $propertyFunctional = (bool)($functional)
                 ? in_array(AbstractConfiguration::PROPERTY_FUNCTIONAL, $filters)
                 : false;
-            $propertyDocblock = (bool) ($docblock)
+            $propertyDocblock = (bool)($docblock)
                 ? in_array(AbstractConfiguration::PROPERTY_DOCBLOCK, $filters)
                 : false;
 
@@ -295,12 +295,12 @@ final class Director
      * The analyser for the arrow function node.
      *
      * @param ArrowFunctionNode $arrowFunctionNode
-     * @param bool              $functional
-     * @param bool              $docblock
-     * @param bool              $declaredParameters
-     * @param bool              $hintedParameters
-     * @param bool              $declaredReturns
-     * @param bool              $hintedReturns
+     * @param bool $functional
+     * @param bool $docblock
+     * @param bool $declaredParameters
+     * @param bool $hintedParameters
+     * @param bool $declaredReturns
+     * @param bool $hintedReturns
      *
      * @return void
      */
@@ -312,8 +312,7 @@ final class Director
         bool $hintedParameters,
         bool $declaredReturns,
         bool $hintedReturns
-    ): void
-    {
+    ): void {
         // The analyser class for this strategy.
         $analyser = new AnalyseArrowFunction($arrowFunctionNode);
         $analyser->analyseDeclaredParameters($declaredParameters);
@@ -341,12 +340,12 @@ final class Director
      * The analyser for the closure node.
      *
      * @param ClosureNode $closureNode
-     * @param bool        $functional
-     * @param bool        $docblock
-     * @param bool        $declaredParameters
-     * @param bool        $hintedParameters
-     * @param bool        $declaredReturns
-     * @param bool        $hintedReturns
+     * @param bool $functional
+     * @param bool $docblock
+     * @param bool $declaredParameters
+     * @param bool $hintedParameters
+     * @param bool $declaredReturns
+     * @param bool $hintedReturns
      *
      * @return void
      */
@@ -358,8 +357,7 @@ final class Director
         bool $hintedParameters,
         bool $declaredReturns,
         bool $hintedReturns
-    ): void
-    {
+    ): void {
         // The analyser class for this strategy.
         $analyser = new AnalyseClosure($closureNode);
         $analyser->analyseDeclaredParameters($declaredParameters);
@@ -387,12 +385,12 @@ final class Director
      * The analyser for the function node.
      *
      * @param FunctionNode $functionNode
-     * @param bool         $functional
-     * @param bool         $docblock
-     * @param bool         $declaredParameters
-     * @param bool         $hintedParameters
-     * @param bool         $declaredReturns
-     * @param bool         $hintedReturns
+     * @param bool $functional
+     * @param bool $docblock
+     * @param bool $declaredParameters
+     * @param bool $hintedParameters
+     * @param bool $declaredReturns
+     * @param bool $hintedReturns
      *
      * @return void
      */
@@ -404,8 +402,7 @@ final class Director
         bool $hintedParameters,
         bool $declaredReturns,
         bool $hintedReturns
-    ): void
-    {
+    ): void {
         // The analyser class for this strategy.
         $analyser = new AnalyseFunction($functionNode);
         $analyser->analyseDeclaredParameters($declaredParameters);
@@ -433,12 +430,12 @@ final class Director
      * The analyser for the magic node.
      *
      * @param MagicMethodNode $magicMethodNode
-     * @param bool            $functional
-     * @param bool            $docblock
-     * @param bool            $declaredParameters
-     * @param bool            $hintedParameters
-     * @param bool            $declaredReturns
-     * @param bool            $hintedReturns
+     * @param bool $functional
+     * @param bool $docblock
+     * @param bool $declaredParameters
+     * @param bool $hintedParameters
+     * @param bool $declaredReturns
+     * @param bool $hintedReturns
      *
      * @return void
      */
@@ -450,8 +447,7 @@ final class Director
         bool $hintedParameters,
         bool $declaredReturns,
         bool $hintedReturns
-    ): void
-    {
+    ): void {
         // The analyser class for this strategy.
         $analyser = new AnalyseMagicMethod($magicMethodNode);
         $analyser->analyseDeclaredParameters($declaredParameters);
@@ -479,12 +475,12 @@ final class Director
      * The analyser for the method node.
      *
      * @param MethodNode $methodNode
-     * @param bool       $functional
-     * @param bool       $docblock
-     * @param bool       $declaredParameters
-     * @param bool       $hintedParameters
-     * @param bool       $declaredReturns
-     * @param bool       $hintedReturns
+     * @param bool $functional
+     * @param bool $docblock
+     * @param bool $declaredParameters
+     * @param bool $hintedParameters
+     * @param bool $declaredReturns
+     * @param bool $hintedReturns
      *
      * @return void
      */
@@ -496,10 +492,9 @@ final class Director
         bool $hintedParameters,
         bool $declaredReturns,
         bool $hintedReturns
-    ): void
-    {
+    ): void {
         // The analyser class for this strategy.
-        $analyser = new AnalyseMethod($methodNode);
+        $analyser = (new AnalyseMethod($methodNode));
         $analyser->analyseDeclaredParameters($declaredParameters);
         $analyser->analyseHintedParameters($hintedParameters);
         $analyser->analyseDeclaredReturns($declaredReturns);
@@ -525,8 +520,8 @@ final class Director
      * The analyser for the property node.
      *
      * @param PropertyNode $propertyNode
-     * @param bool         $functional
-     * @param bool         $docblock
+     * @param bool $functional
+     * @param bool $docblock
      *
      * @return void
      */
@@ -534,8 +529,7 @@ final class Director
         PropertyNode $propertyNode,
         bool $functional,
         bool $docblock
-    ): void
-    {
+    ): void {
         // The analyser class for this strategy.
         $analyser = new AnalyseProperty($propertyNode);
 
@@ -555,13 +549,13 @@ final class Director
         }
     }
 
-	/**
-	 * Returning the file after it has been analysed.
-	 *
-	 * @return File
-	 */
+    /**
+     * Returning the file after it has been analysed.
+     *
+     * @return File
+     */
     public function getAnalysisResults(): File
-	{
-		return $this->file;
-	}
+    {
+        return $this->file;
+    }
 }

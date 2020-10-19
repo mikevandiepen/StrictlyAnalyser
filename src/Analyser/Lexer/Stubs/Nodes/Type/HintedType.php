@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type;
 
-use phpDocumentor\Reflection\Type;
-use phpDocumentor\Reflection\Types\Object_;
-use phpDocumentor\Reflection\Types\Compound;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Structural\TypeDefined;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Structural\TypeUndefined;
+use phpDocumentor\Reflection\Type;
+use phpDocumentor\Reflection\Types\Compound;
+use phpDocumentor\Reflection\Types\Object_;
 
 /**
  * Class HintedType.
@@ -29,36 +29,36 @@ final class HintedType extends AbstractType
      */
     public function __construct(?Type $type)
     {
-    	$this->getTypeFromNode($type);
+        $this->getTypeFromNode($type);
     }
 
-	/**
-	 * The nodes are assigned in the constructor and that is where the process starts.
-	 * This method is purely so it can run recursively.
-	 *
-	 * @param $type
-	 *
-	 * @return void
-	 * @throws \ReflectionException
-	 */
-	protected function getTypeFromNode($type): void
-	{
-		if (empty($type)) {
-			$this->setType(new TypeUndefined());
+    /**
+     * The nodes are assigned in the constructor and that is where the process starts.
+     * This method is purely so it can run recursively.
+     *
+     * @param $type
+     *
+     * @return void
+     * @throws \ReflectionException
+     */
+    protected function getTypeFromNode($type): void
+    {
+        if (empty($type)) {
+            $this->setType(new TypeUndefined());
 
-			return;
-		}
+            return;
+        }
 
-		if ($type instanceof Compound) {
-			foreach (explode('|', $type) as $tagType) {
-				$this->setType(new TypeDefined(ltrim($tagType, '\\')));
-			}
-		} else {
-			if ($type instanceof Object_) {
-				$this->setType(new TypeDefined((new \ReflectionClass($type))->getShortName()));
-			} else {
-				$this->setType(new TypeDefined($type));
-			}
-		}
-	}
+        if ($type instanceof Compound) {
+            foreach (explode('|', $type) as $tagType) {
+                $this->setType(new TypeDefined(ltrim($tagType, '\\')));
+            }
+        } else {
+            if ($type instanceof Object_) {
+                $this->setType(new TypeDefined((new \ReflectionClass($type))->getShortName()));
+            } else {
+                $this->setType(new TypeDefined($type));
+            }
+        }
+    }
 }

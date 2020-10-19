@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Console\Input;
 
-use MikevanDiepen\Strictly\Strictly;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
-use MikevanDiepen\Strictly\Analyser\Lexer\Lexer;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use MikevanDiepen\Strictly\Analyser\Strategy\Director;
-use MikevanDiepen\Strictly\Exception\StrictlyException;
-use MikevanDiepen\Strictly\Configuration\StrictlyConfiguration;
 use MikevanDiepen\Strictly\Console\Output\GeneratePrettyOutput;
 use MikevanDiepen\Strictly\Console\Output\GenerateSimpleOutput;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
+use MikevanDiepen\Strictly\Strictly;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class StrictlyCommand.
@@ -23,9 +20,9 @@ use MikevanDiepen\Strictly\Console\Output\GenerateSimpleOutput;
  */
 final class StrictlyCommand extends Command
 {
-	/** @var string The types of output which can be printed. */
-	public const PRINT_RESULTS_PRETTY = GeneratePrettyOutput::class;
-	public const PRINT_RESULTS_SIMPLE = GenerateSimpleOutput::class;
+    /** @var string The types of output which can be printed. */
+    public const PRINT_RESULTS_PRETTY = GeneratePrettyOutput::class;
+    public const PRINT_RESULTS_SIMPLE = GenerateSimpleOutput::class;
 
     /**
      * How the analysis command is run.
@@ -41,11 +38,11 @@ final class StrictlyCommand extends Command
      * @var array
      */
     private array $outputOption = [
-        'name'          => 'output',
-        'shortcut'      => 'o',
-        'mode'          => InputOption::VALUE_REQUIRED,
-        'description'   => 'How the output should be formatted.',
-        'default'       => 'abstract',
+        'name' => 'output',
+        'shortcut' => 'o',
+        'mode' => InputOption::VALUE_REQUIRED,
+        'description' => 'How the output should be formatted.',
+        'default' => 'abstract',
     ];
 
     /**
@@ -67,21 +64,21 @@ final class StrictlyCommand extends Command
             );
     }
 
-	/**
-	 * Executing the strictly command.
-	 *
-	 * @param InputInterface  $input
-	 * @param OutputInterface $output
-	 *
-	 * @return int
-	 * @throws StrictlyException
-	 */
+    /**
+     * Executing the strictly command.
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int
+     * @throws StrictlyException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-    	// Running the analyser.
-		$strictly = new Strictly();
-		$strictly->analyse(self::PRINT_RESULTS_PRETTY);
+        // Running the analyser.
+        $strictly = new Strictly();
+        $strictly->analyse(self::PRINT_RESULTS_PRETTY);
 
-		return 1;
+        return 1;
     }
 }

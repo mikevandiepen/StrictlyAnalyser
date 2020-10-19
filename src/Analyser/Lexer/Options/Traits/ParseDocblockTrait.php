@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits;
 
-use PhpParser\Node;
-use phpDocumentor\Reflection\Type;
-use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\Types\Null_;
-use phpDocumentor\Reflection\Types\Mixed_;
-use phpDocumentor\Reflection\Types\Object_;
-use phpDocumentor\Reflection\Types\Compound;
-use phpDocumentor\Reflection\DocBlockFactory;
-use phpDocumentor\Reflection\DocBlock\Tags\Generic;
 use MikevanDiepen\Strictly\Exception\StrictlyException;
+use phpDocumentor\Reflection\DocBlock;
+use phpDocumentor\Reflection\DocBlock\Tags\Generic;
+use phpDocumentor\Reflection\DocBlockFactory;
+use phpDocumentor\Reflection\Type;
+use phpDocumentor\Reflection\Types\Compound;
+use phpDocumentor\Reflection\Types\Mixed_;
+use phpDocumentor\Reflection\Types\Null_;
+use phpDocumentor\Reflection\Types\Object_;
+use PhpParser\Node;
 
 /**
  * Trait ParseDocblockTrait.
@@ -76,67 +76,67 @@ trait ParseDocblockTrait
         $tags = $this->getDocblock()->getTagsByName($tagName);
 
         if (count($tags) === 0) {
-        	return null;
-		}
+            return null;
+        }
 
         return $tags[0]->getType();
     }
 
-	/**
-	 * Collecting the return from the docblock.
-	 *
-	 * @return \phpDocumentor\Reflection\Type|null
-	 * @throws StrictlyException
-	 */
-	protected function getHintedReturnType(): ?Type
-	{
-		$tagName = 'return';
+    /**
+     * Collecting the return from the docblock.
+     *
+     * @return \phpDocumentor\Reflection\Type|null
+     * @throws StrictlyException
+     */
+    protected function getHintedReturnType(): ?Type
+    {
+        $tagName = 'return';
 
-		if ($this->isSuppressedByType($tagName)) {
-			return null;
-		}
+        if ($this->isSuppressedByType($tagName)) {
+            return null;
+        }
 
-		/** @var \phpDocumentor\Reflection\DocBlock\Tags\Return_[] $tags */
-		$tags = $this->docblock->getTagsByName($tagName);
+        /** @var \phpDocumentor\Reflection\DocBlock\Tags\Return_[] $tags */
+        $tags = $this->docblock->getTagsByName($tagName);
 
-		if (count($tags) === 0) {
-			return null;
-		}
+        if (count($tags) === 0) {
+            return null;
+        }
 
-		return $tags[0]->getType();
-	}
+        return $tags[0]->getType();
+    }
 
-	/**
-	 * Collecting the parameter from the docblock based upon the given parameter.
-	 * Returning null if the parameter is untyped.
-	 *
-	 * @param string $parameter
-	 *
-	 * @return \phpDocumentor\Reflection\Type|null
-	 * @throws StrictlyException
-	 */
-	protected function getHintedParameterType(string $parameter): ?Type
-	{
-		$tagName = 'param';
+    /**
+     * Collecting the parameter from the docblock based upon the given parameter.
+     * Returning null if the parameter is untyped.
+     *
+     * @param string $parameter
+     *
+     * @return \phpDocumentor\Reflection\Type|null
+     * @throws StrictlyException
+     */
+    protected function getHintedParameterType(string $parameter): ?Type
+    {
+        $tagName = 'param';
 
-		if ($this->isSuppressedByType($tagName)) {
-			return null;
-		}
+        if ($this->isSuppressedByType($tagName)) {
+            return null;
+        }
 
-		/** @var \phpDocumentor\Reflection\DocBlock\Tags\Param[] $tags */
-		$tags = $this->docblock->getTagsByName($tagName);
+        /** @var \phpDocumentor\Reflection\DocBlock\Tags\Param[] $tags */
+        $tags = $this->docblock->getTagsByName($tagName);
 
-		foreach ($tags as $tag) {
-			// Validating whether the parameter tag has a type based upon the given type.
-			if ($tag->getVariableName() !== $parameter) {
-				continue;
-			}
+        foreach ($tags as $tag) {
+            // Validating whether the parameter tag has a type based upon the given type.
+            if ($tag->getVariableName() !== $parameter) {
+                continue;
+            }
 
-			return $tag->getType();
-		}
+            return $tag->getType();
+        }
 
-		return null;
-	}
+        return null;
+    }
 
     /**
      * Dynamically validating whether the type of the given tag is suppressed by type in the docblock.
@@ -146,7 +146,7 @@ trait ParseDocblockTrait
      * If the parameter argument is set the validation will analyse that specific parameter name.
      * Because validating all parameters is not the most effective way to approach the analysis.
      *
-     * @param string      $type
+     * @param string $type
      * @param string|null $parameter
      *
      * @return bool
@@ -161,20 +161,36 @@ trait ParseDocblockTrait
             // The parameter analysis deviates from the default analysis.
             // since the analysis will be done by parameter name the approach is slightly different.
             if ($type === 'parameter' && $parameter !== null) {
-                if ($tag->getVariableName() !== $parameter) {
-                    continue;
+                if ($tag->getVariableName() === $parameter) {
+                    if ($this->typeIsset($tag->getType())) {
+                        return true;
+                    }
+                    if ($this->typeIsMixed($tag->getType())) {
+                        return true;
+                    }
+                    if ($this->typeIsObject($tag->getType())) {
+                        return true;
+                    }
+                    if ($this->typeIsCompound($tag->getType())) {
+                        return true;
+                    }
                 }
 
-                if ($this->typeIsset($tag->getType())) return true;
-                if ($this->typeIsMixed($tag->getType())) return true;
-                if ($this->typeIsObject($tag->getType())) return true;
-                if ($this->typeIsCompound($tag->getType())) return true;
+                continue;
             }
 
-            if ($this->typeIsset($tag->getType())) return true;
-            if ($this->typeIsMixed($tag->getType())) return true;
-            if ($this->typeIsObject($tag->getType())) return true;
-            if ($this->typeIsCompound($tag->getType())) return true;
+            if ($this->typeIsset($tag->getType())) {
+                return true;
+            }
+            if ($this->typeIsMixed($tag->getType())) {
+                return true;
+            }
+            if ($this->typeIsObject($tag->getType())) {
+                return true;
+            }
+            if ($this->typeIsCompound($tag->getType())) {
+                return true;
+            }
         }
 
         return false;
@@ -189,7 +205,7 @@ trait ParseDocblockTrait
      */
     private function typeIsset(?Type $type): bool
     {
-        return (bool) ($type);
+        return (bool)($type !== null);
     }
 
     /**
@@ -201,7 +217,7 @@ trait ParseDocblockTrait
      */
     private function typeIsMixed(?Type $type): bool
     {
-        return (bool) ($type instanceof Mixed_);
+        return (bool)($type instanceof Mixed_);
     }
 
     /**
@@ -214,7 +230,7 @@ trait ParseDocblockTrait
      */
     private function typeIsObject(?Type $type): bool
     {
-        return (bool) (($type instanceof Object_) && (!$type->getFqsen()));
+        return (bool)(($type instanceof Object_) && (!$type->getFqsen()));
     }
 
     /**
@@ -233,15 +249,15 @@ trait ParseDocblockTrait
                 // Ex: string|null => ?string
                 foreach ($type as $t) {
                     if ($t instanceof Null_) {
-                        return (bool) false;
+                        return (bool)false;
                     }
                 }
             }
 
-            return (bool) true;
+            return (bool)true;
         }
 
-        return (bool) false;
+        return (bool)false;
     }
 
     /**

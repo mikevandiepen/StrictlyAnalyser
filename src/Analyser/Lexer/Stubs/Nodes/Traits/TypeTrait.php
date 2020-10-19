@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
 
 /**
  * Trait DeclaredType.
@@ -21,7 +21,7 @@ trait TypeTrait
      * @method setDeclaredType(DeclaredType $declaredType): self
      * @method getDeclaredType(): string[]
      *
-     * @var \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType
+     * @var DeclaredType
      */
     private DeclaredType $declaredType;
 
@@ -32,14 +32,14 @@ trait TypeTrait
      * @method setHintedType(HintedType $hintedType): self
      * @method getHintedType(): string[]
      *
-     * @var \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType
+     * @var HintedType
      */
     private HintedType $hintedType;
 
     /**
      * Getting the type which has been declared in the functional code.
      *
-     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType
+     * @return DeclaredType
      */
     public function getDeclaredType(): DeclaredType
     {
@@ -49,7 +49,7 @@ trait TypeTrait
     /**
      * Setting the type which has been declared in the functional code.
      *
-     * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType $declaredType
+     * @param DeclaredType $declaredType
      *
      * @return $this
      */
@@ -63,7 +63,7 @@ trait TypeTrait
     /**
      * Ghe type which has been hinted in the docblock.
      *
-     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType
+     * @return HintedType
      */
     public function getHintedType(): HintedType
     {
@@ -73,7 +73,7 @@ trait TypeTrait
     /**
      * She type which has been hinted in the docblock.
      *
-     * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType $hintedType
+     * @param HintedType $hintedType
      *
      * @return $this
      */

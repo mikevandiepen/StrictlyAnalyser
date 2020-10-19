@@ -13,26 +13,26 @@ use Symfony\Component\Finder\Finder;
  */
 abstract class AbstractConfiguration
 {
-	// Global analysis scopes.
-	public const FUNCTIONAL = 'functional';
-	public const DOCBLOCK = 'docblock';
-	// Parameter analysis scopes.
+    // Global analysis scopes.
+    public const FUNCTIONAL = 'functional';
+    public const DOCBLOCK = 'docblock';
+    // Parameter analysis scopes.
     public const PARAMETER = 'parameter';
     public const PARAMETER_FUNCTIONAL = 'parameter-functional';
     public const PARAMETER_DOCBLOCK = 'parameter-docblock';
-	// Return analysis scopes.
+    // Return analysis scopes.
     public const RETURN = 'return';
     public const RETURN_FUNCTIONAL = 'return-functional';
     public const RETURN_DOCBLOCK = 'return-docblock';
-	// Property analysis scopes.
+    // Property analysis scopes.
     public const PROPERTY = 'property';
     public const PROPERTY_FUNCTIONAL = 'property-functional';
     public const PROPERTY_DOCBLOCK = 'property-docblock';
-	// Callable analysis scopes.
-	public const CALLABLE = 'callable';
-	public const CALLABLE_FUNCTIONAL = 'callable-functional';
-	public const CALLABLE_DOCBLOCK = 'callable-docblock';
-	// Arrow function analysis scopes.
+    // Callable analysis scopes.
+    public const CALLABLE = 'callable';
+    public const CALLABLE_FUNCTIONAL = 'callable-functional';
+    public const CALLABLE_DOCBLOCK = 'callable-docblock';
+    // Arrow function analysis scopes.
     public const ARROW_FUNCTION = 'arrow-function';
     public const ARROW_FUNCTION_FUNCTIONAL = 'arrow-function-functional';
     public const ARROW_FUNCTION_DOCBLOCK = 'arrow-function-docblock';
@@ -40,7 +40,7 @@ abstract class AbstractConfiguration
     public const ARROW_FUNCTION_PARAMETER_DOCBLOCK = 'arrow-function-parameter-docblock';
     public const ARROW_FUNCTION_RETURN_FUNCTIONAL = 'arrow-function-return-functional';
     public const ARROW_FUNCTION_RETURN_DOCBLOCK = 'arrow-function-return-docblock';
-	// Closure analysis scopes.
+    // Closure analysis scopes.
     public const CLOSURE = 'closure';
     public const CLOSURE_FUNCTIONAL = 'closure-functional';
     public const CLOSURE_DOCBLOCK = 'closure-docblock';
@@ -48,7 +48,7 @@ abstract class AbstractConfiguration
     public const CLOSURE_PARAMETER_DOCBLOCK = 'closure-parameter-docblock';
     public const CLOSURE_RETURN_FUNCTIONAL = 'closure-return-functional';
     public const CLOSURE_RETURN_DOCBLOCK = 'closure-return-docblock';
-	// Function analysis scopes.
+    // Function analysis scopes.
     public const FUNCTION = 'function';
     public const FUNCTION_FUNCTIONAL = 'function-functional';
     public const FUNCTION_DOCBLOCK = 'function-docblock';
@@ -56,7 +56,7 @@ abstract class AbstractConfiguration
     public const FUNCTION_PARAMETER_DOCBLOCK = 'function-parameter-docblock';
     public const FUNCTION_RETURN_FUNCTIONAL = 'function-return-functional';
     public const FUNCTION_RETURN_DOCBLOCK = 'function-return-docblock';
-	// Magic method analysis scopes.
+    // Magic method analysis scopes.
     public const MAGIC_METHOD = 'magic-method';
     public const MAGIC_METHOD_FUNCTIONAL = 'magic-method-functional';
     public const MAGIC_METHOD_DOCBLOCK = 'magic-method-docblock';
@@ -64,7 +64,7 @@ abstract class AbstractConfiguration
     public const MAGIC_METHOD_PARAMETER_DOCBLOCK = 'magic-method-parameter-docblock';
     public const MAGIC_METHOD_RETURN_FUNCTIONAL = 'magic-method-return-functional';
     public const MAGIC_METHOD_RETURN_DOCBLOCK = 'magic-method-return-docblock';
-	// Method analysis scopes.
+    // Method analysis scopes.
     public const METHOD = 'method';
     public const METHOD_FUNCTIONAL = 'method-functional';
     public const METHOD_DOCBLOCK = 'method-docblock';
@@ -75,65 +75,65 @@ abstract class AbstractConfiguration
 
     /** @var array All the analysers which can be applied. */
     protected const STRICTLY_ANALYSER_OPTIONS = [
-    	// Global analysis scopes.
-		self::FUNCTIONAL,
-		self::DOCBLOCK,
-		// Parameter analysis scopes.
-		self::PARAMETER,
-		self::PARAMETER_FUNCTIONAL,
-		self::PARAMETER_DOCBLOCK,
-		// Return analysis scopes.
-		self::RETURN,
-		self::RETURN_FUNCTIONAL,
-		self::RETURN_DOCBLOCK,
-		// Property analysis scopes.
-		self::PROPERTY,
-		self::PROPERTY_FUNCTIONAL,
-		self::PROPERTY_DOCBLOCK,
-		// Callable analysis scopes.
-		self::CALLABLE,
-		self::CALLABLE_FUNCTIONAL,
-		self::CALLABLE_DOCBLOCK,
-		// Arrow function analysis scopes.
-		self::ARROW_FUNCTION,
-		self::ARROW_FUNCTION_FUNCTIONAL,
-		self::ARROW_FUNCTION_DOCBLOCK,
-		self::ARROW_FUNCTION_PARAMETER_FUNCTIONAL,
-		self::ARROW_FUNCTION_PARAMETER_DOCBLOCK,
-		self::ARROW_FUNCTION_RETURN_FUNCTIONAL,
-		self::ARROW_FUNCTION_RETURN_DOCBLOCK,
-		// Closure analysis scopes.
-		self::CLOSURE,
-		self::CLOSURE_FUNCTIONAL,
-		self::CLOSURE_DOCBLOCK,
-		self::CLOSURE_PARAMETER_FUNCTIONAL,
-		self::CLOSURE_PARAMETER_DOCBLOCK,
-		self::CLOSURE_RETURN_FUNCTIONAL,
-		self::CLOSURE_RETURN_DOCBLOCK,
-		// Function analysis scopes.
-		self::FUNCTION,
-		self::FUNCTION_FUNCTIONAL,
-		self::FUNCTION_DOCBLOCK,
-		self::FUNCTION_PARAMETER_FUNCTIONAL,
-		self::FUNCTION_PARAMETER_DOCBLOCK,
-		self::FUNCTION_RETURN_FUNCTIONAL,
-		self::FUNCTION_RETURN_DOCBLOCK,
-		// Magic method analysis scopes.
-		self::MAGIC_METHOD,
-		self::MAGIC_METHOD_FUNCTIONAL,
-		self::MAGIC_METHOD_DOCBLOCK,
-		self::MAGIC_METHOD_PARAMETER_FUNCTIONAL,
-		self::MAGIC_METHOD_PARAMETER_DOCBLOCK,
-		self::MAGIC_METHOD_RETURN_FUNCTIONAL,
-		self::MAGIC_METHOD_RETURN_DOCBLOCK,
-		// Method analysis scopes.
-		self::METHOD,
-		self::METHOD_FUNCTIONAL,
-		self::METHOD_DOCBLOCK,
-		self::METHOD_PARAMETER_FUNCTIONAL,
-		self::METHOD_PARAMETER_DOCBLOCK,
-		self::METHOD_RETURN_FUNCTIONAL,
-		self::METHOD_RETURN_DOCBLOCK,
+        // Global analysis scopes.
+        self::FUNCTIONAL,
+        self::DOCBLOCK,
+        // Parameter analysis scopes.
+        self::PARAMETER,
+        self::PARAMETER_FUNCTIONAL,
+        self::PARAMETER_DOCBLOCK,
+        // Return analysis scopes.
+        self::RETURN,
+        self::RETURN_FUNCTIONAL,
+        self::RETURN_DOCBLOCK,
+        // Property analysis scopes.
+        self::PROPERTY,
+        self::PROPERTY_FUNCTIONAL,
+        self::PROPERTY_DOCBLOCK,
+        // Callable analysis scopes.
+        self::CALLABLE,
+        self::CALLABLE_FUNCTIONAL,
+        self::CALLABLE_DOCBLOCK,
+        // Arrow function analysis scopes.
+        self::ARROW_FUNCTION,
+        self::ARROW_FUNCTION_FUNCTIONAL,
+        self::ARROW_FUNCTION_DOCBLOCK,
+        self::ARROW_FUNCTION_PARAMETER_FUNCTIONAL,
+        self::ARROW_FUNCTION_PARAMETER_DOCBLOCK,
+        self::ARROW_FUNCTION_RETURN_FUNCTIONAL,
+        self::ARROW_FUNCTION_RETURN_DOCBLOCK,
+        // Closure analysis scopes.
+        self::CLOSURE,
+        self::CLOSURE_FUNCTIONAL,
+        self::CLOSURE_DOCBLOCK,
+        self::CLOSURE_PARAMETER_FUNCTIONAL,
+        self::CLOSURE_PARAMETER_DOCBLOCK,
+        self::CLOSURE_RETURN_FUNCTIONAL,
+        self::CLOSURE_RETURN_DOCBLOCK,
+        // Function analysis scopes.
+        self::FUNCTION,
+        self::FUNCTION_FUNCTIONAL,
+        self::FUNCTION_DOCBLOCK,
+        self::FUNCTION_PARAMETER_FUNCTIONAL,
+        self::FUNCTION_PARAMETER_DOCBLOCK,
+        self::FUNCTION_RETURN_FUNCTIONAL,
+        self::FUNCTION_RETURN_DOCBLOCK,
+        // Magic method analysis scopes.
+        self::MAGIC_METHOD,
+        self::MAGIC_METHOD_FUNCTIONAL,
+        self::MAGIC_METHOD_DOCBLOCK,
+        self::MAGIC_METHOD_PARAMETER_FUNCTIONAL,
+        self::MAGIC_METHOD_PARAMETER_DOCBLOCK,
+        self::MAGIC_METHOD_RETURN_FUNCTIONAL,
+        self::MAGIC_METHOD_RETURN_DOCBLOCK,
+        // Method analysis scopes.
+        self::METHOD,
+        self::METHOD_FUNCTIONAL,
+        self::METHOD_DOCBLOCK,
+        self::METHOD_PARAMETER_FUNCTIONAL,
+        self::METHOD_PARAMETER_DOCBLOCK,
+        self::METHOD_RETURN_FUNCTIONAL,
+        self::METHOD_RETURN_DOCBLOCK,
     ];
 
     /** @var string The basename of the configuration file, file type is not of the importance. */
@@ -283,7 +283,7 @@ abstract class AbstractConfiguration
     private function getEnabledAnalysers(): ?array
     {
         if ($this->hasEnabledAnalysers()) {
-            return (array) $this->configuration['project']['analysers']['enabled'];
+            return (array)$this->configuration['project']['analysers']['enabled'];
         }
 
         return null;
@@ -296,7 +296,7 @@ abstract class AbstractConfiguration
      */
     private function hasEnabledAnalysers(): bool
     {
-        return (bool) (isset($this->configuration['project']['analysers']['enabled']));
+        return (bool)(isset($this->configuration['project']['analysers']['enabled']));
     }
 
     /**
@@ -307,7 +307,7 @@ abstract class AbstractConfiguration
     private function getDisabledAnalysers(): ?array
     {
         if ($this->hasDisabledAnalysers()) {
-            return (array) $this->configuration['project']['analysers']['disabled'];
+            return (array)$this->configuration['project']['analysers']['disabled'];
         }
 
         return null;
@@ -320,6 +320,6 @@ abstract class AbstractConfiguration
      */
     private function hasDisabledAnalysers(): bool
     {
-        return (bool) (isset($this->configuration['project']['analysers']['disabled']));
+        return (bool)(isset($this->configuration['project']['analysers']['disabled']));
     }
 }

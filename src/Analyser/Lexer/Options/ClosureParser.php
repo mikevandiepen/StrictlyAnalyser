@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
-use PhpParser\Node;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ClosureNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ReturnParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ParameterParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ReturnParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ClosureNode;
+use PhpParser\Node;
 
 /**
  * Class ClosureParser.
@@ -27,30 +29,37 @@ final class ClosureParser implements LexerOptionInterface
      * @param \PhpParser\Node $node
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
+     * @throws \ReflectionException
      */
     public function parse(Node $node): AbstractNode
     {
-		$functionNode = new ClosureNode();
-		$functionNode->setName($node->name->name);
-		$functionNode->setStartLine($node->getStartLine());
-		$functionNode->setEndLine($node->getEndLine());
+        $functionNode = new ClosureNode();
+        $functionNode->setName('Closure');
+        $functionNode->setStartLine($node->getStartLine());
+        $functionNode->setEndLine($node->getEndLine());
 
-		// Parsing through all the parameters and handling them.
-		for ($i = 0; $i < count($node->getParams()); $i++) {
-			$parameter = new ParameterParser();
-			$parameter->setDocblockFromNode($node);
-			$parameter->setParameterIndex($i);
+        // Parsing through all the parameters and handling them.
+        $nodeParams = $node->getParams();
+        for ($i = 0; $i < count($nodeParams); $i++) {
+            $parameter = new ParameterParser();
+            $parameter->setDocblockFromNode($node);
+            $parameter->setParameterIndex($i);
 
-			$newNode = $node->getParams()[$i];
+            $parameterNode = $parameter->parse($nodeParams[$i]);
+            if ($parameterNode instanceof ParameterNode) {
+                $functionNode->setParameters($parameterNode);
+            }
+        }
 
-			$functionNode->setParameters($parameter->parse($newNode));
-		}
+        $return = new ReturnParser();
+        $return->setDocblockFromNode($node);
 
-		$return = new ReturnParser();
-		$return->setDocblockFromNode($node);
+        $returnNode = $return->parse($node);
+        if ($returnNode instanceof ReturnNode) {
+            $functionNode->setReturn($returnNode);
+        }
 
-		$functionNode->setReturn($return->parse($node));
-
-		return $functionNode;
+        return $functionNode;
     }
 }

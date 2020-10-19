@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes;
 
-use PhpParser\Node;
 use MikevanDiepen\Strictly\Analyser\Issues\Issue;
 use MikevanDiepen\Strictly\Exception\StrictlyException;
+use PhpParser\Node;
 
 /**
  * Class AbstractNode.
@@ -22,19 +22,17 @@ abstract class AbstractNode
      */
     protected Node $node;
 
-
-	/**
-	 * Whether the node has an issue.
-	 *
-	 * This property can be accessed through:
-	 * @method setIssue(Issue $issue): self
-	 * @method getIssue(): Issue
-	 * @method hasIssue(): bool
-	 *
-	 * @var Issue
-	 */
+    /**
+     * Whether the node has an issue.
+     *
+     * This property can be accessed through:
+     * @method setIssue(Issue $issue): self
+     * @method getIssue(): Issue
+     * @method hasIssue(): bool
+     *
+     * @var Issue
+     */
     private Issue $issue;
-
 
     /**
      * The name of the node.
@@ -71,42 +69,42 @@ abstract class AbstractNode
         return $this;
     }
 
-	/**
-	* Whether the node has passed the analysis.
-	*
-	* @return bool
-	*/
-	public function hasIssue(): bool
-	{
-		return (bool) !empty($this->issue);
-	}
+    /**
+     * Whether the node has passed the analysis.
+     *
+     * @return bool
+     */
+    public function hasIssue(): bool
+    {
+        return (bool)!empty($this->issue);
+    }
 
-	/**
-	 * Getting the issue for this node.
-	 *
-	 * @return Issue
-	 * @throws StrictlyException
-	 */
-	public function getIssue(): Issue
-	{
-		if (!$this->hasIssue()) {
-			throw new StrictlyException('Trying to access non existing issue.');
-		}
+    /**
+     * Getting the issue for this node.
+     *
+     * @return Issue
+     * @throws StrictlyException
+     */
+    public function getIssue(): Issue
+    {
+        if (!$this->hasIssue()) {
+            throw new StrictlyException('Trying to access non existing issue.');
+        }
 
-		return $this->issue;
-	}
+        return $this->issue;
+    }
 
-	/**
-	 * Setting the issue of the node.
-	 *
-	 * @param Issue $issue
-	 *
-	 * @return $this
-	 */
-	public function setIssue(Issue $issue): self
-	{
-		$this->issue = $issue;
+    /**
+     * Setting the issue of the node.
+     *
+     * @param Issue $issue
+     *
+     * @return $this
+     */
+    public function setIssue(Issue $issue): self
+    {
+        $this->issue = $issue;
 
-		return $this;
-	}
+        return $this;
+    }
 }

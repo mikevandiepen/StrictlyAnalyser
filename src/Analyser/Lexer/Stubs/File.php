@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs;
 
-use MikevanDiepen\Strictly\Exception\StrictlyException;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MethodNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ClosureNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\PropertyNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\FunctionNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MagicMethodNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ArrowFunctionNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ClosureNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\FunctionNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MagicMethodNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MethodNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\PropertyNode;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 
 /**
  * Class Nodes.

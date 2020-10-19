@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
-use PhpParser\Node;
-use MikevanDiepen\Strictly\Exception\StrictlyException;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ParameterParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ReturnParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MagicMethodNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ReturnParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ParameterParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
+use PhpParser\Node;
 
 /**
  * Class MagicMethodParser.
@@ -52,8 +52,8 @@ final class MagicMethodParser implements LexerOptionInterface
         $return->setDocblockFromNode($node);
 
         $magicMethodNode->setReturn(
-        	$return->parse($node)
-		);
+            $return->parse($node)
+        );
 
         return $magicMethodNode;
     }

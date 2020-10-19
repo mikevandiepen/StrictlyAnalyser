@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes;
 
-use PhpParser\Node;
-use MikevanDiepen\Strictly\Exception\StrictlyException;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
+use PhpParser\Node;
 
 /**
  * Class ReturnParser.
@@ -38,8 +37,7 @@ final class ParameterParser implements LexerOptionInterface
      * @param \PhpParser\Node $node
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
-     * @throws \ReflectionException
-     * @throws StrictlyException
+     * @throws \ReflectionException|\MikevanDiepen\Strictly\Exception\StrictlyException
      */
     public function parse(Node $node): AbstractNode
     {

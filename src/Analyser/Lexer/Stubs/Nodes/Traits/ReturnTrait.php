@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
-use MikevanDiepen\Strictly\Exception\StrictlyException;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
 
 /**
  * Trait ReturnTrait.
@@ -17,7 +16,7 @@ trait ReturnTrait
 {
     /**
      * The return which belongs to the arrow function node.
-	 *
+     *
      * This property can be accessed through:
      * @method setReturn(ReturnNode $returnAttribute): self
      * @method getReturn(): ReturnNode
@@ -36,14 +35,14 @@ trait ReturnTrait
         return $this->return;
     }
 
-	/**
-	 * Setting the return from the node.
-	 *
-	 * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode $returnNode
-	 *
-	 * @return void
-	 * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
-	 */
+    /**
+     * Setting the return from the node.
+     *
+     * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode $returnNode
+     *
+     * @return void
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
+     */
     public function setReturn(ReturnNode $returnNode): void
     {
         if ($returnNode instanceof ReturnNode) {

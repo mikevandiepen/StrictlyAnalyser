@@ -1,14 +1,10 @@
 project:
-    analysers:
-        enabled:
-            - '*'
-    directories:
-        include:
-            - 'src/'
-        exclude:
-            - 'src/Configuration'
-            - 'src/Console'
-            - 'src/Coverage'
-            - 'src/Exception'
-            - 'tests/'
-            - 'vendor/'
+  analysers:
+    enabled:
+      - '*'
+  directories:
+    include:
+      - 'src/'
+    exclude:
+      - 'tests/'
+      - 'vendor/'

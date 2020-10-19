@@ -19,7 +19,7 @@ trait FunctionLikeTrait
      *
      * @var bool
      */
-    protected bool $declaredParameters;
+    protected bool $declaredParameters = false;
 
     /**
      * Whether the hinted parameters may be analysed.
@@ -29,7 +29,7 @@ trait FunctionLikeTrait
      *
      * @var bool
      */
-    protected bool $hintedParameters;
+    protected bool $hintedParameters = false;
 
     /**
      * Whether the declared returns may be analysed.
@@ -39,7 +39,7 @@ trait FunctionLikeTrait
      *
      * @var bool
      */
-    protected bool $declaredReturns;
+    protected bool $declaredReturns = false;
 
     /**
      * Whether the hinted returns may be analysed.
@@ -49,7 +49,7 @@ trait FunctionLikeTrait
      *
      * @var bool
      */
-    protected bool $hintedReturns;
+    protected bool $hintedReturns = false;
 
     /**
      * Whether the declared parameters may be analysed.

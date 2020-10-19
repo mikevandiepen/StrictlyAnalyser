@@ -16,64 +16,55 @@ final class PropertyFixtureGenerator extends AbstractFixtureGenerator
 
     public function generateTypedFunctionalProperty(
         string $member = parent::PUBLIC_MEMBER
-    ): string
-    {
+    ): string {
 
     }
 
     public function generateTypedHintedProperty(
         string $member = parent::PUBLIC_MEMBER
-    ): string
-    {
+    ): string {
 
     }
 
     public function generateTypedFunctionalAndHintedProperty(
         string $member = parent::PUBLIC_MEMBER
-    ): string
-    {
+    ): string {
 
     }
 
     public function generateUntypedFunctionalProperty(
         string $member = parent::PUBLIC_MEMBER
-    ): string
-    {
+    ): string {
 
     }
 
     public function generateUntypedHintedProperty(
         string $member = parent::PUBLIC_MEMBER
-    ): string
-    {
+    ): string {
 
     }
 
     public function generateUntypedFunctionalAndHintedProperty(
         string $member = parent::PUBLIC_MEMBER
-    ): string
-    {
+    ): string {
 
     }
 
     public function generateMistypedFunctionalProperty(
         string $member = parent::PUBLIC_MEMBER
-    ): string
-    {
+    ): string {
 
     }
 
     public function generateMistypedHintedProperty(
         string $member = parent::PUBLIC_MEMBER
-    ): string
-    {
+    ): string {
 
     }
 
     public function generateMistypedFunctionalAndHintedProperty(
         string $member = parent::PUBLIC_MEMBER
-    ): string
-    {
+    ): string {
 
     }
 }
