@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\DeclaredType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\HintedType;
 
 /**
  * Trait DeclaredType.

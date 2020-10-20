@@ -8,8 +8,8 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\DeclaredType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\HintedType;
 use PhpParser\Node;
 
 /**

@@ -2,16 +2,16 @@
 
 declare(strict_types = 1);
 
-namespace MikevanDiepen\Strictly\Analyser\Issues;
+namespace MikevanDiepen\Strictly\Analyser\Issues\Options;
 
 use MikevanDiepen\Strictly\Analyser\Issues\Contracts\IssueInterface;
 
 /**
- * Class Untyped.
+ * Class Mistyped.
  *
  * @package MikevanDiepen\Strictly\Analyser\Issues
  */
-final class Untyped implements IssueInterface
+final class Mistyped implements IssueInterface
 {
 
 }

@@ -16,37 +16,11 @@ use MikevanDiepen\Strictly\Analyser\Issues\Contracts\LocationInterface;
 final class Issue
 {
     /**
-     * The location of the issue, either "Declared" or "Hinted".
-     *
-     * @var LocationInterface
-     */
-    private LocationInterface $location;
-
-    /**
      * The type of issue, either "Mistyped" or "Untyped".
      *
      * @var IssueInterface
      */
     private IssueInterface $issue;
-
-    /**
-     * @return LocationInterface
-     */
-    public function getLocation(): LocationInterface
-    {
-        return $this->location;
-    }
-
-    /**
-     * @param LocationInterface $location
-     *
-     * @return Issue
-     */
-    public function setLocation(LocationInterface $location): Issue
-    {
-        $this->location = $location;
-        return $this;
-    }
 
     /**
      * @return IssueInterface

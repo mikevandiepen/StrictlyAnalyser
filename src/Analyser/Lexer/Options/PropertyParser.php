@@ -8,8 +8,8 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\PropertyNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\DeclaredType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\HintedType;
 use MikevanDiepen\Strictly\Exception\StrictlyException;
 use PhpParser\Node;
 
@@ -28,7 +28,6 @@ final class PropertyParser implements LexerOptionInterface
      * @param \PhpParser\Node $node
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
-     * @throws \ReflectionException
      * @throws StrictlyException
      */
     public function parse(Node $node): AbstractNode
