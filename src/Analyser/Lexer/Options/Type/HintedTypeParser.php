@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted;
+namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\HintedTypeLexerInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\Options\HintedCompoundTypeParser;
