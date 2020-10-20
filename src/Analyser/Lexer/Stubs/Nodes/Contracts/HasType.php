@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\DeclaredType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\HintedType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\HintedTypeNode;
 
 /**
  * Interface HasType.
@@ -15,34 +15,34 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\Hint
 interface HasType
 {
     /**
-     * Setting the type which has been declared in the functional code.
-     *
-     * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\DeclaredType $declaredType
-     *
-     * @return $this
-     */
-    public function setDeclaredType(DeclaredType $declaredType): self;
-
-    /**
      * Getting the type which has been declared in the functional code.
      *
-     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\DeclaredType
+     * @return DeclaredTypeNode
      */
-    public function getDeclaredType(): DeclaredType;
+    public function getDeclaredTypeNode(): DeclaredTypeNode;
 
     /**
-     * Setting the type which has been hinted in the docblock.
+     * Setting the type which has been declared in the functional code.
      *
-     * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\HintedType $hintedType
+     * @param DeclaredTypeNode $declaredTypeNode
      *
      * @return $this
      */
-    public function setHintedType(HintedType $hintedType): self;
+    public function setDeclaredTypeNode(DeclaredTypeNode $declaredTypeNode): self;
 
     /**
      * Getting the type which has been hinted in the docblock.
      *
-     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\HintedType
+     * @return HintedTypeNode
      */
-    public function getHintedType(): HintedType;
+    public function getHintedTypeNode(): HintedTypeNode;
+
+    /**
+     * Setting the type which has been hinted in the docblock.
+     *
+     * @param HintedTypeNode $hintedTypeNode
+     *
+     * @return $this
+     */
+    public function setHintedTypeNode(HintedTypeNode $hintedTypeNode): self;
 }

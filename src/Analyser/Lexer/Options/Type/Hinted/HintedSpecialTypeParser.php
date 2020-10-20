@@ -2,41 +2,41 @@
 
 declare(strict_types = 1);
 
-namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Options;
+namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\Options;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\HintedTypeLexerInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeUndefinedNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\PseudoTypes\MixedTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\PseudoTypes\NumberTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\PseudoTypes\VoidTypeNode;
-use PhpParser\Node;
+use phpDocumentor\Reflection\Type;
 
 /**
- * Class ParsePseudoTypes
+ * Class HintedPseudoTypeParser
  *
  * @package MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Groups
  */
-final class ParseSpecialTypes implements LexerOptionInterface
+final class HintedSpecialTypeParser implements HintedTypeLexerInterface
 {
     /**
      * An option specific parser process.
      *
-     * @param \PhpParser\Node $node
+     * @param \phpDocumentor\Reflection\Type $type
      *
-     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
+     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode
      */
-    public function parse(Node $node): AbstractNode
+    public function parse(Type $type): AbstractTypeNode
     {
-        if ($this->isMixed($node)) {
+        if ($this->isMixed($type)) {
             return new MixedTypeNode();
         }
 
-        if ($this->isNumber($node)) {
+        if ($this->isNumber($type)) {
             return new NumberTypeNode();
         }
 
-        if ($this->isVoid($node)) {
+        if ($this->isVoid($type)) {
             return new VoidTypeNode();
         }
 
@@ -46,11 +46,11 @@ final class ParseSpecialTypes implements LexerOptionInterface
     /**
      * Whether the type is mixed.
      *
-     * @param \PhpParser\Node $node
+     * @param \phpDocumentor\Reflection\Type $type
      *
      * @return bool
      */
-    private function isMixed(Node $node): bool
+    private function isMixed(Type $type): bool
     {
 
     }
@@ -58,11 +58,11 @@ final class ParseSpecialTypes implements LexerOptionInterface
     /**
      * Whether the type is number.
      *
-     * @param \PhpParser\Node $node
+     * @param \phpDocumentor\Reflection\Type $type
      *
      * @return bool
      */
-    private function isNumber(Node $node): bool
+    private function isNumber(Type $type): bool
     {
 
     }
@@ -70,11 +70,11 @@ final class ParseSpecialTypes implements LexerOptionInterface
     /**
      * Whether the type is void.
      *
-     * @param \PhpParser\Node $node
+     * @param \phpDocumentor\Reflection\Type $type
      *
      * @return bool
      */
-    private function isVoid(Node $node): bool
+    private function isVoid(Type $type): bool
     {
 
     }

@@ -2,36 +2,36 @@
 
 declare(strict_types = 1);
 
-namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Options;
+namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Declared\Options;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\DeclaredTypeLexerInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeUndefinedNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\SpecialTypes\NullTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\SpecialTypes\ResourceTypeNode;
 use PhpParser\Node;
 
 /**
- * Class ParsePseudoTypes
+ * Class DeclaredPseudoTypeParser
  *
  * @package MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Groups
  */
-final class ParsePseudoTypes implements LexerOptionInterface
+final class DeclaredPseudoTypeParser implements DeclaredTypeLexerInterface
 {
     /**
      * An option specific parser process.
      *
-     * @param \PhpParser\Node $node
+     * @param \PhpParser\Node $type
      *
-     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
+     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode
      */
-    public function parse(Node $node): AbstractNode
+    public function parse(Node $type): AbstractTypeNode
     {
-        if ($this->isResource($node)) {
+        if ($this->isResource($type)) {
             return new ResourceTypeNode();
         }
 
-        if ($this->isNull($node)) {
+        if ($this->isNull($type)) {
             return new NullTypeNode();
         }
 
@@ -41,11 +41,11 @@ final class ParsePseudoTypes implements LexerOptionInterface
     /**
      * Whether the type is a resource.
      *
-     * @param \PhpParser\Node $node
+     * @param \PhpParser\Node $type
      *
      * @return bool
      */
-    private function isResource(Node $node): bool
+    private function isResource(Node $type): bool
     {
 
     }
@@ -53,11 +53,11 @@ final class ParsePseudoTypes implements LexerOptionInterface
     /**
      * Whether the type is null.
      *
-     * @param \PhpParser\Node $node
+     * @param \PhpParser\Node $type
      *
      * @return bool
      */
-    private function isNull(Node $node): bool
+    private function isNull(Node $type): bool
     {
 
     }

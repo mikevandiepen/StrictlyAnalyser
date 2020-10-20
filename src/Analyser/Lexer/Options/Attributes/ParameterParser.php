@@ -4,12 +4,14 @@ declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Declared\DeclaredTypeParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\HintedTypeParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\DeclaredType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\HintedType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\HintedTypeNode;
 use PhpParser\Node;
 
 /**
@@ -17,7 +19,7 @@ use PhpParser\Node;
  *
  * @package MikevanDiepen\Strictly\Lexer\Options\Attributes
  */
-final class ParameterParser implements LexerOptionInterface
+final class ParameterParser implements NodeLexerOptionInterface
 {
     use ParseDocblockTrait;
 
@@ -48,11 +50,15 @@ final class ParameterParser implements LexerOptionInterface
                 $parameterNode->setParameterIndex($this->getParameterIndex());
                 $parameterNode->setParameterName($node->var->name);
 
-                $hintedType = new HintedType($this->getHintedParameterType($node->var->name));
-                $parameterNode->setHintedType($hintedType);
+                $hintedTypeNode = (new HintedTypeParser())->parse($this->getHintedParameterType($node->var->name));
+                if ($hintedTypeNode instanceof HintedTypeNode) {
+                    $parameterNode->setHintedTypeNode($hintedTypeNode);
+                }
 
-                $declaredType = new DeclaredType($node->type);
-                $parameterNode->setDeclaredType($declaredType);
+                $declaredTypeNode = (new DeclaredTypeParser())->parse($node->type);
+                if ($declaredTypeNode instanceof DeclaredTypeNode) {
+                    $parameterNode->setDeclaredTypeNode($declaredTypeNode);
+                }
             }
         }
 

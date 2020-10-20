@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\DeclaredType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\HintedType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\HintedTypeNode;
 
 /**
  * Trait DeclaredType.
@@ -17,67 +17,67 @@ trait TypeTrait
     /**
      * The type which has been declared in the functional code.
      * This property can be accessed through:
-     * @method setDeclaredType(DeclaredType $declaredType): self
-     * @method getDeclaredType(): string[]
+     * @method setDeclaredType(DeclaredTypeNode $declaredTypeNode): self
+     * @method getDeclaredTypeNode(): DeclaredTypeNode
      *
-     * @var DeclaredType
+     * @var DeclaredTypeNode
      */
-    private DeclaredType $declaredType;
+    private DeclaredTypeNode $declaredTypeNode;
 
     /**
      * The type which has been hinted in the docblock.
      * This property can be accessed through:
-     * @method setHintedType(HintedType $hintedType): self
-     * @method getHintedType(): string[]
+     * @method setHintedTypeNode(HintedTypeNode $hintedTypeNode): self
+     * @method getHintedTypeNode(): DeclaredTypeNode
      *
-     * @var HintedType
+     * @var HintedTypeNode
      */
-    private HintedType $hintedType;
+    private HintedTypeNode $hintedTypeNode;
 
     /**
      * Getting the type which has been declared in the functional code.
      *
-     * @return DeclaredType
+     * @return DeclaredTypeNode
      */
-    public function getDeclaredType(): DeclaredType
+    public function getDeclaredTypeNode(): DeclaredTypeNode
     {
-        return $this->declaredType;
+        return $this->declaredTypeNode;
     }
 
     /**
      * Setting the type which has been declared in the functional code.
      *
-     * @param DeclaredType $declaredType
+     * @param DeclaredTypeNode $declaredTypeNode
      *
      * @return $this
      */
-    public function setDeclaredType(DeclaredType $declaredType): self
+    public function setDeclaredTypeNode(DeclaredTypeNode $declaredTypeNode): self
     {
-        $this->declaredType = $declaredType;
+        $this->declaredTypeNode = $declaredTypeNode;
 
         return $this;
     }
 
     /**
-     * Ghe type which has been hinted in the docblock.
+     * Getting the type which has been hinted in the docblock.
      *
-     * @return HintedType
+     * @return HintedTypeNode
      */
-    public function getHintedType(): HintedType
+    public function getHintedTypeNode(): HintedTypeNode
     {
-        return $this->hintedType;
+        return $this->hintedTypeNode;
     }
 
     /**
-     * She type which has been hinted in the docblock.
+     * Setting the type which has been hinted in the docblock.
      *
-     * @param HintedType $hintedType
+     * @param HintedTypeNode $hintedTypeNode
      *
      * @return $this
      */
-    public function setHintedType(HintedType $hintedType): self
+    public function setHintedTypeNode(HintedTypeNode $hintedTypeNode): self
     {
-        $this->hintedType = $hintedType;
+        $this->hintedTypeNode = $hintedTypeNode;
 
         return $this;
     }

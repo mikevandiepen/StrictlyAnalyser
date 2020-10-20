@@ -2,46 +2,46 @@
 
 declare(strict_types = 1);
 
-namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Options;
+namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\Options;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\HintedTypeLexerInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeUndefinedNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\CompoundTypes\ArrayTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\CompoundTypes\CallableTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\CompoundTypes\IterableTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\CompoundTypes\ObjectTypeNode;
-use PhpParser\Node;
+use phpDocumentor\Reflection\Type;
 
 /**
- * Class ParseCompoundTypes
+ * Class HintedCompoundTypeParser
  *
  * @package MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Groups;
  */
-final class ParseCompoundTypes implements LexerOptionInterface
+final class HintedCompoundTypeParser implements HintedTypeLexerInterface
 {
     /**
      * An option specific parser process.
      *
-     * @param \PhpParser\Node $node
+     * @param \phpDocumentor\Reflection\Type $type
      *
-     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
+     * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode
      */
-    public function parse(Node $node): AbstractNode
+    public function parse(Type $type): AbstractTypeNode
     {
-        if ($this->isArray($node)) {
+        if ($this->isArray($type)) {
             return new ArrayTypeNode();
         }
 
-        if ($this->isObject($node)) {
+        if ($this->isObject($type)) {
             return new ObjectTypeNode();
         }
 
-        if ($this->isCallable($node)) {
+        if ($this->isCallable($type)) {
             return new CallableTypeNode();
         }
 
-        if ($this->isIterable($node)) {
+        if ($this->isIterable($type)) {
             return new IterableTypeNode();
         }
 
@@ -51,11 +51,11 @@ final class ParseCompoundTypes implements LexerOptionInterface
     /**
      * Whether the type is an array.
      *
-     * @param \PhpParser\Node $node
+     * @param \phpDocumentor\Reflection\Type $type
      *
      * @return bool
      */
-    private function isArray(Node $node): bool
+    private function isArray(Type $type): bool
     {
 
     }
@@ -63,11 +63,11 @@ final class ParseCompoundTypes implements LexerOptionInterface
     /**
      * Whether the type is an object.
      *
-     * @param \PhpParser\Node $node
+     * @param \phpDocumentor\Reflection\Type $type
      *
      * @return bool
      */
-    private function isObject(Node $node): bool
+    private function isObject(Type $type): bool
     {
 
     }
@@ -75,11 +75,11 @@ final class ParseCompoundTypes implements LexerOptionInterface
     /**
      * Whether the type is callable.
      *
-     * @param \PhpParser\Node $node
+     * @param \phpDocumentor\Reflection\Type $type
      *
      * @return bool
      */
-    private function isCallable(Node $node): bool
+    private function isCallable(Type $type): bool
     {
 
     }
@@ -87,11 +87,11 @@ final class ParseCompoundTypes implements LexerOptionInterface
     /**
      * Whether the type is iterable.
      *
-     * @param \PhpParser\Node $node
+     * @param \phpDocumentor\Reflection\Type $type
      *
      * @return bool
      */
-    private function isIterable(Node $node): bool
+    private function isIterable(Type $type): bool
     {
 
     }

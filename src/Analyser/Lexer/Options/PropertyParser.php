@@ -4,12 +4,14 @@ declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Declared\DeclaredTypeParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\HintedTypeParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\PropertyNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\DeclaredType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Location\HintedType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\HintedTypeNode;
 use MikevanDiepen\Strictly\Exception\StrictlyException;
 use PhpParser\Node;
 
@@ -18,7 +20,7 @@ use PhpParser\Node;
  *
  * @package MikevanDiepen\Strictly\Analyser\Lexer\Lexer\Options
  */
-final class PropertyParser implements LexerOptionInterface
+final class PropertyParser implements NodeLexerOptionInterface
 {
     use ParseDocblockTrait;
 
@@ -39,13 +41,15 @@ final class PropertyParser implements LexerOptionInterface
 
         $this->setDocblockFromNode($node);
 
-        // Type set in docblock.
-        $hintedType = new HintedType($this->getHintedPropertyType());
-        $propertyNode->setHintedType($hintedType);
+        $hintedTypeNode = (new HintedTypeParser())->parse($this->getHintedPropertyType());
+        if ($hintedTypeNode instanceof HintedTypeNode) {
+            $propertyNode->setHintedTypeNode($hintedTypeNode);
+        }
 
-        // Type declared in code.
-        $declaredType = new DeclaredType($node);
-        $propertyNode->setDeclaredType($declaredType);
+        $declaredTypeNode = (new DeclaredTypeParser())->parse($node);
+        if ($declaredTypeNode instanceof DeclaredTypeNode) {
+            $propertyNode->setDeclaredTypeNode($declaredTypeNode);
+        }
 
         return $propertyNode;
     }

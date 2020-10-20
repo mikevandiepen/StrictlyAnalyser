@@ -8,11 +8,11 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use PhpParser\Node;
 
 /**
- * Interface LexerOptionInterface.
+ * Interface NodeLexerOptionInterface.
  *
  * @package MikevanDiepen\Strictly\Analyser\Lexer\Contracts
  */
-interface LexerOptionInterface
+interface NodeLexerOptionInterface
 {
     /**
      * An option specific parser process.

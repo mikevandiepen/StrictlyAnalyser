@@ -6,7 +6,7 @@ namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ParameterParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ReturnParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\MethodNode;
@@ -18,7 +18,7 @@ use PhpParser\Node;
  *
  * @package MikevanDiepen\Strictly\Lexer\Options
  */
-final class MethodParser implements LexerOptionInterface
+final class MethodParser implements NodeLexerOptionInterface
 {
     use ParseDocblockTrait;
 
