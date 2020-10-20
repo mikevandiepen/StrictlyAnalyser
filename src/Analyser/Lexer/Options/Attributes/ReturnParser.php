@@ -1,17 +1,17 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes;
 
-use PhpParser\Node;
-use MikevanDiepen\Strictly\Exception\StrictlyException;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\LexerOptionInterface;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\DeclaredType;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\HintedType;
+use MikevanDiepen\Strictly\Exception\StrictlyException;
+use PhpParser\Node;
 
 /**
  * Class ReturnParser.

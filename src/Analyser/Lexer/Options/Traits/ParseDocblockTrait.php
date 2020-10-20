@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits;
 
@@ -24,7 +24,6 @@ trait ParseDocblockTrait
 {
     /**
      * The docblock.
-     *
      * This property can be accessed through:
      * @method setDocblock(Docblock $docblock): self
      * @method getDocblock(): Docblock
@@ -49,16 +48,6 @@ trait ParseDocblockTrait
     }
 
     /**
-     * Getting the docblock.
-     *
-     * @return \phpDocumentor\Reflection\Docblock
-     */
-    public function getDocblock(): Docblock
-    {
-        return $this->docblock;
-    }
-
-    /**
      * Collecting the property from the docblock.
      *
      * @return \phpDocumentor\Reflection\Type|null
@@ -80,6 +69,137 @@ trait ParseDocblockTrait
         }
 
         return $tags[0]->getType();
+    }
+
+    /**
+     * Dynamically validating whether the type of the given tag is suppressed by type in the docblock.
+     * A compound type for example is "string|null", the "var", "param" and "return" tags can all have
+     * compound types. Other types which will suppress are "Mixed_" and "Object_".
+     * If the parameter argument is set the validation will analyse that specific parameter name.
+     * Because validating all parameters is not the most effective way to approach the analysis.
+     *
+     * @param string      $type
+     * @param string|null $parameter
+     *
+     * @return bool
+     * @throws StrictlyException
+     */
+    protected function isSuppressedByType(string $type, ?string $parameter = null): bool
+    {
+        /** @var \phpDocumentor\Reflection\DocBlock\Tags\Property[] $tags */
+        $tags = $this->getDocblock()->getTagsByName($type);
+
+        foreach ($tags as $tag) {
+            // The parameter analysis deviates from the default analysis.
+            // since the analysis will be done by parameter name the approach is slightly different.
+            if ($type === 'parameter' && $parameter !== null) {
+                if ($tag->getVariableName() === $parameter) {
+                    if ($this->typeIsset($tag->getType())) {
+                        return true;
+                    }
+                    if ($this->typeIsMixed($tag->getType())) {
+                        return true;
+                    }
+                    if ($this->typeIsObject($tag->getType())) {
+                        return true;
+                    }
+                    if ($this->typeIsCompound($tag->getType())) {
+                        return true;
+                    }
+                }
+
+                continue;
+            }
+
+            if ($this->typeIsset($tag->getType())) {
+                return true;
+            }
+            if ($this->typeIsMixed($tag->getType())) {
+                return true;
+            }
+            if ($this->typeIsObject($tag->getType())) {
+                return true;
+            }
+            if ($this->typeIsCompound($tag->getType())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Getting the docblock.
+     *
+     * @return \phpDocumentor\Reflection\Docblock
+     */
+    public function getDocblock(): Docblock
+    {
+        return $this->docblock;
+    }
+
+    /**
+     * Analysing whether the type is set.
+     *
+     * @param \phpDocumentor\Reflection\Type|null $type
+     *
+     * @return bool
+     */
+    private function typeIsset(?Type $type): bool
+    {
+        return (bool) ($type !== null);
+    }
+
+    /**
+     * Analysing whether the type is of abstract Mixed_.
+     *
+     * @param \phpDocumentor\Reflection\Type|null $type
+     *
+     * @return bool
+     */
+    private function typeIsMixed(?Type $type): bool
+    {
+        return (bool) ($type instanceof Mixed_);
+    }
+
+    /**
+     * Analysing whether the type is an object. This can be the abstract Object_ type or a
+     * custom object hinted by the developer.
+     *
+     * @param \phpDocumentor\Reflection\Type|null $type
+     *
+     * @return bool
+     */
+    private function typeIsObject(?Type $type): bool
+    {
+        return (bool) (($type instanceof Object_) && (!$type->getFqsen()));
+    }
+
+    /**
+     * Analysing whether the type is a compound type.
+     * A compound type in a docblock will look like this "string|null".
+     *
+     * @param \phpDocumentor\Reflection\Type|null $type
+     *
+     * @return bool
+     * @throws StrictlyException
+     */
+    private function typeIsCompound(?Type $type): bool
+    {
+        if ($type instanceof Compound) {
+            if (2 === $type->getIterator()->count()) {
+                // Ex: string|null => ?string
+                foreach ($type as $t) {
+                    if ($t instanceof Null_) {
+                        return (bool) false;
+                    }
+                }
+            }
+
+            return (bool) true;
+        }
+
+        return (bool) false;
     }
 
     /**
@@ -136,128 +256,6 @@ trait ParseDocblockTrait
         }
 
         return null;
-    }
-
-    /**
-     * Dynamically validating whether the type of the given tag is suppressed by type in the docblock.
-     * A compound type for example is "string|null", the "var", "param" and "return" tags can all have
-     * compound types. Other types which will suppress are "Mixed_" and "Object_".
-     *
-     * If the parameter argument is set the validation will analyse that specific parameter name.
-     * Because validating all parameters is not the most effective way to approach the analysis.
-     *
-     * @param string $type
-     * @param string|null $parameter
-     *
-     * @return bool
-     * @throws StrictlyException
-     */
-    protected function isSuppressedByType(string $type, ?string $parameter = null): bool
-    {
-        /** @var \phpDocumentor\Reflection\DocBlock\Tags\Property[] $tags */
-        $tags = $this->getDocblock()->getTagsByName($type);
-
-        foreach ($tags as $tag) {
-            // The parameter analysis deviates from the default analysis.
-            // since the analysis will be done by parameter name the approach is slightly different.
-            if ($type === 'parameter' && $parameter !== null) {
-                if ($tag->getVariableName() === $parameter) {
-                    if ($this->typeIsset($tag->getType())) {
-                        return true;
-                    }
-                    if ($this->typeIsMixed($tag->getType())) {
-                        return true;
-                    }
-                    if ($this->typeIsObject($tag->getType())) {
-                        return true;
-                    }
-                    if ($this->typeIsCompound($tag->getType())) {
-                        return true;
-                    }
-                }
-
-                continue;
-            }
-
-            if ($this->typeIsset($tag->getType())) {
-                return true;
-            }
-            if ($this->typeIsMixed($tag->getType())) {
-                return true;
-            }
-            if ($this->typeIsObject($tag->getType())) {
-                return true;
-            }
-            if ($this->typeIsCompound($tag->getType())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Analysing whether the type is set.
-     *
-     * @param \phpDocumentor\Reflection\Type|null $type
-     *
-     * @return bool
-     */
-    private function typeIsset(?Type $type): bool
-    {
-        return (bool)($type !== null);
-    }
-
-    /**
-     * Analysing whether the type is of abstract Mixed_.
-     *
-     * @param \phpDocumentor\Reflection\Type|null $type
-     *
-     * @return bool
-     */
-    private function typeIsMixed(?Type $type): bool
-    {
-        return (bool)($type instanceof Mixed_);
-    }
-
-    /**
-     * Analysing whether the type is an object. This can be the abstract Object_ type or a
-     * custom object hinted by the developer.
-     *
-     * @param \phpDocumentor\Reflection\Type|null $type
-     *
-     * @return bool
-     */
-    private function typeIsObject(?Type $type): bool
-    {
-        return (bool)(($type instanceof Object_) && (!$type->getFqsen()));
-    }
-
-    /**
-     * Analysing whether the type is a compound type.
-     * A compound type in a docblock will look like this "string|null".
-     *
-     * @param \phpDocumentor\Reflection\Type|null $type
-     *
-     * @return bool
-     * @throws StrictlyException
-     */
-    private function typeIsCompound(?Type $type): bool
-    {
-        if ($type instanceof Compound) {
-            if (2 === $type->getIterator()->count()) {
-                // Ex: string|null => ?string
-                foreach ($type as $t) {
-                    if ($t instanceof Null_) {
-                        return (bool)false;
-                    }
-                }
-            }
-
-            return (bool)true;
-        }
-
-        return (bool)false;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits;
 
@@ -13,7 +13,6 @@ trait FunctionLikeTrait
 {
     /**
      * Whether the declared parameters may be analysed.
-     *
      * This property can be accessed through:
      * @method analyseDeclaredParameters(bool $declaredParameters): void
      *
@@ -23,7 +22,6 @@ trait FunctionLikeTrait
 
     /**
      * Whether the hinted parameters may be analysed.
-     *
      * This property can be accessed through:
      * @method analyseHintedParameters(bool $hintedParameters): void
      *
@@ -33,7 +31,6 @@ trait FunctionLikeTrait
 
     /**
      * Whether the declared returns may be analysed.
-     *
      * This property can be accessed through:
      * @method analyseDeclaredReturns(bool $declaredReturns): void
      *
@@ -43,7 +40,6 @@ trait FunctionLikeTrait
 
     /**
      * Whether the hinted returns may be analysed.
-     *
      * This property can be accessed through:
      * @method analyseHintedReturns(bool $hintedReturns): void
      *

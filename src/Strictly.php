@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly;
 
@@ -28,10 +28,8 @@ final class Strictly
      * @return void
      * @throws StrictlyException|ReflectionException
      */
-    public function analyse(
-        string $output = StrictlyCommand::PRINT_RESULTS_PRETTY,
-        string $configType = StrictlyConfiguration::YAML
-    ): void {
+    public function analyse(string $output = StrictlyCommand::PRINT_RESULTS_PRETTY, string $configType = StrictlyConfiguration::YAML): void
+    {
         $configuration = (new StrictlyConfiguration($configType))->run();
 
         // Collecting all the files which need to be parsed.
@@ -50,9 +48,7 @@ final class Strictly
             $director->direct($analyserRules);
 
             // Analysing the results and building a metric report.
-            $analysisResults[] = (new AnalysisResults(
-                $director->getAnalysisResults()
-            ))->getResults();
+            $analysisResults[] = (new AnalysisResults($director->getAnalysisResults()))->getResults();
 
 
             // Building a coverage report.

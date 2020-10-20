@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type;
 
@@ -21,6 +21,19 @@ abstract class AbstractType
     private array $type = [];
 
     /**
+     * Getting the types from the class.
+     *
+     * @return AbstractTypeDefinition[]
+     */
+    public function getType(): array
+    {
+        // Sorting the array of types to avoid further complications in the analysis process.
+        sort($this->type);
+
+        return $this->type;
+    }
+
+    /**
      * Setting the types from the class.
      *
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Structural\AbstractTypeDefinition $type
@@ -32,19 +45,6 @@ abstract class AbstractType
         $this->type[] = $type;
 
         return $this;
-    }
-
-    /**
-     * Getting the types from the class.
-     *
-     * @return AbstractTypeDefinition[]
-     */
-    public function getType(): array
-    {
-        // Sorting the array of types to avoid further complications in the analysis process.
-        sort($this->type);
-
-        return $this->type;
     }
 
     /**

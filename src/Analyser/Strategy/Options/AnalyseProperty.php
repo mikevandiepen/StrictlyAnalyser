@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options;
 
@@ -42,9 +42,7 @@ final class AnalyseProperty extends AbstractAnalyser implements AnalyserInterfac
     public function onlyDeclared(): void
     {
         if (!$this->declaredTypeIsset()) {
-            $this->node->setIssue(
-                (new Issue())->setIssue(new Untyped())->setLocation(new Declared())
-            );
+            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Declared()));
         }
     }
 
@@ -57,9 +55,7 @@ final class AnalyseProperty extends AbstractAnalyser implements AnalyserInterfac
     public function onlyHinted(): void
     {
         if (!$this->hintedTypeIsset()) {
-            $this->node->setIssue(
-                (new Issue())->setIssue(new Untyped())->setLocation(new Hinted())
-            );
+            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Hinted()));
         }
     }
 
@@ -74,32 +70,20 @@ final class AnalyseProperty extends AbstractAnalyser implements AnalyserInterfac
         if ($this->declaredTypeIsset() && $this->hintedTypeIsset()) {
             if (!$this->typesMatch()) {
                 if ($this->getMissingDeclaredTypes() > 0) {
-                    $this->node->setIssue(
-                        (new Issue())->setIssue(new Mistyped())->setLocation(new Declared())
-                    );
+                    $this->node->setIssue((new Issue())->setIssue(new Mistyped())->setLocation(new Declared()));
                 }
 
                 if ($this->getMissingHintedTypes() > 0) {
-                    $this->node->setIssue(
-                        (new Issue())->setIssue(new Mistyped())->setLocation(new Hinted())
-                    );
+                    $this->node->setIssue((new Issue())->setIssue(new Mistyped())->setLocation(new Hinted()));
                 }
             }
         } elseif ($this->declaredTypeIsset() && !$this->hintedTypeIsset()) {
-            $this->node->setIssue(
-                (new Issue())->setIssue(new Untyped())->setLocation(new Hinted())
-            );
+            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Hinted()));
         } elseif (!$this->declaredTypeIsset() && $this->hintedTypeIsset()) {
-            $this->node->setIssue(
-                (new Issue())->setIssue(new Untyped())->setLocation(new Declared())
-            );
+            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Declared()));
         } else {
-            $this->node->setIssue(
-                (new Issue())->setIssue(new Untyped())->setLocation(new Hinted())
-            );
-            $this->node->setIssue(
-                (new Issue())->setIssue(new Untyped())->setLocation(new Declared())
-            );
+            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Hinted()));
+            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Declared()));
         }
     }
 }

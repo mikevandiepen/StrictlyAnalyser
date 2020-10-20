@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Issues;
 
@@ -9,7 +9,6 @@ use MikevanDiepen\Strictly\Analyser\Issues\Contracts\LocationInterface;
 
 /**
  * Class Issue.
- *
  * An object to store the metadata for the issue.
  *
  * @package MikevanDiepen\Strictly\Analyser\Issues

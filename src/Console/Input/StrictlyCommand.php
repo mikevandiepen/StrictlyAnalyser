@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Console\Input;
 
@@ -52,22 +52,15 @@ final class StrictlyCommand extends Command
      */
     protected function configure(): void
     {
-        $this
-            ->setDescription('Analysing the strictness of your project.')
-            ->setHelp('This command allows you to analyse your project and assert the strictness of your code.')
-            ->addOption(
-                $this->outputOption['name'],
-                $this->outputOption['shortcut'],
-                $this->outputOption['mode'],
-                $this->outputOption['description'],
-                $this->outputOption['default'],
-            );
+        $this->setDescription('Analysing the strictness of your project.')
+             ->setHelp('This command allows you to analyse your project and assert the strictness of your code.')
+             ->addOption($this->outputOption['name'], $this->outputOption['shortcut'], $this->outputOption['mode'], $this->outputOption['description'], $this->outputOption['default'],);
     }
 
     /**
      * Executing the strictly command.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return int

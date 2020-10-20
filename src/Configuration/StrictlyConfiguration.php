@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Configuration;
 
@@ -37,7 +37,11 @@ final class StrictlyConfiguration
      */
     public function __construct(string $config)
     {
-        if (!in_array($config, [self::JSON, self::XML, self::YAML])) {
+        if (!in_array($config, [
+            self::JSON,
+            self::XML,
+            self::YAML
+        ])) {
             throw new StrictlyException('Invalid configuration file format.');
         }
 

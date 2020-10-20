@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes;
 
@@ -24,7 +24,6 @@ abstract class AbstractNode
 
     /**
      * Whether the node has an issue.
-     *
      * This property can be accessed through:
      * @method setIssue(Issue $issue): self
      * @method getIssue(): Issue
@@ -36,7 +35,6 @@ abstract class AbstractNode
 
     /**
      * The name of the node.
-     *
      * This property can be accessed through:
      * @method setName(string $name): self
      * @method getName(): string
@@ -70,16 +68,6 @@ abstract class AbstractNode
     }
 
     /**
-     * Whether the node has passed the analysis.
-     *
-     * @return bool
-     */
-    public function hasIssue(): bool
-    {
-        return (bool)!empty($this->issue);
-    }
-
-    /**
      * Getting the issue for this node.
      *
      * @return Issue
@@ -106,5 +94,15 @@ abstract class AbstractNode
         $this->issue = $issue;
 
         return $this;
+    }
+
+    /**
+     * Whether the node has passed the analysis.
+     *
+     * @return bool
+     */
+    public function hasIssue(): bool
+    {
+        return (bool) !empty($this->issue);
     }
 }

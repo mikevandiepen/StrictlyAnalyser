@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
@@ -16,7 +16,6 @@ trait ReturnTrait
 {
     /**
      * The return which belongs to the arrow function node.
-     *
      * This property can be accessed through:
      * @method setReturn(ReturnNode $returnAttribute): self
      * @method getReturn(): ReturnNode

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type;
 
@@ -17,7 +17,6 @@ final class DeclaredType extends AbstractType
 {
     /**
      * TODO: Improve the type analysis with PHPDocumentor.
-     *
      * DeclaredType constructor.
      *
      * @param Node\Identifier|Node\Name|Node\NullableType|Node\UnionType|null $type
@@ -48,7 +47,11 @@ final class DeclaredType extends AbstractType
         }
 
         if (isset($type->type)) {
-            if (isset($type->type) && ($type->type === null || in_array($type->type, ['NULL', 'Null', 'null']))) {
+            if (isset($type->type) && ($type->type === null || in_array($type->type, [
+                        'NULL',
+                        'Null',
+                        'null'
+                    ]))) {
                 $this->getTypeFromNode(null);
             }
 

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
@@ -8,7 +8,6 @@ trait LineTrait
 {
     /**
      * The line where the node starts.
-     *
      * This property can be accessed through:
      * @method setStartLine(int $line): self
      * @method getStartLine(): int
@@ -19,7 +18,6 @@ trait LineTrait
 
     /**
      * The line where the node ends.
-     *
      * This property can be accessed through:
      * @method setEndLine(int $line): self
      * @method getEndLine(): int

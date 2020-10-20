@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Coverage;
 
@@ -112,9 +112,7 @@ final class AnalysisResults
 
         foreach ($this->file->getProperties() as $property) {
             if ($property->hasIssue()) {
-                $this->sortIssue(
-                    $property->getIssue()
-                );
+                $this->sortIssue($property->getIssue());
             } else {
                 $this->typed++; // The node is type, no issue.
             }
@@ -139,9 +137,7 @@ final class AnalysisResults
 
             foreach ($parameters as $parameter) {
                 if ($parameter->hasIssue()) {
-                    $this->sortIssue(
-                        $parameter->getIssue()
-                    );
+                    $this->sortIssue($parameter->getIssue());
                 } else {
                     $this->typed++; // The node is type, no issue.
                 }
@@ -153,9 +149,7 @@ final class AnalysisResults
 
         $return = $functionLike->getReturn();
         if ($return->hasIssue()) {
-            $this->sortIssue(
-                $return->getIssue()
-            );
+            $this->sortIssue($return->getIssue());
         } else {
             $this->typed++; // The node is type, no issue.
         }
@@ -166,7 +160,6 @@ final class AnalysisResults
 
     /**
      * Sorting issue by type and location.
-     *
      * Issue types are "untyped" and "mistyped".
      * Issue locations are "declared" and "hinted".
      *
@@ -175,12 +168,12 @@ final class AnalysisResults
     private function sortIssue(Issue $issue): void
     {
         // Issue type.
-        $untyped = (bool)($issue instanceof Untyped);
-        $mistyped = (bool)($issue instanceof Declared);
+        $untyped = (bool) ($issue instanceof Untyped);
+        $mistyped = (bool) ($issue instanceof Declared);
 
         // Issue location.
-        $declared = (bool)($issue instanceof Declared);
-        $hinted = (bool)($issue instanceof Hinted);
+        $declared = (bool) ($issue instanceof Declared);
+        $hinted = (bool) ($issue instanceof Hinted);
 
         if ($untyped) {
             $this->untyped++;

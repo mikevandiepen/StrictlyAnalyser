@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Configuration\Types;
 
@@ -283,7 +283,7 @@ abstract class AbstractConfiguration
     private function getEnabledAnalysers(): ?array
     {
         if ($this->hasEnabledAnalysers()) {
-            return (array)$this->configuration['project']['analysers']['enabled'];
+            return (array) $this->configuration['project']['analysers']['enabled'];
         }
 
         return null;
@@ -296,7 +296,7 @@ abstract class AbstractConfiguration
      */
     private function hasEnabledAnalysers(): bool
     {
-        return (bool)(isset($this->configuration['project']['analysers']['enabled']));
+        return (bool) (isset($this->configuration['project']['analysers']['enabled']));
     }
 
     /**
@@ -307,7 +307,7 @@ abstract class AbstractConfiguration
     private function getDisabledAnalysers(): ?array
     {
         if ($this->hasDisabledAnalysers()) {
-            return (array)$this->configuration['project']['analysers']['disabled'];
+            return (array) $this->configuration['project']['analysers']['disabled'];
         }
 
         return null;
@@ -320,6 +320,6 @@ abstract class AbstractConfiguration
      */
     private function hasDisabledAnalysers(): bool
     {
-        return (bool)(isset($this->configuration['project']['analysers']['disabled']));
+        return (bool) (isset($this->configuration['project']['analysers']['disabled']));
     }
 }

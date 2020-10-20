@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 
@@ -51,9 +51,7 @@ final class MagicMethodParser implements LexerOptionInterface
         $return = new ReturnParser();
         $return->setDocblockFromNode($node);
 
-        $magicMethodNode->setReturn(
-            $return->parse($node)
-        );
+        $magicMethodNode->setReturn($return->parse($node));
 
         return $magicMethodNode;
     }

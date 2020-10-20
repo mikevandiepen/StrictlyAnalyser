@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
@@ -16,7 +16,6 @@ trait TypeTrait
 {
     /**
      * The type which has been declared in the functional code.
-     *
      * This property can be accessed through:
      * @method setDeclaredType(DeclaredType $declaredType): self
      * @method getDeclaredType(): string[]
@@ -27,7 +26,6 @@ trait TypeTrait
 
     /**
      * The type which has been hinted in the docblock.
-     *
      * This property can be accessed through:
      * @method setHintedType(HintedType $hintedType): self
      * @method getHintedType(): string[]

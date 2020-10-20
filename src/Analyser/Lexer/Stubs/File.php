@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs;
 
@@ -22,7 +22,6 @@ final class File
 {
     /**
      * The name of the file.
-     *
      * This property can be accessed through:
      * @method setFileName(string $fileName): self
      * @method getFileName(): string
@@ -33,7 +32,6 @@ final class File
 
     /**
      * The path where the file is located.
-     *
      * This property can be accessed through:
      * @method setFilePath(string $filePath): self
      * @method getFilePath(): string
@@ -44,7 +42,6 @@ final class File
 
     /**
      * The size of the file in bytes.
-     *
      * This property can be accessed through:
      * @method setFileSize(int $fileSize): self
      * @method getFileSize(): int
@@ -55,7 +52,6 @@ final class File
 
     /**
      * The arrow function nodes from this file.
-     *
      * This property can be accessed through:
      * @method setArrowFunction(ArrowFunctionNode $node): self
      * @method getArrowFunctions(): ArrowFunctionNode[]
@@ -66,7 +62,6 @@ final class File
 
     /**
      * The closure nodes from this file.
-     *
      * This property can be accessed through:
      * @method setClosure(ClosureNode $node): self
      * @method getClosures(): ClosureNode[]
@@ -77,7 +72,6 @@ final class File
 
     /**
      * The function nodes from this file.
-     *
      * This property can be accessed through:
      * @method setFunctionNode(FunctionNode $node): self
      * @method getFunctionNodes(): FunctionNode[]
@@ -88,7 +82,6 @@ final class File
 
     /**
      * The magic method nodes from this file.
-     *
      * This property can be accessed through:
      * @method setMagicMethod(MagicMethodNode $node): self
      * @method getMagicMethods(): MagicMethodNode[]
@@ -99,7 +92,6 @@ final class File
 
     /**
      * The method nodes from this file.
-     *
      * This property can be accessed through:
      * @method setMethod(MethodNode $node): self
      * @method getMethods(): MethodNode[]
@@ -110,7 +102,6 @@ final class File
 
     /**
      * The property nodes from this file.
-     *
      * This property can be accessed through:
      * @method setProperty(PropertyNode $node): self
      * @method getProperties(): PropertyNode[]

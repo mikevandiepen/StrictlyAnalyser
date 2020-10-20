@@ -1,13 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\PropertyNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Structural\TypeDefined;
 use MikevanDiepen\Strictly\Exception\StrictlyException;
 
@@ -18,27 +15,6 @@ use MikevanDiepen\Strictly\Exception\StrictlyException;
  */
 trait AnalyserTrait
 {
-    /**
-     * Getting the subject node.
-     *
-     * @return HasType
-     * @throws StrictlyException
-     */
-    public function getNodeWithType(): HasType
-    {
-        $propertyNode   = (bool) ($this->node instanceof PropertyNode);
-        $parameterNode  = (bool) ($this->node instanceof ParameterNode);
-        $returnNode     = (bool) ($this->node instanceof ReturnNode);
-
-        if ($propertyNode || $parameterNode || $returnNode) {
-            if ($this->node instanceof HasType) {
-                return $this->node;
-            }
-        } else {
-            throw new StrictlyException('Node must implement HasType');
-        }
-    }
-
     /**
      * Analysing whether the declared and hinted type match.
      *
@@ -75,7 +51,22 @@ trait AnalyserTrait
     {
         $declaredType = $this->getNodeWithType()->getDeclaredType()->getType();
 
-        return (bool)($declaredType instanceof TypeDefined);
+        return (bool) ($declaredType instanceof TypeDefined);
+    }
+
+    /**
+     * Getting the subject node.
+     *
+     * @return HasType
+     * @throws StrictlyException
+     */
+    public function getNodeWithType(): HasType
+    {
+        if (!$this->node instanceof HasType) {
+            throw new StrictlyException('Node must implement HasType');
+        }
+
+        return $this->node;
     }
 
     /**
@@ -88,7 +79,7 @@ trait AnalyserTrait
     {
         $hintedType = $this->getNodeWithType()->getHintedType()->getType();
 
-        return (bool)($hintedType instanceof TypeDefined);
+        return (bool) ($hintedType instanceof TypeDefined);
     }
 
     /**

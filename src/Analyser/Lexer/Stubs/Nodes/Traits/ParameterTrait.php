@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
@@ -16,7 +16,6 @@ trait ParameterTrait
 {
     /**
      * The parameters which belong to the arrow function node.
-     *
      * This property can be accessed through:
      * @method setParameter(ParameterNode $ParameterNode): self
      * @method getParameter(): ParameterNode[]
@@ -59,6 +58,6 @@ trait ParameterTrait
      */
     public function hasParameters(): bool
     {
-        return (bool)(count($this->parameters) > 0);
+        return (bool) (count($this->parameters) > 0);
     }
 }
