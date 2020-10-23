@@ -9,7 +9,7 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode;
 /**
  * Class MixedTypeNode
  *
- * @package MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Groups\PseudoTypes
+ * @package MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\PseudoTypes
  */
 final class MixedTypeNode extends AbstractTypeNode
 {

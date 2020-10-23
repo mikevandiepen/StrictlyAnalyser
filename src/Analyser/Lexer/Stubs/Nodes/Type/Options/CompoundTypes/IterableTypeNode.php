@@ -9,7 +9,7 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode;
 /**
  * Class IterableTypeNode
  *
- * @package MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Groups\CompoundTypes
+ * @package MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\CompoundTypes
  */
 final class IterableTypeNode extends AbstractTypeNode
 {

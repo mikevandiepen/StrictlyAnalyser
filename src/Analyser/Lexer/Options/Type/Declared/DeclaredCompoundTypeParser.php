@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Declared\Options;
+namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Declared;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\DeclaredTypeLexerInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode;
@@ -16,18 +16,18 @@ use PhpParser\Node;
 /**
  * Class DeclaredCompoundTypeParser
  *
- * @package MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Groups;
+ * @package  MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Declared;
  */
 final class DeclaredCompoundTypeParser implements DeclaredTypeLexerInterface
 {
     /**
      * An option specific parser process.
      *
-     * @param \PhpParser\Node $type
+     * @param \PhpParser\Node\Identifier $type
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode
      */
-    public function parse(Node $type): AbstractTypeNode
+    public function parse(Identifier $type): AbstractTypeNode
     {
         if ($this->isArray($type)) {
             return new ArrayTypeNode();
@@ -51,11 +51,11 @@ final class DeclaredCompoundTypeParser implements DeclaredTypeLexerInterface
     /**
      * Whether the type is an array.
      *
-     * @param \PhpParser\Node $type
+     * @param \PhpParser\Node\Identifier $type
      *
      * @return bool
      */
-    private function isArray(Node $type): bool
+    private function isArray(Identifier $type): bool
     {
 
     }
@@ -63,23 +63,22 @@ final class DeclaredCompoundTypeParser implements DeclaredTypeLexerInterface
     /**
      * Whether the type is an object.
      *
-     * @param \PhpParser\Node $type
+     * @param \PhpParser\Node\Identifier $type
      *
      * @return bool
      */
-    private function isObject(Node $type): bool
+    private function isObject(Identifier $type): bool
     {
-
     }
 
     /**
      * Whether the type is callable.
      *
-     * @param \PhpParser\Node $type
+     * @param \PhpParser\Node\Identifier $type
      *
      * @return bool
      */
-    private function isCallable(Node $type): bool
+    private function isCallable(Identifier $type): bool
     {
 
     }
@@ -87,12 +86,12 @@ final class DeclaredCompoundTypeParser implements DeclaredTypeLexerInterface
     /**
      * Whether the type is iterable.
      *
-     * @param \PhpParser\Node $type
+     * @param \PhpParser\Node\Identifier $type
      *
      * @return bool
      */
-    private function isIterable(Node $type): bool
+    private function isIterable(Identifier $type): bool
     {
-
+        // Todo: figure this one out.
     }
 }

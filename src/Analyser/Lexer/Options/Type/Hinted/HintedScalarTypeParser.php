@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\Options;
+namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\HintedTypeLexerInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode;
@@ -16,7 +16,7 @@ use phpDocumentor\Reflection\Type;
 /**
  * Class HintedPseudoTypeParser
  *
- * @package MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Groups
+ * @package  MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted
  */
 final class HintedScalarTypeParser implements HintedTypeLexerInterface
 {

@@ -5,10 +5,10 @@ declare(strict_types = 1);
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Type;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\HintedTypeLexerInterface;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\Options\HintedCompoundTypeParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\Options\HintedPseudoTypeParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\Options\HintedScalarTypeParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\Options\HintedSpecialTypeParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\HintedCompoundTypeParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\HintedPseudoTypeParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\HintedScalarTypeParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted\HintedSpecialTypeParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeUndefinedNode;
 use phpDocumentor\Reflection\Type;
@@ -17,7 +17,7 @@ use phpDocumentor\Reflection\Type;
  * Class HintedTypeParser
  * @see https://www.php.net/manual/en/language.types.intro.php
  *
- * @package MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\Hinted
+ * @package MikevanDiepen\Strictly\Analyser\Lexer\Options\Type
  */
 final class HintedTypeParser implements HintedTypeLexerInterface
 {

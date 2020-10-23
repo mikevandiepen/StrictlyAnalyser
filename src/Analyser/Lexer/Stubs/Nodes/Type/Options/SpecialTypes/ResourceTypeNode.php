@@ -9,7 +9,7 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\AbstractTypeNode;
 /**
  * Class ResourceTypeNode
  *
- * @package MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Groups\SpecialTypes
+ * @package MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\SpecialTypes
  */
 final class ResourceTypeNode extends AbstractTypeNode
 {
