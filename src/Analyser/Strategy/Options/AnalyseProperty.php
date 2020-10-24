@@ -5,10 +5,6 @@ declare(strict_types = 1);
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options;
 
 use MikevanDiepen\Strictly\Analyser\Issues\Issue;
-use MikevanDiepen\Strictly\Analyser\Issues\Location\Declared;
-use MikevanDiepen\Strictly\Analyser\Issues\Location\Hinted;
-use MikevanDiepen\Strictly\Analyser\Issues\Mistyped;
-use MikevanDiepen\Strictly\Analyser\Issues\Untyped;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits\AnalyserTrait;

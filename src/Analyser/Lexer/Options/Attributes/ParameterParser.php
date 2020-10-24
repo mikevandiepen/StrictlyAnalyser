@@ -55,7 +55,7 @@ final class ParameterParser implements NodeLexerOptionInterface
                     $parameterNode->setHintedTypeNode($hintedTypeNode);
                 }
 
-                $declaredTypeNode = (new DeclaredTypeParser())->parse($node->type);
+                $declaredTypeNode = (new DeclaredTypeParser())->parse($node);
                 if ($declaredTypeNode instanceof DeclaredTypeNode) {
                     $parameterNode->setDeclaredTypeNode($declaredTypeNode);
                 }

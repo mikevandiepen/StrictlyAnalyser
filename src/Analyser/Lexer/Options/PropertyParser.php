@@ -46,7 +46,7 @@ final class PropertyParser implements NodeLexerOptionInterface
             $propertyNode->setHintedTypeNode($hintedTypeNode);
         }
 
-        $declaredTypeNode = (new DeclaredTypeParser())->parse($node->type);
+        $declaredTypeNode = (new DeclaredTypeParser())->parse($node);
         if ($declaredTypeNode instanceof DeclaredTypeNode) {
             $propertyNode->setDeclaredTypeNode($declaredTypeNode);
         }
