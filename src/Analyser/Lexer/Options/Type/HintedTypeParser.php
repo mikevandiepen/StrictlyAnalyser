@@ -9,12 +9,9 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeDefine
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeUndefinedNode;
 use phpDocumentor\Reflection\Type;
 use phpDocumentor\Reflection\Types\Compound;
-use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Mixed_;
-use phpDocumentor\Reflection\Types\Null_;
 use phpDocumentor\Reflection\Types\Nullable;
 use phpDocumentor\Reflection\Types\Object_;
-use phpDocumentor\Reflection\Types\Scalar;
 
 /**
  * Class HintedTypeParser

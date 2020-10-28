@@ -19,7 +19,7 @@ final class TypeDefinedNode implements TypeDefinitionInterface
      *
      * @var string[]
      */
-    private array $type;
+    private array $type = [];
 
     /**
      * Adding a type to the list of registered types.
