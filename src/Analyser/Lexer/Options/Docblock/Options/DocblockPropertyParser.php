@@ -24,6 +24,7 @@ final class DocblockPropertyParser extends AbstractDocblockParser
      * @param \phpDocumentor\Reflection\DocBlock $docblock
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\TypeNode
+     * @throws \ReflectionException
      */
     public function parse(Docblock $docblock): TypeNode
     {

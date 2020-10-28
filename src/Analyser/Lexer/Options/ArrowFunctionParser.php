@@ -7,9 +7,10 @@ namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ParameterParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ReturnParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\DocblockParserTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\ArrowFunctionNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode;
 use PhpParser\Node;
 
 /**
@@ -19,8 +20,6 @@ use PhpParser\Node;
  */
 final class ArrowFunctionParser implements NodeLexerOptionInterface
 {
-    use DocblockParserTrait;
-
     /**
      * An option specific parser process.
      *
@@ -31,27 +30,30 @@ final class ArrowFunctionParser implements NodeLexerOptionInterface
      */
     public function parse(Node $node): AbstractNode
     {
-        $functionNode = new ArrowFunctionNode();
-        $functionNode->setName('Arrow Function');
-        $functionNode->setStartLine($node->getStartLine());
-        $functionNode->setEndLine($node->getEndLine());
+        $arrowFunctionNode = new ArrowFunctionNode();
+        $arrowFunctionNode->setName('Arrow Function');
+        $arrowFunctionNode->setStartLine($node->getStartLine());
+        $arrowFunctionNode->setEndLine($node->getEndLine());
 
         // Parsing through all the parameters and handling them.
         for ($i = 0; $i < count($node->getParams()); $i++) {
             $parameter = new ParameterParser();
-            $parameter->setDocblockFromNode($node);
             $parameter->setParameterIndex($i);
 
             $newNode = $node->getParams()[$i];
 
-            $functionNode->setParameters($parameter->parse($newNode));
+            $parameterNode = $parameter->parse($newNode);
+            if ($parameterNode instanceof ParameterNode) {
+                $arrowFunctionNode->setParameters($parameterNode);
+            }
         }
 
-        $return = new ReturnParser();
-        $return->setDocblockFromNode($node);
+        $returnNode = new ReturnParser();
+        $returnNode = $returnNode->parse($node);
+        if ($returnNode instanceof ReturnNode) {
+            $arrowFunctionNode->setReturn($returnNode);
+        }
 
-        $functionNode->setReturn($return->parse($node));
-
-        return $functionNode;
+        return $arrowFunctionNode;
     }
 }

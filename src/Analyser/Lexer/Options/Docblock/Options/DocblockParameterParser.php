@@ -25,6 +25,7 @@ final class DocblockParameterParser extends AbstractDocblockParser
      * @param string                             $parameter
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\TypeNode
+     * @throws \ReflectionException
      */
     public function parse(Docblock $docblock, string $parameter): TypeNode
     {

@@ -36,6 +36,7 @@ final class AnalyseMagicMethod extends AbstractAnalyser implements AnalyserInter
      * Analysing only the declared types.
      *
      * @return void
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
      */
     public function onlyDeclared(): void
     {
@@ -64,6 +65,7 @@ final class AnalyseMagicMethod extends AbstractAnalyser implements AnalyserInter
      * Analysing only the hinted types.
      *
      * @return void
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
      */
     public function onlyHinted(): void
     {
@@ -92,6 +94,7 @@ final class AnalyseMagicMethod extends AbstractAnalyser implements AnalyserInter
      * Analysing both the declared and hinted types.
      *
      * @return void
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
      */
     public function bothDeclaredAndHinted(): void
     {

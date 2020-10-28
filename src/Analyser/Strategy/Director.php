@@ -49,6 +49,7 @@ final class Director
      * @param array $filters
      *
      * @return void
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
      */
     public function direct(array $filters): void
     {
@@ -373,6 +374,7 @@ final class Director
      * @param bool         $docblock
      *
      * @return void
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
      */
     private function analyseProperty(PropertyNode $propertyNode, bool $functional, bool $docblock): void
     {

@@ -12,6 +12,7 @@ use phpDocumentor\Reflection\Types\Compound;
 use phpDocumentor\Reflection\Types\Mixed_;
 use phpDocumentor\Reflection\Types\Nullable;
 use phpDocumentor\Reflection\Types\Object_;
+use ReflectionClass;
 
 /**
  * Class HintedTypeParser
@@ -26,6 +27,7 @@ final class HintedTypeParser
      * @param \phpDocumentor\Reflection\Type|null $type
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\TypeDefinitionInterface
+     * @throws \ReflectionException
      */
     public function parse(?Type $type): TypeDefinitionInterface
     {
@@ -50,7 +52,9 @@ final class HintedTypeParser
 
             if ($type instanceof Object_) {
                 if ($type->getFqsen()) {
-                    $typeDefinition->setType([$type->getFqsen()]);
+                    // Collecting the FQCN by class reference.
+                    $reflectionClass = new ReflectionClass($type->getFqsen());
+                    $typeDefinition->setType([$reflectionClass->getNamespaceName()]);
                 } else {
                     // Generic object type has been hinted, this is bad practice.
                     $typeDefinition = new TypeUndefinedNode();

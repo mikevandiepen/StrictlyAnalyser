@@ -39,6 +39,8 @@ final class TypeDefinedNode implements TypeDefinitionInterface
      */
     public function getType(): array
     {
+        sort($this->type);
+
         return $this->type;
     }
 }

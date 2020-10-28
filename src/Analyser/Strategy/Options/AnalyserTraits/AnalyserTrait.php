@@ -5,7 +5,8 @@ declare(strict_types = 1);
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\HasType;
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Options\Structural\TypeDefined;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeDefinedNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeUndefinedNode;
 use MikevanDiepen\Strictly\Exception\StrictlyException;
 
 /**
@@ -38,9 +39,9 @@ trait AnalyserTrait
      */
     protected function declaredTypeIsset(): bool
     {
-        $declaredType = $this->getNodeWithType()->getDeclaredType()->getType();
+        $declaredType = $this->getNodeWithType()->getDeclaredTypeNode()->getDefinition();
 
-        return (bool) ($declaredType instanceof TypeDefined);
+        return (bool) ($declaredType instanceof TypeDefinedNode);
     }
 
     /**
@@ -51,9 +52,9 @@ trait AnalyserTrait
      */
     protected function hintedTypeIsset(): bool
     {
-        $hintedType = $this->getNodeWithType()->getHintedType()->getType();
+        $hintedType = $this->getNodeWithType()->getHintedTypeNode()->getDefinition();
 
-        return (bool) ($hintedType instanceof TypeDefined);
+        return (bool) ($hintedType instanceof TypeUndefinedNode);
     }
 
     /**
@@ -68,8 +69,8 @@ trait AnalyserTrait
             return false;
         }
 
-        $declaredType = $this->getNodeWithType()->getDeclaredType()->getType();
-        $hintedType   = $this->getNodeWithType()->getHintedType()->getType();
+        $declaredType = $this->getNodeWithType()->getDeclaredTypeNode()->getDefinition()->getType();
+        $hintedType   = $this->getNodeWithType()->getHintedTypeNode()->getDefinition()->getType();
 
         if ($declaredType === $hintedType) {
             return true;
@@ -86,11 +87,15 @@ trait AnalyserTrait
      */
     protected function getMissingDeclaredTypes(): ?array
     {
-        $hintedType   = $this->getNodeWithType()->gethintedType()->getType();
-        $declaredType = $this->getNodeWithType()->getDeclaredType()->getType();
+        $hintedType   = $this->getNodeWithType()->getHintedTypeNode()->getDefinition()->getType();
+        $declaredType = $this->getNodeWithType()->getDeclaredTypeNode()->getDefinition()->getType();
 
         return array_udiff($hintedType, $declaredType, function($hintedType, $declaredType) {
-            if ($hintedType != $declaredType) {
+            if (($hintedType instanceof $declaredType) || ($declaredType instanceof $hintedType)) {
+                return []; // There is no missing type, it implements a interface or parent class.
+            }
+
+            if ($hintedType !== $declaredType) {
                 return $declaredType;
             }
 
@@ -107,11 +112,15 @@ trait AnalyserTrait
     protected function getMissingHintedTypes(): array
     {
         # TODO: When the type is an object check whether it implements the declared object.
-        $hintedType   = $this->getNodeWithType()->gethintedType()->getType();
-        $declaredType = $this->getNodeWithType()->getDeclaredType()->getType();
+        $hintedType   = $this->getNodeWithType()->getHintedTypeNode()->getDefinition()->getType();
+        $declaredType = $this->getNodeWithType()->getDeclaredTypeNode()->getDefinition()->getType();
 
         return array_udiff($declaredType, $hintedType, function($declaredType, $hintedType) {
-            if ($declaredType != $hintedType) {
+            if (($declaredType instanceof $hintedType) || ($hintedType instanceof $declaredType)) {
+                return []; // There is no missing type, it implements a interface or parent class.
+            }
+
+            if ($declaredType !== $hintedType) {
                 return $hintedType;
             }
 

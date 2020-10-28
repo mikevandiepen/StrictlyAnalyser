@@ -5,11 +5,12 @@ declare(strict_types = 1);
 namespace MikevanDiepen\Strictly\Coverage;
 
 use MikevanDiepen\Strictly\Analyser\Issues\Issue;
-use MikevanDiepen\Strictly\Analyser\Issues\Location\Declared;
-use MikevanDiepen\Strictly\Analyser\Issues\Location\Hinted;
-use MikevanDiepen\Strictly\Analyser\Issues\Untyped;
+use MikevanDiepen\Strictly\Analyser\Issues\Options\BadPractice;
+use MikevanDiepen\Strictly\Analyser\Issues\Options\Untyped;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\File;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\FunctionLikeNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\HintedTypeNode;
 
 /**
  * Class AnalysisResults
@@ -169,11 +170,11 @@ final class AnalysisResults
     {
         // Issue type.
         $untyped = (bool) ($issue instanceof Untyped);
-        $mistyped = (bool) ($issue instanceof Declared);
+        $mistyped = (bool) ($issue instanceof BadPractice);
 
         // Issue location.
-        $declared = (bool) ($issue instanceof Declared);
-        $hinted = (bool) ($issue instanceof Hinted);
+        $declared = (bool) ($issue instanceof DeclaredTypeNode);
+        $hinted = (bool) ($issue instanceof HintedTypeNode);
 
         if ($untyped) {
             $this->untyped++;

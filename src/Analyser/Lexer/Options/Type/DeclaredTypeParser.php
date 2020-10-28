@@ -9,6 +9,7 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeUndefi
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\TypeNode;
 use PhpParser\Node;
+use ReflectionClass;
 
 /**
  * Class DeclaredTypeParser
@@ -23,6 +24,7 @@ final class DeclaredTypeParser
      * @param \PhpParser\Node $node
      *
      * @return TypeNode
+     * @throws \ReflectionException
      */
     public function parse(Node $node): TypeNode
     {
@@ -40,12 +42,14 @@ final class DeclaredTypeParser
 
             /** @var Node\Identifier are the standard types */
             if ($node->type instanceof Node\Identifier) {
-                $typeDefinition->setType([$node->type->name]);
+                $typeDefinition->setType([$node->type]);
             }
 
             /** @var Node\Name are class or "self" / "parent" references. */
             if ($node->type instanceof Node\Name) {
-                $typeDefinition->setType($node->type->parts);
+                // Collecting the FQCN by class reference.
+                $reflectionClass = new ReflectionClass($node->type);
+                $typeDefinition->setType([$reflectionClass->getNamespaceName()]);
             }
         }
 

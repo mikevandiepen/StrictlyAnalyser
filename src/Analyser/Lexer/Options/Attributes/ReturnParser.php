@@ -6,14 +6,11 @@ namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Docblock\Options\DocblockReturnParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\DocblockParserTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\DeclaredTypeParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\HintedTypeParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ReturnNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\HintedTypeNode;
-use MikevanDiepen\Strictly\Exception\StrictlyException;
 use PhpParser\Node;
 
 /**
@@ -23,14 +20,13 @@ use PhpParser\Node;
  */
 final class ReturnParser implements NodeLexerOptionInterface
 {
-    use DocblockParserTrait;
-
     /**
      * An option specific parser process.
      *
      * @param \PhpParser\Node $node
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
+     * @throws \ReflectionException
      */
     public function parse(Node $node): AbstractNode
     {

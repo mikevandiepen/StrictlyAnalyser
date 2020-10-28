@@ -28,7 +28,10 @@ final class Strictly
      * @return void
      * @throws StrictlyException|ReflectionException
      */
-    public function analyse(string $output = StrictlyCommand::PRINT_RESULTS_PRETTY, string $configType = StrictlyConfiguration::YAML): void
+    public function analyse(
+        string $output = StrictlyCommand::PRINT_RESULTS_PRETTY,
+        string $configType = StrictlyConfiguration::YAML
+    ): void
     {
         $configuration = (new StrictlyConfiguration($configType))->run();
 

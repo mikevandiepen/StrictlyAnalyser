@@ -4,11 +4,6 @@ declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options\FunctionLike;
 
-use MikevanDiepen\Strictly\Analyser\Issues\Issue;
-use MikevanDiepen\Strictly\Analyser\Issues\Location\Declared;
-use MikevanDiepen\Strictly\Analyser\Issues\Location\Hinted;
-use MikevanDiepen\Strictly\Analyser\Issues\Mistyped;
-use MikevanDiepen\Strictly\Analyser\Issues\Untyped;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits\AnalyserTrait;
@@ -37,11 +32,12 @@ final class AnalyseReturn extends AbstractAnalyser implements AnalyserInterface
      * Analysing only the declared types.
      *
      * @return void
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
      */
     public function onlyDeclared(): void
     {
         if (!$this->declaredTypeIsset()) {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Declared()));
+            echo 'Missing declared return for ' . $this->node->getName() . PHP_EOL;
         }
     }
 
@@ -49,11 +45,12 @@ final class AnalyseReturn extends AbstractAnalyser implements AnalyserInterface
      * Analysing only the hinted types.
      *
      * @return void
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
      */
     public function onlyHinted(): void
     {
         if (!$this->hintedTypeIsset()) {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Hinted()));
+            echo 'Missing hinted return for ' . $this->node->getName() . PHP_EOL;
         }
     }
 
@@ -61,26 +58,29 @@ final class AnalyseReturn extends AbstractAnalyser implements AnalyserInterface
      * Analysing both the declared and hinted types.
      *
      * @return void
+     * @throws \MikevanDiepen\Strictly\Exception\StrictlyException
      */
     public function bothDeclaredAndHinted(): void
     {
         if ($this->declaredTypeIsset() && $this->hintedTypeIsset()) {
             if (!$this->typesMatch()) {
                 if ($this->getMissingDeclaredTypes() > 0) {
-                    $this->node->setIssue((new Issue())->setIssue(new Mistyped())->setLocation(new Declared()));
+                    echo 'Missing declared return for ' . $this->node->getName() . PHP_EOL;
+                    echo 'Maybe use ' . implode('|' , $this->getMissingDeclaredTypes()) . PHP_EOL;
                 }
 
                 if ($this->getMissingHintedTypes() > 0) {
-                    $this->node->setIssue((new Issue())->setIssue(new Mistyped())->setLocation(new Hinted()));
+                    echo 'Missing hinted return for ' . $this->node->getName() . PHP_EOL;
+                    echo 'Maybe use ' . implode('|' , $this->getMissingHintedTypes()) . PHP_EOL;
                 }
             }
         } elseif ($this->declaredTypeIsset() && !$this->hintedTypeIsset()) {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Hinted()));
+            echo 'Missing declared return for ' . $this->node->getName() . PHP_EOL;
         } elseif (!$this->declaredTypeIsset() && $this->hintedTypeIsset()) {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Declared()));
+            echo 'Missing hinted return for ' . $this->node->getName() . PHP_EOL;
         } else {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Hinted()));
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Declared()));
+            echo 'Missing declared return for ' . $this->node->getName() . PHP_EOL;
+            echo 'Missing hinted return for ' . $this->node->getName() . PHP_EOL;
         }
     }
 }

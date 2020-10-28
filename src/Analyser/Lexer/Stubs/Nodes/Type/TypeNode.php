@@ -20,7 +20,7 @@ final class TypeNode extends AbstractNode
      *
      * @var TypeDefinitionInterface
      */
-    private TypeDefinitionInterface $type;
+    private TypeDefinitionInterface $definition;
 
     /**
      * The location for the type, either declared or hinted.
@@ -32,12 +32,12 @@ final class TypeNode extends AbstractNode
     /**
      * TypeNode constructor.
      *
-     * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\TypeDefinitionInterface $type
+     * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\TypeDefinitionInterface $definition
      * @param \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Contracts\TypeLocationInterface   $location
      */
-    public function __construct(TypeDefinitionInterface $type, TypeLocationInterface $location)
+    public function __construct(TypeDefinitionInterface $definition, TypeLocationInterface $location)
     {
-        $this->type = $type;
+        $this->definition = $definition;
         $this->location = $location;
     }
 
@@ -46,9 +46,9 @@ final class TypeNode extends AbstractNode
      *
      * @return TypeDefinitionInterface
      */
-    public function getType(): TypeDefinitionInterface
+    public function getDefinition(): TypeDefinitionInterface
     {
-        return $this->type;
+        return $this->definition;
     }
 
     /**

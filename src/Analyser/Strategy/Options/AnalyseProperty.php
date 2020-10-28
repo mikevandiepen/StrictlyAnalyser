@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Strategy\Options;
 
-use MikevanDiepen\Strictly\Analyser\Issues\Issue;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Strategy\AbstractAnalyser;
 use MikevanDiepen\Strictly\Analyser\Strategy\Options\AnalyserTraits\AnalyserTrait;
@@ -38,7 +37,7 @@ final class AnalyseProperty extends AbstractAnalyser implements AnalyserInterfac
     public function onlyDeclared(): void
     {
         if (!$this->declaredTypeIsset()) {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Declared()));
+            echo 'Missing declared property for ' . $this->node->getName() . PHP_EOL;
         }
     }
 
@@ -51,7 +50,7 @@ final class AnalyseProperty extends AbstractAnalyser implements AnalyserInterfac
     public function onlyHinted(): void
     {
         if (!$this->hintedTypeIsset()) {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Hinted()));
+            echo 'Missing hinted property for ' . $this->node->getName() . PHP_EOL;
         }
     }
 
@@ -66,20 +65,22 @@ final class AnalyseProperty extends AbstractAnalyser implements AnalyserInterfac
         if ($this->declaredTypeIsset() && $this->hintedTypeIsset()) {
             if (!$this->typesMatch()) {
                 if ($this->getMissingDeclaredTypes() > 0) {
-                    $this->node->setIssue((new Issue())->setIssue(new Mistyped())->setLocation(new Declared()));
+                    echo 'Missing declared property for ' . $this->node->getName() . PHP_EOL;
+                    echo 'Maybe use ' . implode('|' , $this->getMissingDeclaredTypes()) . PHP_EOL;
                 }
 
                 if ($this->getMissingHintedTypes() > 0) {
-                    $this->node->setIssue((new Issue())->setIssue(new Mistyped())->setLocation(new Hinted()));
+                    echo 'Missing hinted property for ' . $this->node->getName() . PHP_EOL;
+                    echo 'Maybe use ' . implode('|' , $this->getMissingHintedTypes()) . PHP_EOL;
                 }
             }
         } elseif ($this->declaredTypeIsset() && !$this->hintedTypeIsset()) {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Hinted()));
+            echo 'Missing declared property for ' . $this->node->getName() . PHP_EOL;
         } elseif (!$this->declaredTypeIsset() && $this->hintedTypeIsset()) {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Declared()));
+            echo 'Missing hinted property for ' . $this->node->getName() . PHP_EOL;
         } else {
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Hinted()));
-            $this->node->setIssue((new Issue())->setIssue(new Untyped())->setLocation(new Declared()));
+            echo 'Missing declared property for ' . $this->node->getName() . PHP_EOL;
+            echo 'Missing hinted property for ' . $this->node->getName() . PHP_EOL;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Traits;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\HintedTypeNode;
+use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\TypeNode;
 
 /**
  * Trait DeclaredType.
@@ -17,29 +18,29 @@ trait TypeTrait
     /**
      * The type which has been declared in the functional code.
      * This property can be accessed through:
-     * @method setDeclaredType(DeclaredTypeNode $declaredTypeNode): self
+     * @method setDeclaredType(TypeNode $declaredTypeNode): self
      * @method getDeclaredTypeNode(): DeclaredTypeNode
      *
-     * @var DeclaredTypeNode
+     * @var TypeNode
      */
-    private DeclaredTypeNode $declaredTypeNode;
+    private TypeNode $declaredTypeNode;
 
     /**
      * The type which has been hinted in the docblock.
      * This property can be accessed through:
-     * @method setHintedTypeNode(HintedTypeNode $hintedTypeNode): self
+     * @method setHintedTypeNode(TypeNode $hintedTypeNode): self
      * @method getHintedTypeNode(): DeclaredTypeNode
      *
-     * @var HintedTypeNode
+     * @var TypeNode
      */
-    private HintedTypeNode $hintedTypeNode;
+    private TypeNode $hintedTypeNode;
 
     /**
      * Getting the type which has been declared in the functional code.
      *
-     * @return DeclaredTypeNode
+     * @return TypeNode
      */
-    public function getDeclaredTypeNode(): DeclaredTypeNode
+    public function getDeclaredTypeNode(): TypeNode
     {
         return $this->declaredTypeNode;
     }
@@ -47,11 +48,11 @@ trait TypeTrait
     /**
      * Setting the type which has been declared in the functional code.
      *
-     * @param DeclaredTypeNode $declaredTypeNode
+     * @param TypeNode $declaredTypeNode
      *
      * @return $this
      */
-    public function setDeclaredTypeNode(DeclaredTypeNode $declaredTypeNode): self
+    public function setDeclaredTypeNode(TypeNode $declaredTypeNode): self
     {
         $this->declaredTypeNode = $declaredTypeNode;
 
@@ -61,9 +62,9 @@ trait TypeTrait
     /**
      * Getting the type which has been hinted in the docblock.
      *
-     * @return HintedTypeNode
+     * @return TypeNode
      */
-    public function getHintedTypeNode(): HintedTypeNode
+    public function getHintedTypeNode(): TypeNode
     {
         return $this->hintedTypeNode;
     }
@@ -71,11 +72,11 @@ trait TypeTrait
     /**
      * Setting the type which has been hinted in the docblock.
      *
-     * @param HintedTypeNode $hintedTypeNode
+     * @param TypeNode $hintedTypeNode
      *
      * @return $this
      */
-    public function setHintedTypeNode(HintedTypeNode $hintedTypeNode): self
+    public function setHintedTypeNode(TypeNode $hintedTypeNode): self
     {
         $this->hintedTypeNode = $hintedTypeNode;
 

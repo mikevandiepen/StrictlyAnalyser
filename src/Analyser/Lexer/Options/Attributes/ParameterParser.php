@@ -6,9 +6,7 @@ namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Docblock\Options\DocblockParameterParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\DocblockParserTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\DeclaredTypeParser;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\HintedTypeParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Attributes\ParameterNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
@@ -22,8 +20,6 @@ use PhpParser\Node;
  */
 final class ParameterParser implements NodeLexerOptionInterface
 {
-    use DocblockParserTrait;
-
     /**
      * The index of the parameter.
      * This property can be accessed through:
@@ -40,7 +36,7 @@ final class ParameterParser implements NodeLexerOptionInterface
      * @param \PhpParser\Node $node
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
-     * @throws \ReflectionException|\MikevanDiepen\Strictly\Exception\StrictlyException
+     * @throws \ReflectionException
      */
     public function parse(Node $node): AbstractNode
     {
