@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Docblock;
 
-use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\TypeNode;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlock\Tags\Generic;
 use phpDocumentor\Reflection\DocBlockFactory;
