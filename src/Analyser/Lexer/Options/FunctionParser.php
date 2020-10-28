@@ -7,7 +7,7 @@ namespace MikevanDiepen\Strictly\Analyser\Lexer\Options;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ParameterParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes\ReturnParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\DocblockParserTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\FunctionNode;
 use MikevanDiepen\Strictly\Exception\StrictlyException;
@@ -20,7 +20,7 @@ use PhpParser\Node;
  */
 final class FunctionParser implements NodeLexerOptionInterface
 {
-    use ParseDocblockTrait;
+    use DocblockParserTrait;
 
     /**
      * An option specific parser process.

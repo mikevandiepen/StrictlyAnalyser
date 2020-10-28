@@ -20,11 +20,11 @@ final class HintedTypeParser
     /**
      * An option specific parser process.
      *
-     * @param \phpDocumentor\Reflection\Type $type
+     * @param \phpDocumentor\Reflection\Type|null $type
      *
      * @return TypeNode
      */
-    public function parse(Type $type): TypeNode
+    public function parse(?Type $type): TypeNode
     {
         // Whether the node is typed, else returning undefined stub.
         $typeDefinition = empty($type) ? new TypeUndefinedNode() : new TypeDefinedNode();

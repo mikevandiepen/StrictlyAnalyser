@@ -16,11 +16,11 @@ use phpDocumentor\Reflection\Types\Object_;
 use PhpParser\Node;
 
 /**
- * Trait ParseDocblockTrait.
+ * Trait DocblockParserTrait.
  *
  * @package MikevanDiepen\Strictly\Analyser\Lexer\Lexer\Options\Traits
  */
-trait ParseDocblockTrait
+trait DocblockParserTrait
 {
     /**
      * The docblock.
@@ -51,7 +51,6 @@ trait ParseDocblockTrait
      * Collecting the property from the docblock.
      *
      * @return \phpDocumentor\Reflection\Type|null
-     * @throws StrictlyException
      */
     protected function getHintedPropertyType(): ?Type
     {
@@ -82,7 +81,6 @@ trait ParseDocblockTrait
      * @param string|null $parameter
      *
      * @return bool
-     * @throws StrictlyException
      */
     protected function isSuppressedByType(string $type, ?string $parameter = null): bool
     {
@@ -95,15 +93,9 @@ trait ParseDocblockTrait
             if ($type === 'parameter' && $parameter !== null) {
                 if ($tag->getVariableName() === $parameter) {
                     if ($this->typeIsset($tag->getType())) {
-                        return true;
+                        return false;
                     }
                     if ($this->typeIsMixed($tag->getType())) {
-                        return true;
-                    }
-                    if ($this->typeIsObject($tag->getType())) {
-                        return true;
-                    }
-                    if ($this->typeIsCompound($tag->getType())) {
                         return true;
                     }
                 }
@@ -112,15 +104,9 @@ trait ParseDocblockTrait
             }
 
             if ($this->typeIsset($tag->getType())) {
-                return true;
+                return false;
             }
             if ($this->typeIsMixed($tag->getType())) {
-                return true;
-            }
-            if ($this->typeIsObject($tag->getType())) {
-                return true;
-            }
-            if ($this->typeIsCompound($tag->getType())) {
                 return true;
             }
         }
@@ -182,7 +168,6 @@ trait ParseDocblockTrait
      * @param \phpDocumentor\Reflection\Type|null $type
      *
      * @return bool
-     * @throws StrictlyException
      */
     private function typeIsCompound(?Type $type): bool
     {

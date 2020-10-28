@@ -5,7 +5,8 @@ declare(strict_types = 1);
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Docblock\Options\DocblockReturnParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\DocblockParserTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\DeclaredTypeParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\HintedTypeParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
@@ -22,7 +23,7 @@ use PhpParser\Node;
  */
 final class ReturnParser implements NodeLexerOptionInterface
 {
-    use ParseDocblockTrait;
+    use DocblockParserTrait;
 
     /**
      * An option specific parser process.
@@ -30,13 +31,15 @@ final class ReturnParser implements NodeLexerOptionInterface
      * @param \PhpParser\Node $node
      *
      * @return \MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode
-     * @throws StrictlyException
      */
     public function parse(Node $node): AbstractNode
     {
         $returnNode = new ReturnNode();
 
-        $hintedTypeNode = (new HintedTypeParser())->parse($this->getHintedReturnType());
+        $docblockParser = (new DocblockReturnParser());
+        $docblock = $docblockParser->getDocblockFromNode($node);
+        $hintedTypeNode = $docblockParser->parse($docblock);
+
         if ($hintedTypeNode instanceof HintedTypeNode) {
             $returnNode->setHintedTypeNode($hintedTypeNode);
         }

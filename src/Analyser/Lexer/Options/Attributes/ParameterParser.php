@@ -5,7 +5,8 @@ declare(strict_types = 1);
 namespace MikevanDiepen\Strictly\Analyser\Lexer\Options\Attributes;
 
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\ParseDocblockTrait;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Docblock\Options\DocblockParameterParser;
+use MikevanDiepen\Strictly\Analyser\Lexer\Options\Traits\DocblockParserTrait;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\DeclaredTypeParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Options\Type\HintedTypeParser;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\AbstractNode;
@@ -21,7 +22,7 @@ use PhpParser\Node;
  */
 final class ParameterParser implements NodeLexerOptionInterface
 {
-    use ParseDocblockTrait;
+    use DocblockParserTrait;
 
     /**
      * The index of the parameter.
@@ -50,7 +51,10 @@ final class ParameterParser implements NodeLexerOptionInterface
                 $parameterNode->setParameterIndex($this->getParameterIndex());
                 $parameterNode->setParameterName($node->var->name);
 
-                $hintedTypeNode = (new HintedTypeParser())->parse($this->getHintedParameterType($node->var->name));
+                $docblockParser = (new DocblockParameterParser());
+                $docblock = $docblockParser->getDocblockFromNode($node);
+                $hintedTypeNode = $docblockParser->parse($docblock, $node->var->name);
+
                 if ($hintedTypeNode instanceof HintedTypeNode) {
                     $parameterNode->setHintedTypeNode($hintedTypeNode);
                 }

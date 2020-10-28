@@ -9,14 +9,13 @@ use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Definition\TypeUndefi
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\Location\DeclaredTypeNode;
 use MikevanDiepen\Strictly\Analyser\Lexer\Stubs\Nodes\Type\TypeNode;
 use PhpParser\Node;
-use MikevanDiepen\Strictly\Analyser\Lexer\Options\Contracts\NodeLexerOptionInterface;
 
 /**
  * Class DeclaredTypeParser
  *
  * @package MikevanDiepen\Strictly\Analyser\Lexer\Options\Type
  */
-final class DeclaredTypeParser implements NodeLexerOptionInterface
+final class DeclaredTypeParser
 {
     /**
      * An option specific parser process.
@@ -30,22 +29,24 @@ final class DeclaredTypeParser implements NodeLexerOptionInterface
         // Whether the node is typed, else returning undefined stub.
         $typeDefinition = empty($node->type) ? new TypeUndefinedNode() : new TypeDefinedNode();
 
-        /** @var Node\NullableType are the nullable types. */
-        if ($node->type instanceof Node\NullableType) {
-            $typeDefinition->setType(['null']);
+        if ($typeDefinition instanceof  TypeDefinedNode) {
+            /** @var Node\NullableType are the nullable types. */
+            if ($node->type instanceof Node\NullableType) {
+                $typeDefinition->setType(['null']);
 
-            // Running a recursive call to collect the other type besides 'null'.
-            $this->parse($node->type);
-        }
+                // Running a recursive call to collect the other type besides 'null'.
+                $this->parse($node->type);
+            }
 
-        /** @var Node\Identifier are the standard types */
-        if ($node->type instanceof Node\Identifier) {
-            $typeDefinition->setType([$node->type->name]);
-        }
+            /** @var Node\Identifier are the standard types */
+            if ($node->type instanceof Node\Identifier) {
+                $typeDefinition->setType([$node->type->name]);
+            }
 
-        /** @var Node\Name are class or "self" / "parent" references. */
-        if ($node->type instanceof Node\Name) {
-            $typeDefinition->setType($node->type->parts);
+            /** @var Node\Name are class or "self" / "parent" references. */
+            if ($node->type instanceof Node\Name) {
+                $typeDefinition->setType($node->type->parts);
+            }
         }
 
         return new TypeNode($typeDefinition, new DeclaredTypeNode());

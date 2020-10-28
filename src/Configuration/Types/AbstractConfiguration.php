@@ -24,7 +24,7 @@ abstract class AbstractConfiguration
     public const RETURN = 'return';
     public const RETURN_FUNCTIONAL = 'return-functional';
     public const RETURN_DOCBLOCK = 'return-docblock';
-    // Property analysis scopes.
+    // DocblockPropertyParser analysis scopes.
     public const PROPERTY = 'property';
     public const PROPERTY_FUNCTIONAL = 'property-functional';
     public const PROPERTY_DOCBLOCK = 'property-docblock';
@@ -86,7 +86,7 @@ abstract class AbstractConfiguration
         self::RETURN,
         self::RETURN_FUNCTIONAL,
         self::RETURN_DOCBLOCK,
-        // Property analysis scopes.
+        // DocblockPropertyParser analysis scopes.
         self::PROPERTY,
         self::PROPERTY_FUNCTIONAL,
         self::PROPERTY_DOCBLOCK,
